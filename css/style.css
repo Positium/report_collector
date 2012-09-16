@@ -1,0 +1,34 @@
+/* 
+    Document   : style
+    Created on : 14.09.2012, 11:01:32
+    Author     : Arvy
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+html{
+    height:100%;
+    overflow: hidden;
+}
+body{
+    height:100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+#container{
+    position: relative;
+    height: 100%;
+}
+
+#map {
+    width: 100%; height: 100%;
+
+}
+
+#nupp {
+   z-index: 1500;
+    top: 85px;
+    left:50px;
+     position: absolute; 
+}
