@@ -1,29 +1,26 @@
 
 $(document).ready(function () {
    
-    var ListView = Backbone.View.extend({    
+    var ListView = Backbone.View.extend({
+        request: null,
+        pointsArray: [],
+        vector_points: null,
+        mapBounds: '',
         el: $('#map'), // attaches `this.el` to an existing element.
     
         initialize: function(){
-            _.bindAll(this, 'render'); // fixes loss of context for 'this' within methods
-  
+            _.bindAll(this, 'render','loadPoints'); // fixes loss of context for 'this' within method
             this.render(); // not all views are self-rendering. This one is.
         },
         render: function(){
             //   $(this.el).append('<ul> <li>hello world</li> </ul>');  
-            // map.addLayer(new OpenLayers.Layer.OSM());
             mapextent = new OpenLayers.Bounds(2948518.4067798, 8028114.5837566, 3003553.0671374, 8058116.1173544);
-            mapextent2 = new OpenLayers.Bounds(2980050.535418, 8041609.8667399, 2980201.6926272, 8041658.8878627);
-
+            // mapextent2 = new OpenLayers.Bounds(2980050.535418, 8041609.8667399, 2980201.6926272, 8041658.8878627);
             var openStreetMap = new OpenLayers.Layer.OSM("OSM","",{
                 attribution: '',
-              isBaseLayer:true,
-              zoomOffset:11,
-              resolutions: [76.4370282714844,38.2185141357422,19.1092570678711,9.55462853393555,4.77731426696777,2.38865713348389,1.19432856674194]
-            // minZoomLevel: 11, 
-            // maxZoomLevel: 16              
-            // maxResolution: 152.87405654907226   
-            
+                isBaseLayer:true,
+                zoomOffset:11,
+                resolutions: [76.4370282714844,38.2185141357422,19.1092570678711,9.55462853393555,4.77731426696777,2.38865713348389,1.19432856674194]          
             });
             var options = { 
                 layers              : [openStreetMap],
@@ -31,20 +28,22 @@ $(document).ready(function () {
                 new OpenLayers.Control.Navigation(),
                 new OpenLayers.Control.Attribution(),
                 new OpenLayers.Control.ScaleLine(),
-               // new OpenLayers.Control.PanZoomBar(),
+                // new OpenLayers.Control.PanZoomBar(),
                 new OpenLayers.Control.OverviewMap(),
-                new OpenLayers.Control.Zoom()
+                new OpenLayers.Control.Zoom(),
+                new OpenLayers.Control.MousePosition()
                 ],
                 units: 'm',
-                // maxExtent: mapextent,
-                restrictedExtent: mapextent                 
-                //zoom: 11  
+                maxExtent: mapextent,
+                restrictedExtent: mapextent,
+                projection: new OpenLayers.Projection("EPSG:900913"),
+                panMethod: OpenLayers.Easing.Quad.easeInOut,
+                panDuration: 50
             };
             
             map = new OpenLayers.Map("map", options);
-            // resolutions: [76.43702827453613, 38.218514137268066, 19.109257068634033, 9.554628534317017, 4.777314267158508 ]
             map.zoomToExtent(mapextent); 
-          /*  map.events.register('zoomend', this, function (event) {
+            /*  map.events.register('zoomend', this, function (event) {
                 var x = map.getZoom();
                 if( x < 11)
                 {
@@ -52,14 +51,43 @@ $(document).ready(function () {
                 }
             });*/
             $(this.el).append(map); 
-            console.log(map.getExtent());
+            this.loadPoints();
+        // console.log(map.getExtent());
+        },
+        loadPoints: function() {
+            var self = this;
+            var zoom = map.getZoom();
+            var params = '';
+            this.mapBounds = map.getExtent();
+            //console.log(zoom + " "+ this.mapBounds);
+ 
+            //testandmed
+            var url = "data/testData.gjson";
+            //request url serverisse peaks siia tulema vastavate parameetritega
+            //tagasi pean saama json formaadi, pilt eraldi kuidagi strginina
+            //this.request = $.getJSON('data/api.php?func=1&zoom='+zoom+'&bbox='+this.mapBounds+'&params='+params, function(data) {
+            this.request = $.getJSON(url, function(data) {  
+                var geoformat = new OpenLayers.Format.GeoJSON();
+                var feats = geoformat.read(data);
+                $.each(feats, function(index, value) { 
+                    //console.log(value);
+                    self.pointsArray.push(feats[index]);
+                });                
+                // vector layer
+                self.vector_points = new OpenLayers.Layer.Vector('Points');
+                self.vector_points.addFeatures(self.pointsArray);
+                console.log(self.vector_points);
+                map.addLayer(self.vector_points);  
+            });
         }
     });
     var listView = new ListView();
+    
     $("#nupp").bind('click', function(e) {
         e.preventDefault();
         console.log(map.getExtent());
         console.log(map.getResolution());
+  
         
     });
 });
