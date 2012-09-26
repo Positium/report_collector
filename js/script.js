@@ -9,7 +9,7 @@ $(document).ready(function () {
         el: $('#map'), // attaches `this.el` to an existing element.
     
         initialize: function(){
-            _.bindAll(this, 'render','loadPoints'); // fixes loss of context for 'this' within method
+            _.bindAll(this, 'render','loadPoints','selectControl','onFeatureSelect','onFeatureUnselect'); // fixes loss of context for 'this' within method
             this.render(); // not all views are self-rendering. This one is.
         },
         render: function(){
@@ -59,27 +59,99 @@ $(document).ready(function () {
             var zoom = map.getZoom();
             var params = '';
             this.mapBounds = map.getExtent();
-            //console.log(zoom + " "+ this.mapBounds);
- 
+            //console.log(zoom + " "+ this.mapBounds)
             //testandmed
             var url = "data/testData.gjson";
             //request url serverisse peaks siia tulema vastavate parameetritega
             //tagasi pean saama json formaadi, pilt eraldi kuidagi strginina
             //this.request = $.getJSON('data/api.php?func=1&zoom='+zoom+'&bbox='+this.mapBounds+'&params='+params, function(data) {
             this.request = $.getJSON(url, function(data) {  
+                $.each(data.features, function(index, value) { 
+                    // radius
+                    value.properties.RADIUS = 10;
+                    if(value.properties.RADIUS<5){
+                        value.properties.RADIUS = 5;
+                    }else if(value.properties.RADIUS>30){
+                        value.properties.RADIUS = 30;
+                    }
+                    //color
+                    value.properties.COLOR = getColor(value.properties.CATEGORY);
+                });
                 var geoformat = new OpenLayers.Format.GeoJSON();
                 var feats = geoformat.read(data);
                 $.each(feats, function(index, value) { 
                     //console.log(value);
                     self.pointsArray.push(feats[index]);
-                });                
+                }); 
+                //style
+                var context = {
+                    getSize: function(feature){
+                        var myRadius;
+                        myRadius = feature.attributes.RADIUS*(0.5*(map.getZoom()+1))
+                        return myRadius;
+                    }
+                }
+                var template = {
+                    pointRadius: "${getSize}",
+                    fillColor: "${COLOR}",
+                    fillOpacity: 0.7,
+                    strokeColor: "#595A59",
+                    strokeOpacity: 0.7,
+                    strokeWidth: 2,
+                    graphicZIndex: 1
+                }
+                var myStyle = new OpenLayers.StyleMap({
+                    "default" : new OpenLayers.Style(template,{
+                        context:context
+                    }),
+                    "select": new OpenLayers.Style({
+                        fillColor: "#66ccff",
+                        fillOpacity: 0.7,
+                        strokeColor: "#3399ff",
+                        strokeOpacity: 0.7,
+                        graphicZIndex: 2
+                    }),
+                    "invisible": new OpenLayers.Style({             
+                        display: "none"
+                    })
+                });
                 // vector layer
-                self.vector_points = new OpenLayers.Layer.Vector('Points');
+                self.vector_points = new OpenLayers.Layer.Vector('Points', {
+                    styleMap: myStyle,
+                    rendererOptions: {
+                        yOrdering: true,
+                        zIndexing: true
+                    } 
+                });
                 self.vector_points.addFeatures(self.pointsArray);
                 console.log(self.vector_points);
-                map.addLayer(self.vector_points);  
+                map.addLayer(self.vector_points); 
+                self.selectControl(self.vector_points);
             });
+        },
+        selectControl: function(vector_points){
+            // Create a select feature control and add it to the map
+            selectControl = new OpenLayers.Control.SelectFeature(this.vector_points,
+            {
+                clickout: true, 
+                toggle: true,
+                multiple: false, 
+                hover: false,
+                autoActivate: true,
+                onSelect: this.onFeatureSelect,
+                onUnselect: this.onFeatureUnselect
+            });
+            map.addControl(selectControl);
+            selectControl.activate(); 
+        },
+        onFeatureSelect: function(feature){
+          //  geocode= feature.attributes['ID']; 
+           // alert(geocode);
+        },
+        onFeatureUnselect: function(feature) {
+          //  alert("UnSelect");
         }
+        
     });
     var listView = new ListView();
     
@@ -87,8 +159,16 @@ $(document).ready(function () {
         e.preventDefault();
         console.log(map.getExtent());
         console.log(map.getResolution());
-  
-        
     });
+    function getColor(catecory) {
+        // point color 
+        var color;
+        if(catecory==1) {
+            color = "#FF2361";  
+        }
+        else {
+            color = "#79FF8B";
+        }
+        return color;    
+    }
 });
-
