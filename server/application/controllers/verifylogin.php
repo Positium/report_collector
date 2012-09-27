@@ -24,7 +24,9 @@
 	   else
 	   {
 	     //Go to private area
-	     redirect('home', 'refresh');
+             //$info = $this->session->all_userdata();
+	     //$this->load->view('home_view',$info); 
+            redirect('home', 'refresh');
 	   }
 	 
 	 }
@@ -46,7 +48,7 @@
 	         //'id' => $row->id,
 	         'username' => $row->username
 	       );
-	       $this->session->set_userdata('logged_in', $sess_array);
+	       $this->session->set_userdata('logged_in',$sess_array);
 	     }
 	     return TRUE;
 	   }

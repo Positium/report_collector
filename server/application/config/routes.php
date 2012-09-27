@@ -38,9 +38,10 @@
 |
 */
 
-$route['default_controller'] = "algus";
+$route['default_controller'] = 'algus';
 $route['404_override'] = '';
-$route['login']="login";
+$route['home']='home';
+$route['packet']='algus';
 
 
 /* End of file routes.php */
