@@ -17,9 +17,14 @@
       <div class="holo-content">
         <div class="holo-buttons">
           <button id="take-photo" class="holo-button">Take a picture</button>
+          <button id="send-report" class="holo-button" style="display: none">Send report</button>
         </div>
-        <p id="geo"></p>
-        <p id="photo"></p>
+        <div class="holo-field">
+          <div class="holo-field-bracket"></div>
+          <textarea id="comment" placeholder="Comment"></textarea>
+        </div>
+        <h2 class="holo-divider">Photo</h2>
+        <p id="photo">No photo taken</p>
       </div>
     </div>
     <script src="cordova-2.1.0.js"></script>
