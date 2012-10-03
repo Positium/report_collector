@@ -9,7 +9,7 @@ $(document).ready(function () {
         el: $('#map'), // attaches `this.el` to an existing element.
     
         initialize: function(){
-            _.bindAll(this, 'render','loadPoints','selectControl','onFeatureSelect','onFeatureUnselect'); // fixes loss of context for 'this' within method
+            _.bindAll(this, 'render','loadPoints','getColor','selectControl','onFeatureSelect','onFeatureUnselect','popupClose'); // fixes loss of context for 'this' within method
             this.render(); // not all views are self-rendering. This one is.
         },
         render: function(){
@@ -61,11 +61,11 @@ $(document).ready(function () {
             this.mapBounds = map.getExtent();
             //console.log(zoom + " "+ this.mapBounds)
             //testandmed
-            var url = "data/testData.gjson";
+           // var url = "data/testData.gjson";
             //request url serverisse peaks siia tulema vastavate parameetritega
-            //tagasi pean saama json formaadi, pilt eraldi kuidagi strginina
+            //tagasi pean saama gjson formaadi
             //this.request = $.getJSON('data/api.php?func=1&zoom='+zoom+'&bbox='+this.mapBounds+'&params='+params, function(data) {
-            this.request = $.getJSON(url, function(data) {  
+            this.request = $.getJSON('data/testData.gjson', function(data) {
                 $.each(data.features, function(index, value) { 
                     // radius
                     value.properties.RADIUS = 10;
@@ -75,7 +75,7 @@ $(document).ready(function () {
                         value.properties.RADIUS = 30;
                     }
                     //color
-                    value.properties.COLOR = getColor(value.properties.CATEGORY);
+                    value.properties.COLOR = self.getColor(value.properties.CATEGORY);
                 });
                 var geoformat = new OpenLayers.Format.GeoJSON();
                 var feats = geoformat.read(data);
@@ -129,6 +129,17 @@ $(document).ready(function () {
                 self.selectControl(self.vector_points);
             });
         },
+        getColor: function(catecory) {
+            // point color 
+            var color;
+            if(catecory==1) {
+                color = "#FF2361";  
+            }
+            else {
+                color = "#79FF8B";
+            }
+            return color;    
+        },
         selectControl: function(vector_points){
             // Create a select feature control and add it to the map
             selectControl = new OpenLayers.Control.SelectFeature(this.vector_points,
@@ -145,11 +156,33 @@ $(document).ready(function () {
             selectControl.activate(); 
         },
         onFeatureSelect: function(feature){
-          //  geocode= feature.attributes['ID']; 
-           // alert(geocode);
+            //  geocode= feature.attributes['ID']; 
+            selectedFeature = feature;
+            // HTML PopUp
+            var html = "ID: "+ selectedFeature.attributes['ID'] + "<br/>" +
+                 "Aeg: " + selectedFeature.attributes['TIMESTAMP']+ "<br/>"+
+                 "Pilt kohast: " + selectedFeature.attributes['PICTURE'] + "<br/>"+
+                 "Kategooria: " + selectedFeature.attributes['CATEGORY'] + "<br/>"+ 
+                 "Kommentaar: " + selectedFeature.attributes['COMMENTARY'];
+
+            popup = new OpenLayers.Popup.FramedCloud("data",
+                feature.geometry.getBounds().getCenterLonLat(),
+                null,
+                html,
+                null, 
+                true, 
+                this.popupClose);
+
+            feature.popup = popup;
+            map.addPopup(popup);
         },
         onFeatureUnselect: function(feature) {
-          //  alert("UnSelect");
+            map.removePopup(feature.popup);
+            feature.popup.destroy();
+            feature.popup = null;
+        },
+        popupClose: function(evt) {
+            selectControl.unselect(selectedFeature);
         }
         
     });
@@ -160,15 +193,4 @@ $(document).ready(function () {
         console.log(map.getExtent());
         console.log(map.getResolution());
     });
-    function getColor(catecory) {
-        // point color 
-        var color;
-        if(catecory==1) {
-            color = "#FF2361";  
-        }
-        else {
-            color = "#79FF8B";
-        }
-        return color;    
-    }
 });
