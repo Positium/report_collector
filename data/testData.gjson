@@ -1,4 +1,4 @@
-{"type": "FeatureCollection","features": [{"type":"Feature","properties":{"ID":1,"TIMESTAMP":"12.09.12","CATEGORY":"2","COMMENTARY":"","PICTURE":""},"geometry":{"type":"Point","coordinates":[2974736.30748, 8044777.85592]}},
+{"type": "FeatureCollection","features": [{"type":"Feature","properties":{"ID":1,"TIMESTAMP":"12.09.12","CATEGORY":"2","COMMENTARY":"","PICTURE":""},"geometry":{"type":"Point","coordinates":[2974585.46819,8046462.0549]}},
 {"type":"Feature","properties":{"ID":2,"TIMESTAMP":"13.09.12","CATEGORY":"1","COMMENTARY":"","PICTURE":""},"geometry":{"type":"Point","coordinates":[2975736.30748, 8044577.85592]}},
 {"type":"Feature","properties":{"ID":3,"TIMESTAMP":"14.09.12","CATEGORY":"3","COMMENTARY":"","PICTURE":""},"geometry":{"type":"Point","coordinates":[2976736.30748, 8044677.85592]}},
 {"type":"Feature","properties":{"ID":4,"TIMESTAMP":"15.09.12","CATEGORY":"4","COMMENTARY":"","PICTURE":""},"geometry":{"type":"Point","coordinates":[2977736.30748, 8044177.85592]}},
