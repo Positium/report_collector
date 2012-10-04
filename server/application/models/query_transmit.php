@@ -5,7 +5,7 @@ Class Query_transmit extends CI_Model {
     function respond_query() {
         
         $query = $this -> db -> query("SELECT id, timestamp_n, category, commentary FROM issues");
-        $query_2 = $this -> db -> query("SELECT ST_AsGeoJSON(location_n,7,0) as rt FROM issues");
+        $query_2 = $this -> db -> query("SELECT ST_AsGeoJSON(location_n,4,0) as rt FROM issues");
         $json_properties=array();
         $geojson_parts=array();
         if ($query->num_rows() > 0) {

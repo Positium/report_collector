@@ -10,11 +10,9 @@ class Algus extends CI_Controller {
     }
     public function index()
     {   
-        //var_dump($_POST); 
         if (isset($_POST)) {
             $json_data = $_POST['photo'];
             //$jdata = ob_get_clean();
-            //file_put_contents("./uploads/suurus.txt",strlen(http_build_query($_POST)) );
             
             file_put_contents("./uploads/error.txt",$json_data);
             $ifs=explode(",",$_POST['photo']);
@@ -27,10 +25,14 @@ class Algus extends CI_Controller {
                 'commentary' => $_POST['comment'],
                 'location_n' => "ST_Transform(ST_GeomFromText('POINT(".$_POST['geolocation']['longitude']." ". $_POST['geolocation']['latitude'].")',4326),900913)",
                 'photo' => $image_string,
-                'gps_accuracy ' => $_POST['geolocation']['accuracy'],
-            );
-            file_put_contents("./uploads/geoinfo.txt",$report['gps_accuracy']);     
-            $this->report_post->insert_report($report);
+                'gps_accuracy' => $_POST['geolocation']['accuracy'],
+            );   
+            $query_id = $this->report_post->insert_report($report);
+            $respons = array(
+                'result'=>'success',
+                'id'=>$query_id
+                );
+            echo json_encode($respons);
          
             //$data = json_decode($_POST['report']);
             //$img= imagecreatefromstring($image_string);

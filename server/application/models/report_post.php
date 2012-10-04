@@ -12,7 +12,7 @@
         $this -> db ->set('photo', $report['photo'], TRUE);
         $this -> db ->set('gps_accuracy', $report['gps_accuracy'], TRUE);
         $this -> db ->insert('issues');
-         
+        return $this->db->insert_id();
         //$ids = "id = 116";
         //$this -> db ->select('location_n');
         //$this -> db ->select('timestamp_n');
@@ -49,7 +49,7 @@
 
         */
         //$jdata = ob_get_clean();
-       return TRUE;
+       
      }
     }
 ?>
