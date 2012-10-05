@@ -64,8 +64,9 @@ $(document).ready(function () {
            // var url = "data/testData.gjson";
             //request url serverisse peaks siia tulema vastavate parameetritega
             //tagasi pean saama gjson formaadi
+            // http://gistudeng.gg.bg.ut.ee/Report_Collector/index.php/transmit
             //this.request = $.getJSON('data/api.php?func=1&zoom='+zoom+'&bbox='+this.mapBounds+'&params='+params, function(data) {
-            this.request = $.getJSON('data/testData.gjson', function(data) {
+            this.request = $.getJSON('http://gistudeng.gg.bg.ut.ee/Report_Collector/index.php/transmit', function(data) {
                 $.each(data.features, function(index, value) { 
                     // radius
                     value.properties.RADIUS = 10;
@@ -124,7 +125,7 @@ $(document).ready(function () {
                     } 
                 });
                 self.vector_points.addFeatures(self.pointsArray);
-                console.log(self.vector_points);
+                //console.log(self.vector_points);
                 map.addLayer(self.vector_points); 
                 self.selectControl(self.vector_points);
             });
@@ -161,10 +162,13 @@ $(document).ready(function () {
             // HTML PopUp
             var html = "ID: "+ selectedFeature.attributes['ID'] + "<br/>" +
                  "Aeg: " + selectedFeature.attributes['TIMESTAMP']+ "<br/>"+
-                 "Pilt kohast: " + selectedFeature.attributes['PICTURE'] + "<br/>"+
+                  //  <img style="width: 100%" src="data:image/jpeg;base64,' + data + '" />
+                 "Pilt kohast: " + "<br/>"+
+                 '<img style="width: 200px; height: 300px; " src="data:image/jpeg;base64,' + selectedFeature.attributes['PICTURE'] + '" />' +
+                 "<br/>"+
                  "Kategooria: " + selectedFeature.attributes['CATEGORY'] + "<br/>"+ 
                  "Kommentaar: " + selectedFeature.attributes['COMMENTARY'];
-
+            // $.base64.decode(selectedFeature.attributes['PICTURE']);
             popup = new OpenLayers.Popup.FramedCloud("data",
                 feature.geometry.getBounds().getCenterLonLat(),
                 null,
