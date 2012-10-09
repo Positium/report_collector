@@ -32,3 +32,9 @@ body{
     left:50px;
      position: absolute; 
 }
+
+#data_FrameDecorationDiv_0,#data_FrameDecorationDiv_1,#data_FrameDecorationDiv_2,#data_FrameDecorationDiv_3,#data_FrameDecorationDiv_4
+{
+   /* background-color: #91DAFF;*/
+    background-image: url(../images/cloud-popup-relative.png) no-repeat;
+}

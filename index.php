@@ -24,6 +24,7 @@ if(isset($_GET['logout']) and $_GET['logout'] == '1'){
         <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
         <!-- jQuery -->
         <script src="js/libs/jquery/jquery-1.8.1.min.js"></script>
+          <script src="js/libs/jquery/jquery.base64.min.js"></script>
         <!-- Underscore & Backbone -->
         <script type="text/javascript" src="js/libs/underscore/underscore.js" ></script>
         <script type="text/javascript" src="js/libs/backbone/backbone.js" ></script>

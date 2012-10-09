@@ -168,7 +168,7 @@ $(document).ready(function () {
                  "<br/>"+
                  "Kategooria: " + selectedFeature.attributes['CATEGORY'] + "<br/>"+ 
                  "Kommentaar: " + selectedFeature.attributes['COMMENTARY'];
-            // $.base64.decode(selectedFeature.attributes['PICTURE']);
+           //  console.log($.base64.decode(selectedFeature.attributes['PICTURE']));
             popup = new OpenLayers.Popup.FramedCloud("data",
                 feature.geometry.getBounds().getCenterLonLat(),
                 null,
