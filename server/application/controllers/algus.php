@@ -10,14 +10,10 @@ class Algus extends CI_Controller {
     }
     public function index()
     {   
-        if (isset($_POST)) {
-            $json_data = $_POST['photo'];
-            //$jdata = ob_get_clean();
+        if (isset($_POST)) {    
+            $string_photo=explode(",",$_POST['photo']);    
+            $image_string = str_replace(array("\\\\", "''"), array("\\", "'"),pg_escape_bytea(base64_decode($string_photo[1])));
             
-            file_put_contents("./uploads/error.txt",$json_data);
-            $ifs=explode(",",$_POST['photo']);
-            
-            $image_string = str_replace(array("\\\\", "''"), array("\\", "'"),pg_escape_bytea(base64_decode($ifs[1])));
             $report = array(
                 'device_id' => $_POST['uuid'],
                 'timestamp_n' => date("Y-m-d",$_POST['timestamp']),
@@ -27,12 +23,13 @@ class Algus extends CI_Controller {
                 'photo' => $image_string,
                 'gps_accuracy' => $_POST['geolocation']['accuracy'],
             );   
-            $query_id = $this->report_post->insert_report($report);
+            $report_id = $this->report_post->insert_report($report);
             $respons = array(
                 'result'=>'success',
-                'id'=>$query_id
+                'id'=>$report_id
                 );
-            echo json_encode($respons);
+            $data_to_view['response'] = json_encode($respons);
+            $this->load->view('id_to_mobapp',$data_to_view);
          
             //$data = json_decode($_POST['report']);
             //$img= imagecreatefromstring($image_string);
