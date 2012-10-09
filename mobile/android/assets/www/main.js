@@ -1,5 +1,5 @@
 (function () {
-  var api_url = 'http://home.pauleller.eu';
+  var api_url = 'http://gistudeng.gg.bg.ut.ee/Report_Collector/index.php/receiver';
 
   var source;
   var format;
@@ -76,11 +76,12 @@
       },
       photo: 'data:image/jpeg;base64,' + image,
       category: 123,
-      comment: $('#comment').val()
+      comment: $('#comment').val(),
+      submit: 'raport'
     };
 
     $('#send-report').hide();
-    $.post(api_url + '/new', report, function (res) {
+    $.post(api_url, report, function (res) {
       if (res.result === 'success') {
         $('#comment').val('');
         $('#photo').children().remove();
