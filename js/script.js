@@ -66,7 +66,7 @@ $(document).ready(function () {
             //tagasi pean saama gjson formaadi
             // http://gistudeng.gg.bg.ut.ee/Report_Collector/index.php/transmit
             //this.request = $.getJSON('data/api.php?func=1&zoom='+zoom+'&bbox='+this.mapBounds+'&params='+params, function(data) {
-            this.request = $.getJSON('http://gistudeng.gg.bg.ut.ee/Report_Collector/index.php/transmit', function(data) {
+            this.request = $.getJSON('data/testData_1.gjson', function(data) {
                 $.each(data.features, function(index, value) { 
                     // radius
                     value.properties.RADIUS = 10;

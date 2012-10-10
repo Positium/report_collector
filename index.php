@@ -35,7 +35,7 @@ if(isset($_GET['logout']) and $_GET['logout'] == '1'){
         <div id = "container">
             <div id = "map">
                 <div id ="nupp">
-                    <button type="button">Click Me!</button>
+                  <!--  <button type="button">Click Me!</button> -->
             </div>
         </div>
      </div>       
