@@ -4,30 +4,98 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-    <link href="holo.scaled.css" rel="stylesheet" type="text/css"/>    
+    <link href="main.css" rel="stylesheet" type="text/css"/>    
     <title>Report Collector</title>
   </head>
-  <body class="holo holo-dark">
-    <div id="accent" class="holo-accent-blue">
-      <div class="holo-action-bar">
-        <h1>
-          <a>Report Collector</a>
-        </h1>
-      </div>
-      <div class="holo-content">
-        <div class="holo-buttons">
-          <button id="take-photo" class="holo-button">Take a picture</button>
-          <button id="send-report" class="holo-button" style="display: none">Send report</button>
-        </div>
-        <div class="holo-field">
-          <div class="holo-field-bracket"></div>
-          <textarea id="comment" placeholder="Comment"></textarea>
-        </div>
-        <h2 class="holo-divider">Photo</h2>
-        <p id="photo">No photo taken</p>
-      </div>
+  <body>
+
+    <div class="screen center" id="loading-screen">
+      <p>
+        Updating categories...
+      </p>
     </div>
+
+    <div class="screen center" id="take-photo-screen" style="display: none;">
+      <p class="center">Tap the camera to take a photo</p>
+      <p class="center"><img id="take-photo" src="img/camera.png" alt="Camera" /></p>
+    </div>
+
+    <div class="screen center" id="photo-review-screen" style="display: none;">
+      <p class="center" id="photo-review-title"></p>
+      <p class="center"><img class="review-photo" src="" alt="No photo" /></p>
+      <p class="center">
+        <button class="button-left" id="photo-review-retry">Retry</button>
+        <button class="button-right" id="photo-review-done">Continue</button>
+      </p>
+    </div>
+    
+    <div class="screen center" id="category-screen" style="display: none;">
+      <p class="center">Select category</p>
+      <ul id="category-list">
+      </ul>
+      <p class="center">
+        <button class="button-left" id="category-back">Back</button>
+        <button class="button-right" id="category-done" style="display: none">Continue</button>
+      </p>
+    </div>
+    
+    <div class="screen center" id="comment-screen" style="display: none;">
+      <p class="center">Enter any additional information</p>
+      <textarea id="comment-field" placeholder="Optional"></textarea>
+      <p class="center">
+        <button class="button-left" id="comment-back">Back</button>
+        <button class="button-right" id="comment-done">Review</button>
+      </p>
+    </div>
+    
+    <div class="screen center" id="review-screen" style="display: none;">
+      <p class="center">Please review your report</p>
+      <p class="center"><img class="review-photo" src="" alt="No photo" /></p>
+      <p class="center">
+        Category: <span id="review-category"></span>
+      </p>
+      <p class="center">
+        Additional information: <span id="review-comment"></span>
+      </p>
+      <p class="center">
+        <button class="button-left" id="review-back">Back</button>
+        <button class="button-right" id="review-done">Send</button>
+      </p>
+    </div>
+    
+    <div class="screen center" id="send-screen" style="display: none;">
+      <p class="center">Sending report...</p>
+    </div>
+    
+    <div class="screen center" id="send-success-screen" style="display: none;">
+      <p class="center">
+        Thank you for sending your report. We will handle it as soon as possible.
+      </p>
+      <p class="center">
+        <button class="button-left" id="success-new-report">Create another report</button>
+      </p>
+    </div>
+    
+    <div class="screen center" id="send-fail-screen" style="display: none;">
+      <p class="center">
+        The report could not be sent at this time.
+      </p>
+      
+      <p class="center">
+        <small>Your device has no active network connection, our servers are down or some other error has occured.</small>
+      </p>
+      
+      <p class="center">
+        <small>The application will try to send the report when you launch it again at some other time.</small>
+      </p>
+
+      <p class="center">
+        <button class="button-left" id="fail-new-report">Create another report</button>
+      </p>
+    </div>
+
     <script src="cordova-2.1.0.js"></script>
+    <script src="dust-full-0.3.0.min.js"></script>
     <script src="zepto.min.js"></script>
     <script src="main.js"></script>
   </body>
