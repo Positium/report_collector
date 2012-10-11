@@ -3,8 +3,8 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:windowSoftInputMode="adjustPan"
   package="ee.positium.reportcollector"
-  android:versionName="1.1"
-  android:versionCode="5">
+  android:versionName="1.2"
+  android:versionCode="6">
 
   <supports-screens
     android:largeScreens="true"
@@ -41,6 +41,6 @@
   
   </application>
 
-  <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="7"/>
+  <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="8"/>
 
 </manifest>
