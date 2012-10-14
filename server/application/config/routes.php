@@ -40,10 +40,6 @@
 
 $route['default_controller'] = 'algus';
 $route['404_override'] = '';
-$route['home']='home';
-$route['receiver']='algus';
-$route['transmit']='transmit';
-
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

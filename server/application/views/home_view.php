@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 if (session_id()!=="") {
     header( 'Location: http://gistudeng.gg.bg.ut.ee/report_collector_web/index.html' ) ;
 } else {

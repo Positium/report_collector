@@ -4,7 +4,7 @@
      function login($username, $password)
      {
        $this -> db -> select('username');
-       $this -> db -> from('Users');
+       $this -> db -> from('users');
        $this -> db -> where('username = ' . "'" . $username . "'");	   
        $this -> db -> where('password = crypt(' . "'" .$password . "'".',password)');
        $this -> db -> limit(1);

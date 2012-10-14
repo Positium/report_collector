@@ -1,0 +1,145 @@
+/* 
+    Document   : style
+    Created on : 14.09.2012, 11:01:32
+    Author     : Arvy
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+html{
+    height:100%;
+    overflow: hidden;
+}
+body{
+    height:100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+#container{
+    position: relative;
+    height: 100%;
+}
+
+#map {
+    width: 100%; height: 100%;
+
+}
+
+#nupp {
+    z-index: 1500;
+    top: 85px;
+    left:50px;
+    position: absolute; 
+}
+
+#legend {
+    position: absolute;
+    margin-top: 30px;
+    right: 10px;
+    width: 170px;
+    opacity: 0.9;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #999999;
+    z-index: 1500;
+    padding: 5px 5px 5px 8px;
+    /*display: none;*/
+}
+#legend ul {
+    list-style-type: none;
+    padding-left: 10px;
+}
+.catcolor {
+    width: 20px;
+    display: inline;
+    padding: 0 7px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+
+}
+.catcolor2 {
+    width: 80px;
+    display: inline;
+    /*float:right;*/
+    padding: 0 7px;
+}
+
+#userdata {
+    position: absolute;
+    margin-top: 10px;
+    right: 10px;
+    opacity: 0.9;
+    padding: 3px 5px 3px 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #dddddd;
+    z-index: 1500;
+}
+
+#topmenu {
+    z-index: 1500;
+    position: absolute;
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+}
+#topmenu ul {
+    display: inline;
+}
+/******************        ZOOOOOOOOOOOOOM +-*/
+a.olControlZoomIn {
+    border-radius: 4px 4px 0 0;
+}
+a.olControlZoomOut {
+    border-radius: 0 0 4px 4px;
+}
+
+div.olControlZoom {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 4px;
+    padding: 2px;
+}
+div.olControlZoom a {
+    display: block;
+    margin: 1px;
+    padding: 0;
+    color: white;
+    font-size: 18px;
+    font-family: 'Lucida Grande', Verdana, Geneva, Lucida, Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    height: 22px;
+    width:22px;
+    line-height: 19px;
+    background: #130085; /* fallback for IE - IE6 requires background shorthand*/
+    background: rgba(0, 60, 136, 0.5);
+    filter: alpha(opacity=80); 
+}
+div.olControlZoom a:hover {
+    background: #130085; /* fallback for IE */
+    background: rgba(0, 60, 136, 0.7);
+    filter: alpha(opacity=100);
+}
+@media only screen and (max-width: 600px) {
+    div.olControlZoom a:hover {
+        background: rgba(0, 60, 136, 0.5);
+    }
+}
+/**********************END****************/
+
+#OpenLayers_Control_Zoom_7{
+    position: absolute;
+    top:    80px;
+    left:   8px;
+}

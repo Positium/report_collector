@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+header('Access-Control-Allow-Origin: *');
+//
 class Transmit extends CI_Controller {
 
     function __construct() {
@@ -14,7 +16,7 @@ class Transmit extends CI_Controller {
         $data['geojson_file'] = $this->resultsets_to_GeoJSON($query_resultsets);
         $this->load->view('geojson_respond', $data);
     }
-    public function resultsets_to_GeoJSON($query_resultsets) {
+    private function resultsets_to_GeoJSON($query_resultsets) {
         $query_resultset_for_properties = $query_resultsets[0];
         $query_resultset_for_location = $query_resultsets[1];
         
@@ -28,6 +30,7 @@ class Transmit extends CI_Controller {
                 "TIMESTAMP" => $row_of_properties->timestamp_n,
                 "CATEGORY" => $row_of_properties->category,
                 "COMMENTARY" => $row_of_properties->commentary,
+                "COLOR" =>$row_of_properties->color,
                 "PICTURE" => base64_encode(pg_unescape_bytea($row_of_properties->photo))   
                 );
             $feature = array(
@@ -41,7 +44,7 @@ class Transmit extends CI_Controller {
             "type" => "FeatureCollection",
             "features" => $array_of_features   
             );        
-        return str_replace('\\','', json_encode($complete_geojson));
+        return json_encode($complete_geojson);
     }
 }
 ?>
