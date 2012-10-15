@@ -4,8 +4,9 @@
 	 
 	 function __construct()
 	 {
-            parent::__construct();
-	   $this->load->model('user','',TRUE);
+           parent::__construct();
+	   $this->load->library('session');
+           $this->load->model('user','',TRUE);
  }
 	 
 	 function index()
@@ -41,17 +42,14 @@
 	 
 	   if($result)
 	   {
-	     $sess_array = array();
-	     foreach($result as $row)
-	     {
-	       $sess_array = array(
+                $sess_array = array(
 	         //'id' => $row->id,
-	         'username' => $row->username
+	         'username' => $result->username
 	       );
 	       $this->session->set_userdata('logged_in',$sess_array);
-	     }
+	     
 	     return TRUE;
-	   }
+         }
 	   else
 	   {
 	     $this->form_validation->set_message('check_database', 'Kasutajanimi või parool ei sobi');

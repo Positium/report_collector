@@ -4,6 +4,7 @@ class Algus extends CI_Controller {
     
     function __construct() {
         parent::__construct();
+        $this->load->library('session');
         error_reporting(E_ALL);
         ini_set('display_errors',1);
         $this->load->model('report_post');

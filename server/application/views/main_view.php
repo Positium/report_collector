@@ -9,7 +9,7 @@
         <!-- webpage style -->
         <link rel="stylesheet" href="../css/style.css" type="text/css" />
         <!-- OpenLayers -->
-        <script src="../js/libs/openlayers/OpenLayers.js"></script>
+        <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
         <!-- jQuery -->
         <script src="../js/libs/jquery/jquery-1.8.1.min.js"></script>
         <!-- Underscore & Backbone -->

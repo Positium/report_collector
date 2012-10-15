@@ -1,11 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-header('Access-Control-Allow-Origin: *');
-session_start();
+    header('Access-Control-Allow-Origin: *');    
 class getmenu extends CI_Controller {
 
  function __construct()
  {
    parent::__construct();
+   $this->load->library('session');
+   if (!$this->session->userdata('logged_in')) {
+            redirect('login');
+        }     
  }
 
  public function index()

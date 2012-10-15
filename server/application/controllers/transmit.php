@@ -1,13 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 header('Access-Control-Allow-Origin: *');
-//
+
 class Transmit extends CI_Controller {
 
     function __construct() {
         parent::__construct();
+        $this->load->library('session');
         error_reporting(E_ALL);
         ini_set('display_errors',1);
+        if (!$this->session->userdata('logged_in')) {
+            redirect('login');
+        }     
         $this->load->model('query_transmit');
     }
     public function index() {
@@ -18,8 +22,7 @@ class Transmit extends CI_Controller {
     }
     private function resultsets_to_GeoJSON($query_resultsets) {
         $query_resultset_for_properties = $query_resultsets[0];
-        $query_resultset_for_location = $query_resultsets[1];
-        
+        $query_resultset_for_location = $query_resultsets[1];      
         $array_of_features=array();
         $count_of_reports = count($query_resultset_for_properties);
         for ($i = 0;$i < $count_of_reports && $i < $count_of_reports;++$i) {
@@ -29,9 +32,9 @@ class Transmit extends CI_Controller {
                 "ID" => $row_of_properties->id,
                 "TIMESTAMP" => $row_of_properties->timestamp_n,
                 "CATEGORY" => $row_of_properties->category,
+                "ID_CATEGORY"=> $row_of_properties->category_id,
                 "COMMENTARY" => $row_of_properties->commentary,
-                "COLOR" =>$row_of_properties->color,
-                "PICTURE" => base64_encode(pg_unescape_bytea($row_of_properties->photo))   
+                "COLOR" =>$row_of_properties->color, 
                 );
             $feature = array(
                 "type" => "Feature",
@@ -46,5 +49,26 @@ class Transmit extends CI_Controller {
             );        
         return json_encode($complete_geojson);
     }
+    public function getPhotoById() {
+        if (isset($_GET['id'])) {
+            $photo_result = $this->query_transmit->get_photo_by_id($this->input->get('id'));
+            $photo_string = base64_encode(pg_unescape_bytea($photo_result->photo));
+            $photo_json['photo_json'] = $photo_string;
+            $this->load->view('photo_respond',$photo_json);
+        }
+    }
+    public function getCategoryList() {
+        if (isset($_GET['list'])) {
+            $this->load->model('query_categories');
+            $query_resultsets = $this->query_categories->respond_query_id();
+            $list = '';
+            foreach($query_resultsets as $row) {
+                $list .= $row->id.',';
+            }
+            $arrayOfIDs['data'] = $list;
+            $this->load->view('category_respond',$arrayOfIDs);
+        }
+    }
+    
 }
 ?>

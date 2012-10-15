@@ -5,13 +5,21 @@
 	 function __construct()
 	 {
 	   parent::__construct();
+           $this->load->library('session');
 	 }
 	 
 	 function index()
 	 {
-	   $this->load->helper(array('form', 'url'));
-	   $this->load->view('login_view');
-	 }
+            if($this->session->userdata('logged_in'))
+                {
+                redirect('home');
+                }
+            else {
+                $this->load->helper(array('form', 'url'));
+                $this->load->view('login_view');
+            }
+           
+         }
 	 
 	}
 	 
