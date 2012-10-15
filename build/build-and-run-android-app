@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# How to run:
+# ANDROID_SDK_PATH=/path/to/android-sdk ./build-and-run-android-app
+
+export PATH="$PATH:$ANDROID_SDK_PATH/tools:$ANDROID_SDK_PATH/platform-tools"
+
+cd ../mobile/android && cordova/emulate && \
+  echo "\n--------------------------------------------------------------" && \
+  echo "\nWait until emulator is done booting. Then press ENTER." && \
+  read && \
+  echo "--------------------------------------------------------------" && \
+  adb uninstall ee.positium.reportcollector && \
+  cordova/debug && \
+  echo "\n--------------------------------------------------------------" && \
+  echo "Open the emulator window now and unlock the screen." && \
+  echo "The app will run automatically in a few seconds." && \
+  sleep 5 && \
+  adb shell am start -a android.intent.action.MAIN -n ee.positium.reportcollector/.ReportCollector
