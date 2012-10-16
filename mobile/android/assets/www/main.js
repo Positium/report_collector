@@ -1,11 +1,12 @@
 (function () {
-  var API_URL = 'http://gistudeng.gg.bg.ut.ee/Report_Collector/index.php/receiver';
+  var UPDATE_URL = 'http://gistudeng.gg.bg.ut.ee/dev/index.php/receiver/sendLastCategoryRevisionNumber';
+  var SEND_URL = 'http://gistudeng.gg.bg.ut.ee/Report_Collector/index.php/receiver';
 
   var report = {
     submit: 'raport'
   };
 
-  var language = 'en';
+  var language = 'et';
 
   var geolocation = {
     watch: null,
@@ -56,6 +57,7 @@
 
     update: function () {
       // TODO: actually update categories
+      /*
       categories.list = [
         {id: 1, name_et: 'Kodu', name_en: 'Home', name_ru: 'Дома'},
         {id: 2, name_et: 'Reostus', name_en: 'Pollution', name_ru: 'Загрязнение'},
@@ -65,8 +67,17 @@
         {id: 6, name_et: 'Asfaldis auk', name_en: 'Pothole', name_ru: 'Яма в асфальте'},
         {id: 7, name_et: 'Prügi', name_en: 'Garbage', name_ru: 'Мусор'}
       ];
-      screen.initAll();
-      setTimeout(screen.take_photo.show, 1000);
+      */
+      var last_revision = 1;
+      $.post(UPDATE_URL, {'lastrevision': last_revision}, function (res) {
+        if (res.slice(-1)[0].lastrevision != last_revision) {
+          var l = res.length - 1;
+          for (var c = 0; c < l; ++c) {
+            categories.list.push(res[c]);
+          }
+        }
+        screen.initAll();
+      });
     }
   };
 
@@ -266,7 +277,7 @@
 
     geolocation.disable();
     
-    $.post(API_URL, report, function (res) {
+    $.post(SEND_URL, report, function (res) {
       if (res.result === 'success') {
         screen.send_success.show();
       } else {
@@ -278,22 +289,4 @@
   var reload = function () {
     document.location = 'index.html';
   }
-
-  /*
-    var sendReport = function () {
-
-      $('#send-report').hide();
-      $.post(api_url, report, function (res) {
-        if (res.result === 'success') {
-          $('#comment').val('');
-          $('#photo').children().remove();
-          $('#photo').text('No photo taken');
-          alert('Report #' + res.id + ' accepted');
-        } else {
-          $('#send-report').show();
-          alert('Report not sent: ' + res.reason);
-        }
-      }, 'json');
-    };
-    */
-})();
+)();
