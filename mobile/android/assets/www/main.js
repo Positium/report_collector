@@ -1,6 +1,6 @@
 (function () {
-  var UPDATE_URL = 'http://gistudeng.gg.bg.ut.ee/dev/index.php/receiver/sendLastCategoryRevisionNumber';
-  var SEND_URL = 'http://gistudeng.gg.bg.ut.ee/Report_Collector/index.php/receiver';
+  var UPDATE_URL =  'http://gistudeng.gg.bg.ut.ee/dev/index.php/receiver/sendLastCategoryRevisionNumber';
+  var SEND_URL =    'http://gistudeng.gg.bg.ut.ee/dev/index.php/receiver';
 
   var report = {
     submit: 'raport'
@@ -56,27 +56,23 @@
     list: [],
 
     update: function () {
-      // TODO: actually update categories
-      /*
-      categories.list = [
-        {id: 1, name_et: 'Kodu', name_en: 'Home', name_ru: 'Дома'},
-        {id: 2, name_et: 'Reostus', name_en: 'Pollution', name_ru: 'Загрязнение'},
-        {id: 3, name_et: 'Vandalism', name_en: 'Vandalism', name_ru: 'Вандализм'},
-        {id: 4, name_et: 'Uputus', name_en: 'Flooding', name_ru: 'Затопление'},
-        {id: 5, name_et: 'Katmata kaevud', name_en: 'Open manhole', name_ru: 'Открытый люк'},
-        {id: 6, name_et: 'Asfaldis auk', name_en: 'Pothole', name_ru: 'Яма в асфальте'},
-        {id: 7, name_et: 'Prügi', name_en: 'Garbage', name_ru: 'Мусор'}
-      ];
-      */
       var last_revision = 1;
-      $.post(UPDATE_URL, {'lastrevision': last_revision}, function (res) {
-        if (res.slice(-1)[0].lastrevision != last_revision) {
-          var l = res.length - 1;
-          for (var c = 0; c < l; ++c) {
-            categories.list.push(res[c]);
+      $.ajax({
+        url: UPDATE_URL,
+        type: 'POST',
+        data: {'lastrevision': last_revision},
+        dataType: 'json',
+        success: function (res) {
+          if (res.slice(-1)[0].lastrevision > last_revision) {
+            var l = res.length - 1;
+            for (var c = 0; c < l; ++c) {
+              categories.list.push(res[c]);
+            }
           }
+
+          screen.initAll();
+          screen.take_photo.show();
         }
-        screen.initAll();
       });
     }
   };
@@ -288,5 +284,6 @@
 
   var reload = function () {
     document.location = 'index.html';
-  }
-)();
+  };
+})();
+
