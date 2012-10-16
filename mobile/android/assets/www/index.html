@@ -15,6 +15,16 @@
       </p>
     </div>
 
+    <div class="screen center" id="intro-screen" style="display: none;">
+      <p class="center">This is the introduction screen.</p>
+      <p class="center">Follow the on-screen instructions to fill out and send a report.</p>
+      <p class="center">You can go back a step at any time by pressing the 'Back' button or swiping the screen to the left.</p>
+      <p class="center">Pressing the 'Next' button or swiping right advances to the next page.</p>
+      <p class="center">
+        <button class="button-right" id="start-app">Next</button>
+      </p>
+    </div>
+
     <div class="screen center" id="take-photo-screen" style="display: none;">
       <p class="center">Tap the camera to take a photo</p>
       <p class="center"><img id="take-photo" src="img/camera.png" alt="Camera" /></p>
@@ -24,8 +34,8 @@
       <p class="center" id="photo-review-title"></p>
       <p class="center"><img class="review-photo" src="" alt="No photo" /></p>
       <p class="center">
-        <button class="button-left" id="photo-review-retry">Retry</button>
-        <button class="button-right" id="photo-review-done">Continue</button>
+        <button class="button-left" id="photo-review-retry">Back</button>
+        <button class="button-right" id="photo-review-done">Next</button>
       </p>
     </div>
     
@@ -35,7 +45,7 @@
       </ul>
       <p class="center">
         <button class="button-left" id="category-back">Back</button>
-        <button class="button-right" id="category-done" style="display: none">Continue</button>
+        <button class="button-right" id="category-done" style="display: none">Next</button>
       </p>
     </div>
     
@@ -44,7 +54,7 @@
       <textarea id="comment-field" placeholder="Optional"></textarea>
       <p class="center">
         <button class="button-left" id="comment-back">Back</button>
-        <button class="button-right" id="comment-done">Review</button>
+        <button class="button-right" id="comment-done">Next</button>
       </p>
     </div>
     

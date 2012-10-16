@@ -71,7 +71,7 @@
           }
 
           screen.initAll();
-          screen.take_photo.show();
+          screen.intro.show();
         }
       });
     }
@@ -112,9 +112,20 @@
       }
     },
 
+    intro: {
+      init: function () {
+        $('#start-app').tap(screen.take_photo.show);
+      },
+
+      show: function () {
+        $('.screen').hide();
+        $('#intro-screen').show();
+      }
+    },
+
     take_photo: {
       init: function () {
-        $('#take-photo').on('tap', camera.takePhoto(
+        $('#take-photo').tap(camera.takePhoto(
           screen.photo_review.show_success, screen.photo_review.show_fail
         ));
       },
@@ -127,11 +138,9 @@
 
     photo_review: {
       init: function () {
-        $('#photo-review-retry').on('tap', camera.takePhoto(
-          screen.photo_review.show_success, screen.photo_review.show_fail
-        ));
+        $('#photo-review-retry').tap(screen.take_photo.show);
 
-        $('#photo-review-done').on('tap', screen.category.show);
+        $('#photo-review-done').tap(screen.category.show);
       },
 
       show_success: function (photo_data) {
@@ -144,6 +153,10 @@
 
         $('.screen').hide();
         $('#photo-review-screen').show();
+
+        $(document).swipe(function () {
+          alert('swipe');
+        });
       },
 
       show_fail: function (error) {
@@ -166,14 +179,14 @@
 
     category: {
       init: function () {
-        $('#category-back').on('tap', screen.photo_review.show_last);
-        $('#category-done').on('tap', screen.comment.show);
+        $('#category-back').tap(screen.photo_review.show_last);
+        $('#category-done').tap(screen.comment.show);
 
         var ul = $('#category-list');
         for (var c in categories.list) {
           var category = categories.list[c];
           var li = $('<li data-id="' + category.id + '">' + category['name_' + language] + '</li>');
-          li.on('tap', screen.category.on_select);
+          li.tap(screen.category.on_select);
           ul.append(li);
         }
       },
@@ -200,8 +213,8 @@
 
     comment: {
       init: function () {
-        $('#comment-back').on('tap', screen.category.show);
-        $('#comment-done').on('tap', screen.comment.update_and_show_review);
+        $('#comment-back').tap(screen.category.show);
+        $('#comment-done').tap(screen.comment.update_and_show_review);
       },
 
       show: function () {
@@ -225,8 +238,8 @@
 
     review: {
       init: function () {
-        $('#review-back').on('tap', screen.comment.show);
-        $('#review-done').on('tap', sendReport);
+        $('#review-back').tap(screen.comment.show);
+        $('#review-done').tap(sendReport);
       },
 
       show: function () {
@@ -246,7 +259,7 @@
 
     send_success: {
       init: function () {
-        $('#success-new-report').on('tap', reload);
+        $('#success-new-report').tap(reload);
       },
 
       show: function () {
@@ -257,7 +270,7 @@
 
     send_fail: {
       init: function () {
-        $('#fail-new-report').on('tap', reload);
+        $('#fail-new-report').tap(reload);
       },
 
       show: function () {
