@@ -3,6 +3,11 @@
 # How to run:
 # ./build-and-run-android-app /path/to/android-sdk 
 
+if [ $# -lt 1 ]; then
+  echo usage: $0 /path/to/android-sdk 1>&2
+  exit 255
+fi
+
 export PATH="$PATH:$1/tools:$1/platform-tools"
 
 cd ../mobile/android && cordova/emulate && \
