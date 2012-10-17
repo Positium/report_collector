@@ -39,7 +39,15 @@
     format: null,
     image: null,
 
-    takePhoto: function (success, fail) {
+    takePhoto: function (callback) {
+      var success = function (data) {
+        callback(null, data);
+      };
+
+      var fail = function (error) {
+        callback(error);
+      }
+
       return function () {
         navigator.camera.getPicture(success, fail, {
           quality: 50,
@@ -96,90 +104,122 @@
       report.uuid = window.device.uuid;
       camera.format = navigator.camera.DestinationType;
 
+      screen.current = screen.loading;
       categories.update();
     }
   };
 
   $(document).on('deviceready', device.on_ready);
 
-
   var screen = {
     initAll: function () {
       for (var s in screen) {
-        if (s !== 'initAll') {
+        if (screen[s] !== null && typeof screen[s] === 'object' && 'element' in screen[s]) {
           screen[s].init();
         }
       }
     },
 
+    current: null,
+
+    showScreen: function (new_screen, animation_direction) {
+      if (new_screen !== screen.current) {
+        // TODO: transition
+        screen.current.element.hide();
+        screen.current = new_screen;
+        screen.setSwipeEvents(new_screen);
+        new_screen.element.show();
+      }
+    },
+
+    setSwipeEvents: function (screen) {
+      var action_left = function () {};
+      var action_right = action_left;
+
+      var button_left = screen.element.find('.button-left');
+      var button_right = screen.element.find('.button-right');
+
+
+      // The swipes are mirrored
+      if (button_left.length !== 0) {
+        action_right = function () { 
+          if (!button_left.attr('disabled')) {
+            button_left.trigger('tap');
+          }
+        };
+      }
+      if (button_right.length !== 0) {
+        action_left = function () { 
+          if (!button_right.attr('disabled')) {
+            button_right.trigger('tap');
+          }
+        };
+      }
+      
+      $(document).swipeLeft(action_left).swipeRight(action_right);
+    },
+
+    loading: {
+      element: $('#loading-screen'),
+
+      init: function () {}
+    },
+
     intro: {
+      element: $('#intro-screen'),
+
       init: function () {
         $('#start-app').tap(screen.take_photo.show);
       },
 
       show: function () {
-        $('.screen').hide();
-        $('#intro-screen').show();
+        screen.showScreen(screen.intro);
       }
     },
 
     take_photo: {
+      element: $('#take-photo-screen'),
+
       init: function () {
-        $('#take-photo').tap(camera.takePhoto(
-          screen.photo_review.show_success, screen.photo_review.show_fail
-        ));
+        $('#take-photo-back').tap(screen.intro.show);
+        $('#take-photo').tap(camera.takePhoto(screen.photo_review.show));
       },
 
       show: function () {
-        $('.screen').hide();
-        $('#take-photo-screen').show();
+        screen.showScreen(screen.take_photo);
       }
     },
 
     photo_review: {
+      element: $('#photo-review-screen'),
+
       init: function () {
         $('#photo-review-retry').tap(screen.take_photo.show);
-
         $('#photo-review-done').tap(screen.category.show);
       },
 
-      show_success: function (photo_data) {
-        report.photo = 'data:image/jpeg;base64,' + photo_data;
+      show: function (error, photo_data) {
+        if (error && !(error instanceof Event)) {
+          report.photo = null;
+          $('#photo-review-title').text('Could not take photo: ' + error);
+          $('#review-photo').hide();
+          $('#photo-review-done').attr('disabled', 'disabled').hide();
+        } else if (photo_data) {
+          report.photo = 'data:image/jpeg;base64,' + photo_data;
+          $('#photo-review-title').text('Is this photo suitable?');
+          $('.review-photo').attr('src', report.photo).show();
+          $('#photo-review-done').removeAttr('disabled').show();
+        }
 
-        $('#photo-review-title').text('Is this photo suitable?');
-        $('.review-photo').attr('src', report.photo).show();
-
-        $('#photo-review-done').show();
-
-        $('.screen').hide();
-        $('#photo-review-screen').show();
-
-        $(document).swipe(function () {
-          alert('swipe');
-        });
+        screen.showScreen(screen.photo_review);
       },
-
-      show_fail: function (error) {
-        report.photo = null;
-
-        $('#photo-review-title').text('Could not take photo: ' + error);
-        $('#review-photo').hide();
-        
-        $('#photo-review-done').hide();
-
-        $('.screen').hide();
-        $('#photo-review-screen').show();
-      },
-
-      show_last: function () {
-        $('.screen').hide();
-        $('#photo-review-screen').show();
-      }
     },
 
     category: {
+      element: $('#category-screen'),
+
       init: function () {
-        $('#category-back').tap(screen.photo_review.show_last);
+        $('#category-back').tap(screen.photo_review.show);
         $('#category-done').tap(screen.comment.show);
 
         var ul = $('#category-list');
@@ -189,6 +229,8 @@
           li.tap(screen.category.on_select);
           ul.append(li);
         }
+        
+        $('#category-done').attr('disabled', 'disabled').hide();
       },
 
       on_select: function () {
@@ -196,7 +238,7 @@
           $('#category-list').children().removeClass('selected');
         }
 
-        $('#category-done').show();
+        $('#category-done').removeAttr('disabled').show();
 
         var $this = $(this);
         $this.addClass('selected');
@@ -206,20 +248,20 @@
       },
 
       show: function () {
-        $('.screen').hide();
-        $('#category-screen').show();
+        screen.showScreen(screen.category);
       }
     },
 
     comment: {
+      element: $('#comment-screen'),
+
       init: function () {
         $('#comment-back').tap(screen.category.show);
         $('#comment-done').tap(screen.comment.update_and_show_review);
       },
 
       show: function () {
-        $('.screen').hide();
-        $('#comment-screen').show();
+        screen.showScreen(screen.comment);
       },
 
       update_and_show_review: function () {
@@ -237,45 +279,49 @@
     },
 
     review: {
+      element: $('#review-screen'),
+
       init: function () {
         $('#review-back').tap(screen.comment.show);
         $('#review-done').tap(sendReport);
       },
 
       show: function () {
-        $('.screen').hide();
-        $('#review-screen').show();
+        screen.showScreen(screen.review);
       }
     },
 
     send: {
+      element: $('#send-screen'),
+
       init: function () {},
 
       show: function () {
-        $('.screen').hide();
-        $('#send-screen').show();
+        screen.showScreen(screen.send);
       }
     },
 
     send_success: {
+      element: $('#send-success-screen'),
+
       init: function () {
         $('#success-new-report').tap(reload);
       },
 
       show: function () {
-        $('.screen').hide();
-        $('#send-success-screen').show();
+        screen.showScreen(screen.send_success);
       }
     },
 
     send_fail: {
+      element: $('#send-fail-screen'),
+
       init: function () {
         $('#fail-new-report').tap(reload);
       },
 
       show: function () {
-        $('.screen').hide();
-        $('#send-fail-screen').show();
+        screen.showScreen(screen.send_fail);
       }
     }
   };

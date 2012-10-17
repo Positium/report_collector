@@ -15,93 +15,115 @@
       </p>
     </div>
 
-    <div class="screen center" id="intro-screen" style="display: none;">
-      <p class="center">This is the introduction screen.</p>
-      <p class="center">Follow the on-screen instructions to fill out and send a report.</p>
-      <p class="center">You can go back a step at any time by pressing the 'Back' button or swiping the screen to the left.</p>
-      <p class="center">Pressing the 'Next' button or swiping right advances to the next page.</p>
-      <p class="center">
+    <div class="screen" id="intro-screen" style="display: none;">
+      <div class="container">
+        <p class="center">This is the introduction screen.</p>
+        <p class="center">Follow the on-screen instructions to fill out and send a report.</p>
+        <p class="center">You can go back a step at any time by pressing the 'Back' button or swiping the screen to the left.</p>
+        <p class="center">Pressing the 'Next' button or swiping right advances to the next page.</p>
+      </div>
+      
+      <div class="navbar">
         <button class="button-right" id="start-app">Next</button>
-      </p>
+      </div>
     </div>
 
     <div class="screen center" id="take-photo-screen" style="display: none;">
       <p class="center">Tap the camera to take a photo</p>
       <p class="center"><img id="take-photo" src="img/camera.png" alt="Camera" /></p>
+    
+      <div class="navbar">
+        <button class="button-left" id="take-photo-back">Back</button>
+      </div>
     </div>
 
-    <div class="screen center" id="photo-review-screen" style="display: none;">
-      <p class="center" id="photo-review-title"></p>
-      <p class="center"><img class="review-photo" src="" alt="No photo" /></p>
-      <p class="center">
+    <div class="screen" id="photo-review-screen" style="display: none;">
+      <div class="container">
+        <p class="center" id="photo-review-title"></p>
+        <p class="center"><img class="review-photo" src="" alt="No photo" /></p>
+      </div>
+      
+      <div class="navbar">
         <button class="button-left" id="photo-review-retry">Back</button>
         <button class="button-right" id="photo-review-done">Next</button>
-      </p>
+      </div>
     </div>
     
-    <div class="screen center" id="category-screen" style="display: none;">
-      <p class="center">Select category</p>
-      <ul id="category-list">
-      </ul>
-      <p class="center">
+    <div class="screen" id="category-screen" style="display: none;">
+      <div class="container">
+        <p class="center">Select category</p>
+        <ul id="category-list">
+        </ul>
+      </div>
+
+      <div class="navbar">
         <button class="button-left" id="category-back">Back</button>
-        <button class="button-right" id="category-done" style="display: none">Next</button>
-      </p>
+        <button class="button-right" id="category-done">Next</button>
+      </div>
     </div>
     
-    <div class="screen center" id="comment-screen" style="display: none;">
-      <p class="center">Enter any additional information</p>
-      <textarea id="comment-field" placeholder="Optional"></textarea>
-      <p class="center">
+    <div class="screen" id="comment-screen" style="display: none;">
+      <div class="container">
+        <p class="center">Enter any additional information</p>
+        <textarea id="comment-field" placeholder="Optional"></textarea>
+      </div>
+
+      <div class="navbar">
         <button class="button-left" id="comment-back">Back</button>
         <button class="button-right" id="comment-done">Next</button>
-      </p>
+      </div>
     </div>
     
-    <div class="screen center" id="review-screen" style="display: none;">
-      <p class="center">Please review your report</p>
-      <p class="center"><img class="review-photo" src="" alt="No photo" /></p>
-      <p class="center">
-        Category: <span id="review-category"></span>
-      </p>
-      <p class="center">
-        Additional information: <span id="review-comment"></span>
-      </p>
-      <p class="center">
+    <div class="screen" id="review-screen" style="display: none;">
+      <div class="container">
+        <p class="center">Please review your report</p>
+        <p class="center"><img class="review-photo" src="" alt="No photo" /></p>
+        <p class="center">
+          Category: <span id="review-category"></span>
+        </p>
+        <p class="center">
+          Additional information: <span id="review-comment"></span>
+        </p>
+      </div>
+      
+      <div class="navbar">
         <button class="button-left" id="review-back">Back</button>
         <button class="button-right" id="review-done">Send</button>
-      </p>
+      </div>
     </div>
     
     <div class="screen center" id="send-screen" style="display: none;">
       <p class="center">Sending report...</p>
     </div>
-    
-    <div class="screen center" id="send-success-screen" style="display: none;">
-      <p class="center">
-        Thank you for sending your report. We will handle it as soon as possible.
-      </p>
-      <p class="center">
+      
+    <div class="screen" id="send-success-screen" style="display: none;">
+      <div class="container">
+        <p class="center">
+          Thank you for sending your report. We will handle it as soon as possible.
+        </p>
+      </div>
+      
+      <div class="navbar">
         <button class="button-left" id="success-new-report">Create another report</button>
-      </p>
+      </div>
     </div>
     
-    <div class="screen center" id="send-fail-screen" style="display: none;">
-      <p class="center">
-        The report could not be sent at this time.
-      </p>
-      
-      <p class="center">
-        <small>Your device has no active network connection, our servers are down or some other error has occured.</small>
-      </p>
-      
-      <p class="center">
-        <small>The application will try to send the report when you launch it again at some other time.</small>
-      </p>
-
-      <p class="center">
+    <div class="screen" id="send-fail-screen" style="display: none;">
+      <div class="container">
+        <p class="center">
+          The report could not be sent at this time.
+        </p>
+        <p class="center">
+          <small>Your device has no active network connection, our servers are down or some other error has occured.</small>
+        </p>
+        <p class="center">
+          <small>The application will try to send the report when you launch it again at some other time.</small>
+        </p>
+      </div>
+     
+      <div class="navbar">
         <button class="button-left" id="fail-new-report">Create another report</button>
-      </p>
+      </div>
     </div>
 
     <script src="cordova-2.1.0.js"></script>
