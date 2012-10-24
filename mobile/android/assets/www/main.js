@@ -201,12 +201,12 @@
       show: function (error, photo_data) {
         if (error && !(error instanceof Event)) {
           report.photo = null;
-          $('#photo-review-title').text('Could not take photo: ' + error);
+          $('#photo-review-title').text('Viga pildi tegemisel: ' + error);
           $('#review-photo').hide();
           $('#photo-review-done').attr('disabled', 'disabled').hide();
         } else if (photo_data) {
           report.photo = 'data:image/jpeg;base64,' + photo_data;
-          $('#photo-review-title').text('Is this photo suitable?');
+          $('#photo-review-title').text('Kas see pilt sobib?');
           $('.review-photo').attr('src', report.photo).show();
           $('#photo-review-done').removeAttr('disabled').show();
         }
@@ -271,7 +271,7 @@
         if (report.comment.length > 0) {
           $('#review-comment').text(report.comment);
         } else {
-          $('#review-comment').text('None');
+          $('#review-comment').text('Puudub');
         }
 
         screen.review.show();

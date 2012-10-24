@@ -5,124 +5,125 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <link href="main.css" rel="stylesheet" type="text/css"/>    
+    <link href="os-specific.css" rel="stylesheet" type="text/css"/>    
     <title>Report Collector</title>
   </head>
   <body>
 
     <div class="screen center" id="loading-screen">
       <p>
-        Updating categories...
+        Uuendan kategooriaid...
       </p>
     </div>
 
     <div class="screen" id="intro-screen" style="display: none;">
       <div class="container">
-        <p class="center">This is the introduction screen.</p>
-        <p class="center">Follow the on-screen instructions to fill out and send a report.</p>
-        <p class="center">You can go back a step at any time by pressing the 'Back' button or swiping the screen to the left.</p>
-        <p class="center">Pressing the 'Next' button or swiping right advances to the next page.</p>
+        <p class="center">Tutvustus</p>
+        <p class="center">Järgi ekraanil olevaid juhiseid raporti saatmiseks.</p>
+        <p class="center">Sul on võimalik minna samm tagasi kasutades <em>Tagasi</em> nuppu või ekraani sõrmega paremale libistades.</p>
+        <p class="center">Vajutades nuppu <em>Edasi</em> või ekraani vasakule libistades on võimalik liikuda järgmise etapi juurde.</p>
       </div>
       
       <div class="navbar">
-        <button class="button-right" id="start-app">Next</button>
+        <button class="button-right" id="start-app">Edasi</button>
       </div>
     </div>
 
     <div class="screen center" id="take-photo-screen" style="display: none;">
-      <p class="center">Tap the camera to take a photo</p>
+      <p class="center">Foto tegemiseks vajuta kaamera ikoonile</p>
       <p class="center"><img id="take-photo" src="img/camera.png" alt="Camera" /></p>
     
       <div class="navbar">
-        <button class="button-left" id="take-photo-back">Back</button>
+        <button class="button-left" id="take-photo-back">Tagasi</button>
       </div>
     </div>
 
     <div class="screen" id="photo-review-screen" style="display: none;">
       <div class="container">
         <p class="center" id="photo-review-title"></p>
-        <p class="center"><img class="review-photo" src="" alt="No photo" /></p>
+        <p class="center"><img class="review-photo" src="" alt="Pilt puudub" /></p>
       </div>
       
       <div class="navbar">
-        <button class="button-left" id="photo-review-retry">Back</button>
-        <button class="button-right" id="photo-review-done">Next</button>
+        <button class="button-left" id="photo-review-retry">Tagasi</button>
+        <button class="button-right" id="photo-review-done">Edasi</button>
       </div>
     </div>
     
     <div class="screen" id="category-screen" style="display: none;">
       <div class="container">
-        <p class="center">Select category</p>
+        <p class="center">Vali kategooriat</p>
         <ul id="category-list">
         </ul>
       </div>
 
       <div class="navbar">
-        <button class="button-left" id="category-back">Back</button>
-        <button class="button-right" id="category-done">Next</button>
+        <button class="button-left" id="category-back">Tagasi</button>
+        <button class="button-right" id="category-done">Edasi</button>
       </div>
     </div>
     
     <div class="screen" id="comment-screen" style="display: none;">
       <div class="container">
-        <p class="center">Enter any additional information</p>
-        <textarea id="comment-field" placeholder="Optional"></textarea>
+        <p class="center">Lisa kommentaar</p>
+        <textarea id="comment-field" placeholder="See väli on soovituslik"></textarea>
       </div>
 
       <div class="navbar">
-        <button class="button-left" id="comment-back">Back</button>
-        <button class="button-right" id="comment-done">Next</button>
+        <button class="button-left" id="comment-back">Tagasi</button>
+        <button class="button-right" id="comment-done">Edasi</button>
       </div>
     </div>
     
     <div class="screen" id="review-screen" style="display: none;">
       <div class="container">
-        <p class="center">Please review your report</p>
-        <p class="center"><img class="review-photo" src="" alt="No photo" /></p>
+        <p class="center">Raporti eelvaade</p>
+        <p class="center"><img class="review-photo" src="" alt="Pilt puudub" /></p>
         <p class="center">
-          Category: <span id="review-category"></span>
+          Kategooria: <span id="review-category"></span>
         </p>
         <p class="center">
-          Additional information: <span id="review-comment"></span>
+          Kommentaar: <span id="review-comment"></span>
         </p>
       </div>
       
       <div class="navbar">
-        <button class="button-left" id="review-back">Back</button>
-        <button class="button-right" id="review-done">Send</button>
+        <button class="button-left" id="review-back">Tagasi</button>
+        <button class="button-right" id="review-done">Saada</button>
       </div>
     </div>
     
     <div class="screen center" id="send-screen" style="display: none;">
-      <p class="center">Sending report...</p>
+      <p class="center">Saadan raporti...</p>
     </div>
       
     <div class="screen" id="send-success-screen" style="display: none;">
       <div class="container">
         <p class="center">
-          Thank you for sending your report. We will handle it as soon as possible.
+          Täname. Teie raport on saadetud. Tegeleme sellega esimesel võimalusel.
         </p>
       </div>
       
       <div class="navbar">
-        <button class="button-left" id="success-new-report">Create another report</button>
+        <button class="button-left" id="success-new-report">Loo uus</button>
       </div>
     </div>
     
     <div class="screen" id="send-fail-screen" style="display: none;">
       <div class="container">
         <p class="center">
-          The report could not be sent at this time.
+          Raportit pole hetkel võimalik saata.
         </p>
         <p class="center">
-          <small>Your device has no active network connection, our servers are down or some other error has occured.</small>
+          <small>Sinu seadmel pole hetkel internetiühendust, meie server on maas või mõni muu probleem on ilmnenud.</small>
         </p>
         <p class="center">
-          <small>The application will try to send the report when you launch it again at some other time.</small>
+          <small>Rakendus proovib saata raportit järgmine kord kui sa rakenduse käivitad.</small>
         </p>
       </div>
      
       <div class="navbar">
-        <button class="button-left" id="fail-new-report">Create another report</button>
+        <button class="button-left" id="fail-new-report">Loo uus</button>
       </div>
     </div>
 
