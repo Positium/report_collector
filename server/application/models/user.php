@@ -1,7 +1,7 @@
 <?php
 Class User extends CI_Model  {
     function login($username, $password) {
-        $this -> db -> select('username');
+        $this -> db -> select('username, id, region_id');
         $this -> db -> from('users');
         $this -> db -> where('username = ' . "'" . $username . "'");	   
         $this -> db -> where('password = crypt(' . "'" .$password . "'".',password)');

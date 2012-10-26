@@ -11,8 +11,8 @@ class Receiver extends CI_Controller {
     {   
         if (isset($_POST['submit'])) {
             $this->load->model('report_post');
-            $string_photo=explode(",",$this->input->post('photo'));    
-            $image_string = str_replace(array("\\\\", "''"), array("\\", "'"),pg_escape_bytea(base64_decode($string_photo[1])));
+            $string_photo=explode("[removed]",$this->input->post('photo'),2);
+	    $image_string = str_replace(array("\\\\", "''"), array("\\", "'"),pg_escape_bytea(base64_decode($string_photo[1])));
             $report = array(
                 'device_id' => $this->input->post('uuid'),
                 'timestamp_n' => date("Y-m-d H:i:s",$this->input->post('timestamp')),
