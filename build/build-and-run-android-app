@@ -22,7 +22,7 @@ echo "------<MOCK LOCATION>-----------------------------------------------------
 echo "Sending mock location (Tartu Kaubamaja) to emulator (if needed)" && \
 nc localhost 5554 < ../../build/geo-fix ; \
 echo "------<REMOVE OLD VERSIONS>-----------------------------------------------" && \
-echo -n "Uninstalling any existing versions (Failure is OK): " && \
+echo "Uninstalling any existing versions (Failure is OK) " && \
 adb uninstall ee.positium.reportcollector && \
 echo "------<COMPILE & INSTALL>---------------------------------------------------------------" && \
 cordova/debug && \
