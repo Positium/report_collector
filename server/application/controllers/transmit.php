@@ -36,11 +36,7 @@ class Transmit extends CI_Controller {
                 "ID_CATEGORY"=> $row_of_properties->primary_id,
                 "COMMENTARY" => $row_of_properties->commentary,
                 "COLOR" =>$row_of_properties->color,
-<<<<<<< HEAD
                 "GPS_ACCURACY"=>$row_of_properties->gps_accuracy."m",
-=======
-                "GPS_ACCURACY"=>$row_of_properties->gps_accuracy,
->>>>>>> 865d6cd9c158bc7e4a6dfd58090b7e21b13950aa
                 );
             $feature = array(
                 "type" => "Feature",

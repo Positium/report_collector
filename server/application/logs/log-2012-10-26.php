@@ -7255,3 +7255,1014 @@ DEBUG - 2012-10-26 22:09:02 --> Model Class Initialized
 DEBUG - 2012-10-26 22:09:03 --> File loaded: application/views/photo_respond.php
 DEBUG - 2012-10-26 22:09:03 --> Final output sent to browser
 DEBUG - 2012-10-26 22:09:03 --> Total execution time: 1.5059
+DEBUG - 2012-10-26 23:09:32 --> Config Class Initialized
+DEBUG - 2012-10-26 23:09:33 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:09:33 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:09:33 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:09:33 --> URI Class Initialized
+DEBUG - 2012-10-26 23:09:33 --> Router Class Initialized
+DEBUG - 2012-10-26 23:09:33 --> Output Class Initialized
+DEBUG - 2012-10-26 23:09:33 --> Security Class Initialized
+DEBUG - 2012-10-26 23:09:33 --> Input Class Initialized
+DEBUG - 2012-10-26 23:09:33 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:09:33 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:09:33 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:09:33 --> Language Class Initialized
+DEBUG - 2012-10-26 23:09:33 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:09:33 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:09:33 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:09:33 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:09:33 --> Session Class Initialized
+DEBUG - 2012-10-26 23:09:33 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:09:33 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:09:34 --> Session routines successfully run
+DEBUG - 2012-10-26 23:09:34 --> Model Class Initialized
+DEBUG - 2012-10-26 23:09:34 --> Model Class Initialized
+DEBUG - 2012-10-26 23:09:34 --> File loaded: application/views/geojson_respond.php
+DEBUG - 2012-10-26 23:09:34 --> Final output sent to browser
+DEBUG - 2012-10-26 23:09:34 --> Total execution time: 1.2660
+DEBUG - 2012-10-26 23:36:53 --> Config Class Initialized
+DEBUG - 2012-10-26 23:36:54 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:36:54 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:36:54 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:36:54 --> URI Class Initialized
+DEBUG - 2012-10-26 23:36:54 --> Router Class Initialized
+DEBUG - 2012-10-26 23:36:54 --> Output Class Initialized
+DEBUG - 2012-10-26 23:36:54 --> Security Class Initialized
+DEBUG - 2012-10-26 23:36:54 --> Input Class Initialized
+DEBUG - 2012-10-26 23:36:54 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:36:54 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:36:54 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:36:54 --> Language Class Initialized
+DEBUG - 2012-10-26 23:36:54 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:36:54 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:36:54 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:36:54 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:36:54 --> Session Class Initialized
+DEBUG - 2012-10-26 23:36:54 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:36:54 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:36:55 --> Session routines successfully run
+DEBUG - 2012-10-26 23:36:55 --> File loaded: application/views/main_view.php
+DEBUG - 2012-10-26 23:36:55 --> Final output sent to browser
+DEBUG - 2012-10-26 23:36:55 --> Total execution time: 1.4572
+DEBUG - 2012-10-26 23:36:59 --> Config Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Config Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Config Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Config Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:36:59 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:36:59 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> URI Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> URI Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Router Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:36:59 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:36:59 --> URI Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Router Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Output Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> URI Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Output Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Router Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Output Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Router Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Security Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Security Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Input Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Output Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:36:59 --> Security Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Input Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Input Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:36:59 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:36:59 --> Security Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Input Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:36:59 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:36:59 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:36:59 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:36:59 --> Language Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:36:59 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:36:59 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:36:59 --> Language Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:36:59 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:36:59 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:36:59 --> Language Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Language Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:36:59 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:36:59 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:36:59 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:36:59 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Model Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Session Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Model Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Session Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:37:00 --> Session Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:37:00 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:37:00 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Session routines successfully run
+DEBUG - 2012-10-26 23:37:00 --> Session routines successfully run
+DEBUG - 2012-10-26 23:37:00 --> Model Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Final output sent to browser
+DEBUG - 2012-10-26 23:37:00 --> Session routines successfully run
+DEBUG - 2012-10-26 23:37:00 --> Total execution time: 1.1361
+DEBUG - 2012-10-26 23:37:00 --> Model Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Final output sent to browser
+DEBUG - 2012-10-26 23:37:00 --> Total execution time: 1.1925
+DEBUG - 2012-10-26 23:37:00 --> File loaded: application/views/geojson_respond.php
+DEBUG - 2012-10-26 23:37:00 --> Final output sent to browser
+DEBUG - 2012-10-26 23:37:00 --> Total execution time: 1.2814
+DEBUG - 2012-10-26 23:37:00 --> Final output sent to browser
+DEBUG - 2012-10-26 23:37:00 --> Total execution time: 1.3314
+DEBUG - 2012-10-26 23:37:00 --> Config Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:37:00 --> URI Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Router Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Output Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Security Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Input Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:37:00 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:37:00 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:37:00 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:37:00 --> Language Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:37:00 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:37:00 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:37:01 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:37:01 --> Session Class Initialized
+DEBUG - 2012-10-26 23:37:01 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:37:01 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:37:01 --> Session routines successfully run
+DEBUG - 2012-10-26 23:37:01 --> Model Class Initialized
+DEBUG - 2012-10-26 23:37:01 --> Model Class Initialized
+DEBUG - 2012-10-26 23:37:01 --> Model Class Initialized
+DEBUG - 2012-10-26 23:37:01 --> File loaded: application/views/category_respond.php
+DEBUG - 2012-10-26 23:37:01 --> Final output sent to browser
+DEBUG - 2012-10-26 23:37:01 --> Total execution time: 0.6398
+DEBUG - 2012-10-26 23:37:06 --> Config Class Initialized
+DEBUG - 2012-10-26 23:37:06 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:37:06 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:37:06 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:37:06 --> URI Class Initialized
+DEBUG - 2012-10-26 23:37:06 --> Router Class Initialized
+DEBUG - 2012-10-26 23:37:06 --> Output Class Initialized
+DEBUG - 2012-10-26 23:37:06 --> Security Class Initialized
+DEBUG - 2012-10-26 23:37:06 --> Input Class Initialized
+DEBUG - 2012-10-26 23:37:06 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:37:06 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:37:06 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:37:06 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:37:06 --> Language Class Initialized
+DEBUG - 2012-10-26 23:37:07 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:37:07 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:37:07 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:37:07 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:37:07 --> Session Class Initialized
+DEBUG - 2012-10-26 23:37:07 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:37:07 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:37:07 --> Session routines successfully run
+DEBUG - 2012-10-26 23:37:07 --> Model Class Initialized
+DEBUG - 2012-10-26 23:37:07 --> Model Class Initialized
+DEBUG - 2012-10-26 23:37:07 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:37:07 --> Final output sent to browser
+DEBUG - 2012-10-26 23:37:07 --> Total execution time: 1.5242
+DEBUG - 2012-10-26 23:37:58 --> Config Class Initialized
+DEBUG - 2012-10-26 23:37:58 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:37:58 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:37:58 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:37:58 --> URI Class Initialized
+DEBUG - 2012-10-26 23:37:58 --> Router Class Initialized
+DEBUG - 2012-10-26 23:37:58 --> Output Class Initialized
+DEBUG - 2012-10-26 23:37:58 --> Security Class Initialized
+DEBUG - 2012-10-26 23:37:58 --> Input Class Initialized
+DEBUG - 2012-10-26 23:37:58 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:37:58 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:37:59 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:37:59 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:37:59 --> Language Class Initialized
+DEBUG - 2012-10-26 23:37:59 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:37:59 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:37:59 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:37:59 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:37:59 --> Session Class Initialized
+DEBUG - 2012-10-26 23:37:59 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:37:59 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:37:59 --> Session routines successfully run
+DEBUG - 2012-10-26 23:37:59 --> Model Class Initialized
+DEBUG - 2012-10-26 23:37:59 --> Model Class Initialized
+DEBUG - 2012-10-26 23:38:00 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:38:00 --> Final output sent to browser
+DEBUG - 2012-10-26 23:38:00 --> Total execution time: 1.6923
+DEBUG - 2012-10-26 23:40:01 --> Config Class Initialized
+DEBUG - 2012-10-26 23:40:01 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:40:01 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:40:01 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:40:01 --> URI Class Initialized
+DEBUG - 2012-10-26 23:40:01 --> Router Class Initialized
+DEBUG - 2012-10-26 23:40:01 --> Output Class Initialized
+DEBUG - 2012-10-26 23:40:02 --> Security Class Initialized
+DEBUG - 2012-10-26 23:40:02 --> Input Class Initialized
+DEBUG - 2012-10-26 23:40:02 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:02 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:02 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:40:02 --> Language Class Initialized
+DEBUG - 2012-10-26 23:40:02 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:40:02 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:40:02 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:40:02 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:40:02 --> Session Class Initialized
+DEBUG - 2012-10-26 23:40:02 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:40:02 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:40:02 --> Session routines successfully run
+DEBUG - 2012-10-26 23:40:02 --> File loaded: application/views/main_view.php
+DEBUG - 2012-10-26 23:40:02 --> Final output sent to browser
+DEBUG - 2012-10-26 23:40:02 --> Total execution time: 1.0609
+DEBUG - 2012-10-26 23:40:04 --> Config Class Initialized
+DEBUG - 2012-10-26 23:40:04 --> Config Class Initialized
+DEBUG - 2012-10-26 23:40:04 --> Config Class Initialized
+DEBUG - 2012-10-26 23:40:04 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:40:04 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:40:04 --> Config Class Initialized
+DEBUG - 2012-10-26 23:40:04 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:40:04 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:40:04 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:40:05 --> URI Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Router Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:40:05 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:40:05 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> URI Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Output Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:40:05 --> URI Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Security Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Input Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Router Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:05 --> Router Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> URI Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Output Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:05 --> Output Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:40:05 --> Router Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Security Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Language Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Output Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Security Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Input Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Security Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Input Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:05 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:05 --> Input Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:05 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:40:05 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:40:05 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:05 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:40:05 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:05 --> Language Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:05 --> Language Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:40:05 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:40:05 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:40:05 --> Language Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Session Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:40:05 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:40:05 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Session Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:40:05 --> Session routines successfully run
+DEBUG - 2012-10-26 23:40:05 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:40:06 --> Session Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:40:06 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Session routines successfully run
+DEBUG - 2012-10-26 23:40:06 --> Session routines successfully run
+DEBUG - 2012-10-26 23:40:06 --> File loaded: application/views/geojson_respond.php
+DEBUG - 2012-10-26 23:40:06 --> Final output sent to browser
+DEBUG - 2012-10-26 23:40:06 --> Final output sent to browser
+DEBUG - 2012-10-26 23:40:06 --> Final output sent to browser
+DEBUG - 2012-10-26 23:40:06 --> Total execution time: 1.5545
+DEBUG - 2012-10-26 23:40:06 --> Total execution time: 1.6008
+DEBUG - 2012-10-26 23:40:06 --> Total execution time: 1.6348
+DEBUG - 2012-10-26 23:40:06 --> Final output sent to browser
+DEBUG - 2012-10-26 23:40:06 --> Total execution time: 1.7334
+DEBUG - 2012-10-26 23:40:06 --> Config Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:40:06 --> URI Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Router Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Output Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Security Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Input Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:06 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:06 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:06 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:40:06 --> Language Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:40:06 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Session Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:40:06 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Session routines successfully run
+DEBUG - 2012-10-26 23:40:06 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:06 --> File loaded: application/views/category_respond.php
+DEBUG - 2012-10-26 23:40:07 --> Final output sent to browser
+DEBUG - 2012-10-26 23:40:07 --> Total execution time: 0.6567
+DEBUG - 2012-10-26 23:40:08 --> Config Class Initialized
+DEBUG - 2012-10-26 23:40:08 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:40:08 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:40:08 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:40:08 --> URI Class Initialized
+DEBUG - 2012-10-26 23:40:08 --> Router Class Initialized
+DEBUG - 2012-10-26 23:40:08 --> Output Class Initialized
+DEBUG - 2012-10-26 23:40:08 --> Security Class Initialized
+DEBUG - 2012-10-26 23:40:08 --> Input Class Initialized
+DEBUG - 2012-10-26 23:40:08 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:08 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:08 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:08 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:40:08 --> Language Class Initialized
+DEBUG - 2012-10-26 23:40:08 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:40:08 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:40:08 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:40:08 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:40:08 --> Session Class Initialized
+DEBUG - 2012-10-26 23:40:08 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:40:08 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:40:08 --> Session routines successfully run
+DEBUG - 2012-10-26 23:40:09 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:09 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:09 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:40:09 --> Final output sent to browser
+DEBUG - 2012-10-26 23:40:09 --> Total execution time: 1.1724
+DEBUG - 2012-10-26 23:40:39 --> Config Class Initialized
+DEBUG - 2012-10-26 23:40:39 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:40:39 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:40:39 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:40:39 --> URI Class Initialized
+DEBUG - 2012-10-26 23:40:39 --> Router Class Initialized
+DEBUG - 2012-10-26 23:40:39 --> Output Class Initialized
+DEBUG - 2012-10-26 23:40:39 --> Security Class Initialized
+DEBUG - 2012-10-26 23:40:39 --> Input Class Initialized
+DEBUG - 2012-10-26 23:40:39 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:39 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:39 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:40:39 --> Language Class Initialized
+DEBUG - 2012-10-26 23:40:39 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:40:39 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:40:39 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:40:39 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:40:39 --> Session Class Initialized
+DEBUG - 2012-10-26 23:40:40 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:40:40 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:40:40 --> Session routines successfully run
+DEBUG - 2012-10-26 23:40:40 --> File loaded: application/views/main_view.php
+DEBUG - 2012-10-26 23:40:40 --> Final output sent to browser
+DEBUG - 2012-10-26 23:40:40 --> Total execution time: 1.1933
+DEBUG - 2012-10-26 23:40:42 --> Config Class Initialized
+DEBUG - 2012-10-26 23:40:42 --> Config Class Initialized
+DEBUG - 2012-10-26 23:40:42 --> Config Class Initialized
+DEBUG - 2012-10-26 23:40:42 --> Config Class Initialized
+DEBUG - 2012-10-26 23:40:42 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:40:42 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:40:42 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:40:42 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:40:42 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:40:42 --> URI Class Initialized
+DEBUG - 2012-10-26 23:40:42 --> Router Class Initialized
+DEBUG - 2012-10-26 23:40:42 --> Output Class Initialized
+DEBUG - 2012-10-26 23:40:42 --> Security Class Initialized
+DEBUG - 2012-10-26 23:40:42 --> Input Class Initialized
+DEBUG - 2012-10-26 23:40:42 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:42 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:42 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:40:42 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:40:43 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> Language Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:40:43 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:40:43 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> Session Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> URI Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:40:43 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:40:43 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:40:43 --> URI Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> Router Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> Output Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> Security Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> Input Class Initialized
+DEBUG - 2012-10-26 23:40:43 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:44 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:44 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:40:44 --> Language Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> URI Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:40:44 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Router Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Output Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Security Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Input Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:44 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:44 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:40:44 --> Language Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Session routines successfully run
+DEBUG - 2012-10-26 23:40:44 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:40:44 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Router Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Final output sent to browser
+DEBUG - 2012-10-26 23:40:44 --> Total execution time: 2.3384
+DEBUG - 2012-10-26 23:40:44 --> Output Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Security Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Final output sent to browser
+DEBUG - 2012-10-26 23:40:44 --> Input Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Session Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Total execution time: 2.5195
+DEBUG - 2012-10-26 23:40:44 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:44 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:40:44 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:44 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Config Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:40:44 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Session routines successfully run
+DEBUG - 2012-10-26 23:40:44 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:40:44 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> URI Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Language Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Router Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Output Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Security Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> File loaded: application/views/geojson_respond.php
+DEBUG - 2012-10-26 23:40:44 --> Final output sent to browser
+DEBUG - 2012-10-26 23:40:44 --> Input Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Total execution time: 2.8227
+DEBUG - 2012-10-26 23:40:44 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:44 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:40:44 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:44 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> Session Class Initialized
+DEBUG - 2012-10-26 23:40:44 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:45 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:40:45 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:40:45 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:40:45 --> Session routines successfully run
+DEBUG - 2012-10-26 23:40:45 --> Final output sent to browser
+DEBUG - 2012-10-26 23:40:45 --> Language Class Initialized
+DEBUG - 2012-10-26 23:40:45 --> Total execution time: 3.0215
+DEBUG - 2012-10-26 23:40:45 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:40:45 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:40:45 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:40:45 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:40:45 --> Session Class Initialized
+DEBUG - 2012-10-26 23:40:45 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:40:45 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:40:45 --> Session routines successfully run
+DEBUG - 2012-10-26 23:40:45 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:45 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:45 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:45 --> File loaded: application/views/category_respond.php
+DEBUG - 2012-10-26 23:40:45 --> Final output sent to browser
+DEBUG - 2012-10-26 23:40:45 --> Total execution time: 0.8573
+DEBUG - 2012-10-26 23:40:46 --> Config Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:40:46 --> URI Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> Router Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> Output Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> Security Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> Input Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:46 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:46 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:40:46 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:40:46 --> Language Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:40:46 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> Session Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:40:46 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> Session routines successfully run
+DEBUG - 2012-10-26 23:40:46 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:46 --> Model Class Initialized
+DEBUG - 2012-10-26 23:40:47 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:40:47 --> Final output sent to browser
+DEBUG - 2012-10-26 23:40:47 --> Total execution time: 0.7954
+DEBUG - 2012-10-26 23:41:18 --> Config Class Initialized
+DEBUG - 2012-10-26 23:41:18 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:41:18 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:41:18 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:41:18 --> URI Class Initialized
+DEBUG - 2012-10-26 23:41:18 --> Router Class Initialized
+DEBUG - 2012-10-26 23:41:18 --> Output Class Initialized
+DEBUG - 2012-10-26 23:41:18 --> Security Class Initialized
+DEBUG - 2012-10-26 23:41:18 --> Input Class Initialized
+DEBUG - 2012-10-26 23:41:18 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:41:18 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:41:18 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:41:18 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:41:18 --> Language Class Initialized
+DEBUG - 2012-10-26 23:41:18 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:41:18 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:41:18 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:41:19 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:41:19 --> Session Class Initialized
+DEBUG - 2012-10-26 23:41:19 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:41:19 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:41:19 --> Session routines successfully run
+DEBUG - 2012-10-26 23:41:19 --> Model Class Initialized
+DEBUG - 2012-10-26 23:41:19 --> Model Class Initialized
+DEBUG - 2012-10-26 23:41:19 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:41:19 --> Final output sent to browser
+DEBUG - 2012-10-26 23:41:19 --> Total execution time: 1.3369
+DEBUG - 2012-10-26 23:41:26 --> Config Class Initialized
+DEBUG - 2012-10-26 23:41:26 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:41:26 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:41:26 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:41:26 --> URI Class Initialized
+DEBUG - 2012-10-26 23:41:26 --> Router Class Initialized
+DEBUG - 2012-10-26 23:41:26 --> Output Class Initialized
+DEBUG - 2012-10-26 23:41:26 --> Security Class Initialized
+DEBUG - 2012-10-26 23:41:26 --> Input Class Initialized
+DEBUG - 2012-10-26 23:41:26 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:41:26 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:41:27 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:41:27 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:41:27 --> Language Class Initialized
+DEBUG - 2012-10-26 23:41:27 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:41:27 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:41:27 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:41:27 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:41:27 --> Session Class Initialized
+DEBUG - 2012-10-26 23:41:27 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:41:27 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:41:27 --> Session routines successfully run
+DEBUG - 2012-10-26 23:41:27 --> Model Class Initialized
+DEBUG - 2012-10-26 23:41:27 --> Model Class Initialized
+DEBUG - 2012-10-26 23:41:33 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:41:33 --> Final output sent to browser
+DEBUG - 2012-10-26 23:41:33 --> Total execution time: 6.3826
+DEBUG - 2012-10-26 23:41:57 --> Config Class Initialized
+DEBUG - 2012-10-26 23:41:57 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:41:57 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:41:58 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:41:58 --> URI Class Initialized
+DEBUG - 2012-10-26 23:41:58 --> Router Class Initialized
+DEBUG - 2012-10-26 23:41:58 --> Output Class Initialized
+DEBUG - 2012-10-26 23:41:58 --> Security Class Initialized
+DEBUG - 2012-10-26 23:41:58 --> Input Class Initialized
+DEBUG - 2012-10-26 23:41:58 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:41:58 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:41:58 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:41:58 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:41:58 --> Language Class Initialized
+DEBUG - 2012-10-26 23:41:58 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:41:58 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:41:58 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:41:58 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:41:58 --> Session Class Initialized
+DEBUG - 2012-10-26 23:41:58 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:41:58 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:41:58 --> Session routines successfully run
+DEBUG - 2012-10-26 23:41:58 --> Model Class Initialized
+DEBUG - 2012-10-26 23:41:58 --> Model Class Initialized
+DEBUG - 2012-10-26 23:41:59 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:41:59 --> Final output sent to browser
+DEBUG - 2012-10-26 23:41:59 --> Total execution time: 1.4006
+DEBUG - 2012-10-26 23:42:40 --> Config Class Initialized
+DEBUG - 2012-10-26 23:42:40 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:42:40 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:42:40 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:42:40 --> URI Class Initialized
+DEBUG - 2012-10-26 23:42:40 --> Router Class Initialized
+DEBUG - 2012-10-26 23:42:40 --> Output Class Initialized
+DEBUG - 2012-10-26 23:42:40 --> Security Class Initialized
+DEBUG - 2012-10-26 23:42:40 --> Input Class Initialized
+DEBUG - 2012-10-26 23:42:40 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:42:40 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:42:41 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:42:41 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:42:41 --> Language Class Initialized
+DEBUG - 2012-10-26 23:42:41 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:42:41 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:42:41 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:42:41 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:42:41 --> Session Class Initialized
+DEBUG - 2012-10-26 23:42:41 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:42:41 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:42:41 --> Session routines successfully run
+DEBUG - 2012-10-26 23:42:41 --> Model Class Initialized
+DEBUG - 2012-10-26 23:42:41 --> Model Class Initialized
+DEBUG - 2012-10-26 23:42:42 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:42:42 --> Final output sent to browser
+DEBUG - 2012-10-26 23:42:42 --> Total execution time: 1.9373
+DEBUG - 2012-10-26 23:42:54 --> Config Class Initialized
+DEBUG - 2012-10-26 23:42:54 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:42:54 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:42:54 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:42:54 --> URI Class Initialized
+DEBUG - 2012-10-26 23:42:54 --> Router Class Initialized
+DEBUG - 2012-10-26 23:42:54 --> Output Class Initialized
+DEBUG - 2012-10-26 23:42:54 --> Security Class Initialized
+DEBUG - 2012-10-26 23:42:54 --> Input Class Initialized
+DEBUG - 2012-10-26 23:42:54 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:42:54 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:42:54 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:42:54 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:42:54 --> Language Class Initialized
+DEBUG - 2012-10-26 23:42:54 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:42:54 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:42:54 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:42:54 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:42:54 --> Session Class Initialized
+DEBUG - 2012-10-26 23:42:55 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:42:55 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:42:55 --> Session routines successfully run
+DEBUG - 2012-10-26 23:42:55 --> Model Class Initialized
+DEBUG - 2012-10-26 23:42:55 --> Model Class Initialized
+DEBUG - 2012-10-26 23:42:56 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:42:56 --> Final output sent to browser
+DEBUG - 2012-10-26 23:42:56 --> Total execution time: 2.7548
+DEBUG - 2012-10-26 23:42:59 --> Config Class Initialized
+DEBUG - 2012-10-26 23:42:59 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:42:59 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:43:00 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:43:00 --> URI Class Initialized
+DEBUG - 2012-10-26 23:43:00 --> Router Class Initialized
+DEBUG - 2012-10-26 23:43:00 --> Output Class Initialized
+DEBUG - 2012-10-26 23:43:00 --> Security Class Initialized
+DEBUG - 2012-10-26 23:43:00 --> Input Class Initialized
+DEBUG - 2012-10-26 23:43:00 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:00 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:00 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:00 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:43:00 --> Language Class Initialized
+DEBUG - 2012-10-26 23:43:00 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:43:00 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:43:00 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:43:00 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:43:00 --> Session Class Initialized
+DEBUG - 2012-10-26 23:43:00 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:43:00 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:43:00 --> Session routines successfully run
+DEBUG - 2012-10-26 23:43:00 --> Model Class Initialized
+DEBUG - 2012-10-26 23:43:00 --> Model Class Initialized
+DEBUG - 2012-10-26 23:43:01 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:43:01 --> Final output sent to browser
+DEBUG - 2012-10-26 23:43:01 --> Total execution time: 1.9752
+DEBUG - 2012-10-26 23:43:04 --> Config Class Initialized
+DEBUG - 2012-10-26 23:43:04 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:43:04 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:43:05 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:43:05 --> URI Class Initialized
+DEBUG - 2012-10-26 23:43:05 --> Router Class Initialized
+DEBUG - 2012-10-26 23:43:05 --> Output Class Initialized
+DEBUG - 2012-10-26 23:43:05 --> Security Class Initialized
+DEBUG - 2012-10-26 23:43:05 --> Input Class Initialized
+DEBUG - 2012-10-26 23:43:05 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:05 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:05 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:05 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:43:05 --> Language Class Initialized
+DEBUG - 2012-10-26 23:43:05 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:43:05 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:43:05 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:43:05 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:43:05 --> Session Class Initialized
+DEBUG - 2012-10-26 23:43:05 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:43:05 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:43:05 --> Session routines successfully run
+DEBUG - 2012-10-26 23:43:05 --> Model Class Initialized
+DEBUG - 2012-10-26 23:43:05 --> Model Class Initialized
+DEBUG - 2012-10-26 23:43:05 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:43:06 --> Final output sent to browser
+DEBUG - 2012-10-26 23:43:06 --> Total execution time: 1.1612
+DEBUG - 2012-10-26 23:43:11 --> Config Class Initialized
+DEBUG - 2012-10-26 23:43:11 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:43:11 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:43:11 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:43:11 --> URI Class Initialized
+DEBUG - 2012-10-26 23:43:11 --> Router Class Initialized
+DEBUG - 2012-10-26 23:43:11 --> Output Class Initialized
+DEBUG - 2012-10-26 23:43:11 --> Security Class Initialized
+DEBUG - 2012-10-26 23:43:11 --> Input Class Initialized
+DEBUG - 2012-10-26 23:43:11 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:11 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:11 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:12 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:43:12 --> Language Class Initialized
+DEBUG - 2012-10-26 23:43:12 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:43:12 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:43:12 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:43:12 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:43:12 --> Session Class Initialized
+DEBUG - 2012-10-26 23:43:12 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:43:12 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:43:12 --> Session routines successfully run
+DEBUG - 2012-10-26 23:43:12 --> Model Class Initialized
+DEBUG - 2012-10-26 23:43:12 --> Model Class Initialized
+DEBUG - 2012-10-26 23:43:12 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:43:12 --> Final output sent to browser
+DEBUG - 2012-10-26 23:43:12 --> Total execution time: 1.4064
+DEBUG - 2012-10-26 23:43:21 --> Config Class Initialized
+DEBUG - 2012-10-26 23:43:21 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:43:21 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:43:21 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:43:21 --> URI Class Initialized
+DEBUG - 2012-10-26 23:43:21 --> Router Class Initialized
+DEBUG - 2012-10-26 23:43:21 --> Output Class Initialized
+DEBUG - 2012-10-26 23:43:21 --> Security Class Initialized
+DEBUG - 2012-10-26 23:43:21 --> Input Class Initialized
+DEBUG - 2012-10-26 23:43:21 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:21 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:21 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:21 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:43:21 --> Language Class Initialized
+DEBUG - 2012-10-26 23:43:21 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:43:22 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:43:22 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:43:22 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:43:22 --> Session Class Initialized
+DEBUG - 2012-10-26 23:43:22 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:43:22 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:43:22 --> Session routines successfully run
+DEBUG - 2012-10-26 23:43:22 --> Model Class Initialized
+DEBUG - 2012-10-26 23:43:22 --> Model Class Initialized
+DEBUG - 2012-10-26 23:43:22 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:43:22 --> Final output sent to browser
+DEBUG - 2012-10-26 23:43:22 --> Total execution time: 1.6869
+DEBUG - 2012-10-26 23:43:29 --> Config Class Initialized
+DEBUG - 2012-10-26 23:43:29 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:43:29 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:43:29 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:43:29 --> URI Class Initialized
+DEBUG - 2012-10-26 23:43:29 --> Router Class Initialized
+DEBUG - 2012-10-26 23:43:29 --> Output Class Initialized
+DEBUG - 2012-10-26 23:43:29 --> Security Class Initialized
+DEBUG - 2012-10-26 23:43:29 --> Input Class Initialized
+DEBUG - 2012-10-26 23:43:29 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:29 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:29 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:43:30 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:43:30 --> Language Class Initialized
+DEBUG - 2012-10-26 23:43:30 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:43:30 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:43:30 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:43:30 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:43:30 --> Session Class Initialized
+DEBUG - 2012-10-26 23:43:30 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:43:30 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:43:30 --> Session routines successfully run
+DEBUG - 2012-10-26 23:43:30 --> Model Class Initialized
+DEBUG - 2012-10-26 23:43:30 --> Model Class Initialized
+DEBUG - 2012-10-26 23:43:30 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:43:30 --> Final output sent to browser
+DEBUG - 2012-10-26 23:43:31 --> Total execution time: 1.5752
+DEBUG - 2012-10-26 23:44:53 --> Config Class Initialized
+DEBUG - 2012-10-26 23:44:53 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:44:53 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:44:53 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:44:53 --> URI Class Initialized
+DEBUG - 2012-10-26 23:44:53 --> Router Class Initialized
+DEBUG - 2012-10-26 23:44:53 --> Output Class Initialized
+DEBUG - 2012-10-26 23:44:53 --> Security Class Initialized
+DEBUG - 2012-10-26 23:44:53 --> Input Class Initialized
+DEBUG - 2012-10-26 23:44:54 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:44:54 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:44:54 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:44:54 --> Language Class Initialized
+DEBUG - 2012-10-26 23:44:54 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:44:54 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:44:54 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:44:54 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:44:54 --> Session Class Initialized
+DEBUG - 2012-10-26 23:44:54 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:44:54 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:44:54 --> Session routines successfully run
+DEBUG - 2012-10-26 23:44:54 --> File loaded: application/views/main_view.php
+DEBUG - 2012-10-26 23:44:55 --> Final output sent to browser
+DEBUG - 2012-10-26 23:44:55 --> Total execution time: 1.4634
+DEBUG - 2012-10-26 23:44:56 --> Config Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Config Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Config Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Config Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:44:56 --> URI Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Router Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Output Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Security Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Input Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:44:56 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:44:56 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:44:56 --> URI Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Router Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:44:56 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:44:56 --> URI Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:44:56 --> Output Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Language Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> URI Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Router Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Security Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Router Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:44:56 --> Input Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Output Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Output Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:44:56 --> Security Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:44:56 --> Security Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:44:56 --> Session Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:44:56 --> Input Class Initialized
+DEBUG - 2012-10-26 23:44:56 --> Input Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Language Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:44:57 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:44:57 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Session routines successfully run
+DEBUG - 2012-10-26 23:44:57 --> Final output sent to browser
+DEBUG - 2012-10-26 23:44:57 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:44:57 --> Total execution time: 0.9663
+DEBUG - 2012-10-26 23:44:57 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:44:57 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:44:57 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:44:57 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:44:57 --> Language Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Language Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Session Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:44:57 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:44:57 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:44:57 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Session routines successfully run
+DEBUG - 2012-10-26 23:44:57 --> Final output sent to browser
+DEBUG - 2012-10-26 23:44:57 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Model Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Total execution time: 1.1619
+DEBUG - 2012-10-26 23:44:57 --> Model Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Session Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:44:57 --> Final output sent to browser
+DEBUG - 2012-10-26 23:44:57 --> Total execution time: 1.3798
+DEBUG - 2012-10-26 23:44:57 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Session routines successfully run
+DEBUG - 2012-10-26 23:44:57 --> Config Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Model Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Model Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:44:57 --> URI Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Router Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Output Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Security Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> File loaded: application/views/geojson_respond.php
+DEBUG - 2012-10-26 23:44:57 --> Final output sent to browser
+DEBUG - 2012-10-26 23:44:57 --> Input Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Total execution time: 1.6604
+DEBUG - 2012-10-26 23:44:57 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:44:57 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:44:57 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:44:57 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:44:57 --> Language Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:44:57 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:44:57 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:44:58 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:44:58 --> Session Class Initialized
+DEBUG - 2012-10-26 23:44:58 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:44:58 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:44:58 --> Session routines successfully run
+DEBUG - 2012-10-26 23:44:58 --> Model Class Initialized
+DEBUG - 2012-10-26 23:44:58 --> Model Class Initialized
+DEBUG - 2012-10-26 23:44:58 --> Model Class Initialized
+DEBUG - 2012-10-26 23:44:58 --> File loaded: application/views/category_respond.php
+DEBUG - 2012-10-26 23:44:58 --> Final output sent to browser
+DEBUG - 2012-10-26 23:44:58 --> Total execution time: 0.6536
+DEBUG - 2012-10-26 23:44:59 --> Config Class Initialized
+DEBUG - 2012-10-26 23:44:59 --> Hooks Class Initialized
+DEBUG - 2012-10-26 23:44:59 --> Utf8 Class Initialized
+DEBUG - 2012-10-26 23:44:59 --> UTF-8 Support Enabled
+DEBUG - 2012-10-26 23:44:59 --> URI Class Initialized
+DEBUG - 2012-10-26 23:44:59 --> Router Class Initialized
+DEBUG - 2012-10-26 23:44:59 --> Output Class Initialized
+DEBUG - 2012-10-26 23:45:00 --> Security Class Initialized
+DEBUG - 2012-10-26 23:45:00 --> Input Class Initialized
+DEBUG - 2012-10-26 23:45:00 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:45:00 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:45:00 --> XSS Filtering completed
+DEBUG - 2012-10-26 23:45:00 --> Global POST and COOKIE data sanitized
+DEBUG - 2012-10-26 23:45:00 --> Language Class Initialized
+DEBUG - 2012-10-26 23:45:00 --> Loader Class Initialized
+DEBUG - 2012-10-26 23:45:00 --> Helper loaded: url_helper
+DEBUG - 2012-10-26 23:45:00 --> Database Driver Class Initialized
+DEBUG - 2012-10-26 23:45:00 --> Controller Class Initialized
+DEBUG - 2012-10-26 23:45:00 --> Session Class Initialized
+DEBUG - 2012-10-26 23:45:00 --> Helper loaded: string_helper
+DEBUG - 2012-10-26 23:45:00 --> Encrypt Class Initialized
+DEBUG - 2012-10-26 23:45:00 --> Session routines successfully run
+DEBUG - 2012-10-26 23:45:00 --> Model Class Initialized
+DEBUG - 2012-10-26 23:45:00 --> Model Class Initialized
+DEBUG - 2012-10-26 23:45:00 --> File loaded: application/views/photo_respond.php
+DEBUG - 2012-10-26 23:45:00 --> Final output sent to browser
+DEBUG - 2012-10-26 23:45:00 --> Total execution time: 1.1619
