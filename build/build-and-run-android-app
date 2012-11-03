@@ -10,17 +10,25 @@ fi
 
 export PATH="$PATH:$1/tools:$1/platform-tools"
 
-cd ../mobile/android && cordova/emulate && \
-  echo "--------------------------------------------------------------" && \
-  echo "Wait until emulator is done booting. Then press ENTER." && \
-  echo "If you are using a real device then press ENTER now." && \
-  read && \
-  echo "--------------------------------------------------------------" && \
-  adb uninstall ee.positium.reportcollector && \
-  cordova/debug && \
-  echo "--------------------------------------------------------------" && \
-  echo "Open the emulator window now and unlock the screen." && \
-  echo "If you are using a real device then turn it on and unlock it." && \
-  echo "The app will run automatically in a few seconds." && \
-  sleep 5 && \
-  adb shell am start -a android.intent.action.MAIN -n ee.positium.reportcollector/.ReportCollector
+cd ../mobile/android && \
+echo "------<INFO>--------------------------------------------------------------" && \
+echo "Recommended emulator: 'Android 4.1.2, Intel Atom (x86); 128mb sdcard'" && \
+cordova/emulate && \
+echo "------<EMULATOR>----------------------------------------------------------" && \
+echo "Wait until emulator is done booting. Then press ENTER." && \
+echo "If you are using a real device then connect it and press ENTER now." && \
+read && \
+echo "------<MOCK LOCATION>-----------------------------------------------------" && \
+echo "Sending mock location (Tartu Kaubamaja) to emulator (if needed)" && \
+nc localhost 5554 < ../../build/geo-fix ; \
+echo "------<REMOVE OLD VERSIONS>-----------------------------------------------" && \
+echo "Uninstalling any existing versions (Failure is OK) " && \
+adb uninstall ee.positium.reportcollector && \
+echo "------<COMPILE & INSTALL>---------------------------------------------------------------" && \
+cordova/debug && \
+echo "------<RUN>-----------------------------------------------------" && \
+echo "Open the emulator window now and unlock the screen." && \
+echo "If you are using a real device then turn it on and unlock it." && \
+echo "The app will run automatically in a few seconds." && \
+sleep 5 && \
+adb shell am start -a android.intent.action.MAIN -n ee.positium.reportcollector/.ReportCollector

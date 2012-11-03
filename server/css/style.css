@@ -33,11 +33,21 @@ body{
     position: absolute; 
 }
 
+#loading {
+    z-index: 2000;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 35% 50%;
+    background: #ffffff;
+    opacity: 0.8;
+}
+
 #legend {
     position: absolute;
     margin-top: 30px;
     right: 10px;
-    width: 170px;
+    width: 190px;
     opacity: 0.9;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -45,19 +55,19 @@ body{
     background-color: #999999;
     z-index: 1500;
     padding: 5px 5px 5px 8px;
-    /*display: none;*/
+    display: none;
 }
 #legend ul {
     list-style-type: none;
     padding-left: 10px;
 }
 .catcolor {
-    width: 20px;
+    width: 30px;
     display: inline;
-    padding: 0 7px;
-    -webkit-border-radius: 50px;
-    -moz-border-radius: 50px;
-    border-radius: 50px;
+    padding: 0 9px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
 
 }
 .catcolor2 {
@@ -67,9 +77,28 @@ body{
     padding: 0 7px;
 }
 
+#categoriesEdit {
+    position: absolute;
+    top: 50px;
+    left: 45%;
+    width: 400px;
+    opacity: 0.9;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #999999;
+    z-index: 1500;
+    padding: 5px 5px 5px 8px;
+    display: none;
+}
+#categoriesEdit ul {
+    list-style-type: none;
+    padding-left: 10px;
+}
+
 #userdata {
     position: absolute;
-    margin-top: 10px;
+    margin-top: 0px;
     right: 10px;
     opacity: 0.9;
     padding: 3px 5px 3px 5px;
@@ -86,12 +115,32 @@ body{
 #topmenu {
     z-index: 1500;
     position: absolute;
-    width: 300px;
-    margin: 0 auto;
+    width: 100%;
+    margin: -12px auto;
     text-align: center;
 }
-#topmenu ul {
+#topmenu li{
     display: inline;
+}
+#topmenu li a{
+    margin-left: 1px;
+    margin-right: 1px;
+    opacity: 0.9;
+    padding: 5px 5px 5px 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: #dddddd;
+}
+
+#topmenu li a:hover
+{
+    background: #ccccdd;
+    color: #4A4A24;
+    text-decoration: none;
 }
 /******************        ZOOOOOOOOOOOOOM +-*/
 a.olControlZoomIn {

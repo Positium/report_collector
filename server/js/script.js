@@ -1,7 +1,8 @@
 
 $(document).ready(function () {
-   
-    var ListView = Backbone.View.extend({
+    $("#loading").hide();
+    $("#loading").html('Laadin andmeid...<br/><img src="../css/ajax-loader.gif" alt="Loading"/>');
+    var listView = Backbone.View.extend({
         request: null,
         pointsArray: [],
         vector_points: null,
@@ -9,8 +10,9 @@ $(document).ready(function () {
         el: $('#map'), // attaches `this.el` to an existing element.
     
         initialize: function(){
-            _.bindAll(this, 'render','loadPoints','selectControl','onFeatureSelect','onFeatureUnselect','popupClose'); // fixes loss of context for 'this' within method
+            _.bindAll(this, 'render','loadPoints','selectControl','onFeatureSelect','onFeatureUnselect','popupClose','getCategories', 'changeCategory'); // fixes loss of context for 'this' within method
             this.render(); // not all views are self-rendering. This one is.
+            this.getCategories();
         },
         render: function(){
             //   $(this.el).append('<ul> <li>hello world</li> </ul>');  
@@ -55,6 +57,7 @@ $(document).ready(function () {
         // console.log(map.getExtent());
         },
         loadPoints: function() {
+            $("#loading").show();
             var self = this;
             var zoom = map.getZoom();
             var params = '';
@@ -86,7 +89,8 @@ $(document).ready(function () {
                 var context = {
                     getSize: function(feature){
                         var myRadius;
-                        myRadius = feature.attributes.RADIUS*(0.5*(map.getZoom()+1))
+                        // myRadius = feature.attributes.RADIUS*(0.5*(map.getZoom()+1))
+                        myRadius = 10;
                         return myRadius;
                     }
                 }
@@ -126,6 +130,7 @@ $(document).ready(function () {
                 //console.log(self.vector_points);
                 map.addLayer(self.vector_points); 
                 self.selectControl(self.vector_points);
+                $("#loading").hide();
             });
         },
         selectControl: function(vector_points){
@@ -147,18 +152,22 @@ $(document).ready(function () {
             //  geocode= feature.attributes['ID']; 
             selectedFeature = feature;
             var photo;
-          //  $.get("transmit/getphotobyid?id="+ selectedFeature.attributes['ID'], 
-           //     function(data){ 
-                   // photo = data;
+            var self=this;
+            $.get("transmit/getphotobyid?id="+ selectedFeature.attributes['ID'], 
+                function(data){ 
+                    photo = data;
                     // HTML PopUp
-                    var html = "ID: "+ selectedFeature.attributes['ID'] + "<br/>" +
+                    var html = "<div id = 'delete' ></div> ID: "+ selectedFeature.attributes['ID'] + "<br/>" +
                     "Aeg: " + selectedFeature.attributes['TIMESTAMP']+ "<br/>"+
                     //  <img style="width: 100%" src="data:image/jpeg;base64,' + data + '" />
+                    "GPS täpsus: " +selectedFeature.attributes['GPS_ACCURACY'] + "<br/>"+
                     "Pilt kohast: " + "<br/>"+
-                    '<img style="width: 200px; height: 300px; " src="data:image/jpeg;base64,' + selectedFeature.attributes['PICTURE']+ '" />' +
+                    '<img style="width: 200px; height: 300px; " src="data:image/jpeg;base64,' + photo+ '" />' +
                     "<br/>"+
                     "Kategooria: " + selectedFeature.attributes['CATEGORY'] + "<br/>"+ 
-                    "Kommentaar: " + selectedFeature.attributes['COMMENTARY'];
+                    "Kommentaar: " + selectedFeature.attributes['COMMENTARY'] + "<br/>"
+                    //  "<a onClick = 'self.changeCategory()'>Muuda kategooriat</a>" + "<br/>"+ 
+                    //  "<a onClick = 'hideReport()'>Kustuta</a>";
                     //  console.log($.base64.decode(selectedFeature.attributes['PICTURE']));
                     popup = new OpenLayers.Popup.FramedCloud("data",
                         feature.geometry.getBounds().getCenterLonLat(),
@@ -170,7 +179,10 @@ $(document).ready(function () {
 
                     feature.popup = popup;
                     map.addPopup(popup);                     
-            //    });   
+                });   
+        },
+        changeCategory: function (){
+            console.log("test");
         },
         onFeatureUnselect: function(feature) {
             map.removePopup(feature.popup);
@@ -179,32 +191,164 @@ $(document).ready(function () {
         },
         popupClose: function(evt) {
             selectControl.unselect(selectedFeature);
+        },
+        getCategories: function() {
+            var self=this;
+            var points = self.pointsArray;
+            // var vector_layer = self.vector_points;  
+            var category = $.getJSON('getcategories/getsubcat', function(data) {
+                var categories = ""; 
+                var loendur = 100;
+                var loendur2 = 1;
+                $.each(data, function(index, value) { 
+                    categories += '<li><div class="catcolor" style="background-color: '+
+                    value.color + ';"></div> <input type="checkbox" class="catSelect" id = "' + (index+1) + 
+                    '" checked="checked"/><label id = "'+ loendur + '" >' + value.name +'</label><ul class = "' + loendur +
+                    ' show">';
+                    $.each(value.subcategories, function(index, value) {
+                        categories += '<li class="subcat subCat' + loendur2 +
+                        '" ><input name = "'+value.id+'" type="checkbox" id ="' + (loendur +index+1) +
+                        '" checked="checked"/><label for="' +  (loendur + index +1) + '">' +
+                        value.name + '</label></li>'; 
+                    }); 
+                    loendur2=loendur2+1;
+                    loendur= loendur+100;
+                    categories +='</ul></li>'; 
+                }); 
+                var lHtml =  '<label>Vali kategooriad:</label>'+ '<ul>' + categories + '</ul>';
+                $("#catecory").html(lHtml);
+                // algul peidan kõik alamkategooriad
+                for(i=1; i<=loendur2; i++) {
+                    $(".subCat"+i).hide();  
+                }
+                var x = 1;
+                for(j=100;j<=loendur; j=j+100) {    
+                    // lisan igale peakategooriale click event'i kas näidata alamkategooriat või ei
+                    $('#'+j).bind('click', function(e) {
+                        var clickid = e.toElement.id/100;
+                        //  e.preventDefault();
+                        var span = $("#catecory").find('.'+e.toElement.id);
+                        if(span.hasClass('show')){
+                            $('.subCat'+clickid).show();
+                            span.removeClass('show').addClass('hide'); 
+                            
+                        } 
+                        else  {
+                            $('.subCat'+clickid).hide();
+                            span.removeClass('hide').addClass('show');                      
+                        }
+                    }); 
+                }
+                /*  $(".catSelect").each(function(){
+                    var self = this;
+                    $(this).bind('click', function(e) {
+                        //tegevus, mida teha kui muudatakse valikut
+                        console.log(e);
+                        if($(self).is(':checked')==true) {
+                            $(".subCat"+i).show();
+                        }
+                        else {
+                            $(".subCat"+i).hide(); 
+                        }
+                    });
+                }); */
+                $.get("transmit/getCategoryList?list=3",
+                    function(data){
+                        var array_id=data.split(","); 
+                        for(i=0;i<array_id.length-1;i++) { 
+                            var div = '#' + array_id[i];
+                            // ülemkategooriate põhjal punktide selekteerimine
+                            $(div).bind('click', function(e) {
+                                if($('#'+e.toElement.id).is(':checked')==false) {
+                                    // console.log($('.subCat  +e.toElement.id +  input'));
+                                    var subCatInput = ".subCat" + e.toElement.id + " input";
+                                   // kui ülemkategooria unselected, muudan ka alamkatekooriad unselected
+                                   $(subCatInput).attr('checked', false);
+                                   // muudan punkti stiili
+                                    $.each(points, function(index, value) { 
+                                        // kain punktid labi ja muudan stiili, kui on unselect vastav kategooria
+                                        if(value.attributes.ID_CATEGORY ==e.toElement.id) {
+                                            self.pointsArray[index].renderIntent = "invisible";   
+                                        }                
+                                    }); 
+                                    map.removeLayer(self.vector_points);
+                                    map.addLayer(self.vector_points); 
+                                }
+                                else if($('#'+e.toElement.id).is(':checked')==true) {  
+                                    // kui ülemkategooria selected, muudan ka alamkatekooriad selected
+                                    var subCatInput2 = ".subCat" + e.toElement.id + " input";
+                                    $(subCatInput2).attr('checked', true);  
+                                    $.each(points, function(index, value) { 
+                                        if(value.attributes.ID_CATEGORY ==e.toElement.id) {
+                                            self.pointsArray[index].renderIntent = "default";   
+                                        }                
+                                    }); 
+                                    map.removeLayer(self.vector_points);
+                                    map.addLayer(self.vector_points); 
+                                }
+                                
+                            });
+                        }
+                        // alamkategooriate põhjal selekteerimine
+                        $(".subcat").bind('click', function(e) {
+                            // console.log(e.toElement.name);
+                            if($('#'+e.toElement.id).is(':checked')==false) {
+                                //  console.log("false");
+                                $.each(points, function(index, value) { 
+                                    if(value.attributes.ID_SUBCATEGORY ==e.toElement.name) {
+                                        self.pointsArray[index].renderIntent = "invisible";   
+                                    }                
+                                }); 
+                                map.removeLayer(self.vector_points);
+                                map.addLayer(self.vector_points); 
+                            }
+                            else if($('#'+e.toElement.id).is(':checked')==true) {   
+                                //  console.log("true");
+                                $.each(points, function(index, value) { 
+                                    if(value.attributes.ID_SUBCATEGORY ==e.toElement.name) {
+                                        self.pointsArray[index].renderIntent = "default";   
+                                    }                
+                                }); 
+                                map.removeLayer(self.vector_points);
+                                map.addLayer(self.vector_points); 
+                            }
+                        });
+                    }); 
+            });
+            $.datepicker.setDefaults($.datepicker.regional[""]);
+            $(".datepicker").datepicker($.datepicker.regional["et"]);
         }
-        
     });
-    var listView = new ListView();
+    var listView = new listView();
     
-    /* $("#nupp").bind('click', function(e) {
-        e.preventDefault();
-        console.log(map.getExtent());
-        console.log(map.getResolution());
-    }); */
-    $.get("getcategories", 
-        function(data){ 
-            var lHtml = 'Vali kategooriad:<br/>'+data+'<br/>Vali ajavahemik';
-            $("#legend").html(lHtml);
-        //input välja listenerid vaja veel luua
+    function toggleLegend(s){
+        if(s == "show"){
+            $("#legend").hide();
+            $("#catView").bind('click', function(e){
+                toggleLegend("hide");
+            });
         }
-        ); 
+        else {
+            $("#legend").show();
+            $("#catView").bind('click', function(e){
+                toggleLegend("show");
+            });
+
+        }
+    }
     $.get("getuser", 
         function(data){ 
-            var lHtml = data+'&nbsp;&nbsp;<a href="/home/logout">Logi v&auml;lja</a>';
+            var lHtml = data+'&nbsp;&nbsp;<a href="home/logout">Logi v&auml;lja</a>';
             $("#userdata").html(lHtml);
         }
         );
     $.get("getmenu", 
         function(data){ 
             $("#topmenu").html(data);
+            $("#catView").bind('click', function(e){
+                e.preventDefault();
+                toggleLegend("hide");
+            });
         }
-        );
+        ); 
 });
