@@ -43,8 +43,9 @@
 	   if($result)
 	   {
                 $sess_array = array(
-	         //'id' => $row->id,
-	         'username' => $result->username
+	         'id' => $result->id,
+	         'username' => $result->username,
+                 'region_id'=> $result->region_id
 	       );
 	       $this->session->set_userdata('logged_in',$sess_array);
 	     

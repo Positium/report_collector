@@ -3,7 +3,7 @@
 header('Access-Control-Allow-Origin: *');
 
 class Transmit extends CI_Controller {
-
+#Comment
     function __construct() {
         parent::__construct();
         $this->load->library('session');
@@ -32,9 +32,11 @@ class Transmit extends CI_Controller {
                 "ID" => $row_of_properties->id,
                 "TIMESTAMP" => $row_of_properties->timestamp_n,
                 "CATEGORY" => $row_of_properties->category,
-                "ID_CATEGORY"=> $row_of_properties->category_id,
+                "ID_SUBCATEGORY"=> $row_of_properties->category_id,
+                "ID_CATEGORY"=> $row_of_properties->primary_id,
                 "COMMENTARY" => $row_of_properties->commentary,
-                "COLOR" =>$row_of_properties->color, 
+                "COLOR" =>$row_of_properties->color,
+                "GPS_ACCURACY"=>$row_of_properties->gps_accuracy."m",
                 );
             $feature = array(
                 "type" => "Feature",

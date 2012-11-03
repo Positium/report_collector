@@ -11,12 +11,13 @@ class Receiver extends CI_Controller {
     {   
         if (isset($_POST['submit'])) {
             $this->load->model('report_post');
-            $string_photo=explode(",",$this->input->post('photo'));    
-            $image_string = str_replace(array("\\\\", "''"), array("\\", "'"),pg_escape_bytea(base64_decode($string_photo[1])));
+            $string_photo=explode("[removed]",$this->input->post('photo'),2);
+	    $image_string = str_replace(array("\\\\", "''"), array("\\", "'"),pg_escape_bytea(base64_decode($string_photo[1])));
             $report = array(
                 'device_id' => $this->input->post('uuid'),
                 'timestamp_n' => date("Y-m-d H:i:s",$this->input->post('timestamp')),
                 'category' => $this->input->post('category'),
+                'subcategory'=> $this->input->post('subcategory'),
                 'commentary' => $this->input->post('comment'),
                 'location_n' => "ST_Transform(ST_GeomFromText('POINT(".$_POST['geolocation']['longitude']." ". $_POST['geolocation']['latitude'].")',4326),900913)",
                 'photo' => $image_string,
@@ -39,11 +40,15 @@ class Receiver extends CI_Controller {
             $revision_number = $this->query_categories->getLastCategorysRevision();
             $last_revision = $revision_number->maxid;
             if ($last_revision !== $this->input->post('lastrevision')) {
-                $catogories_array = $this->query_categories->respond_query_name();
-                array_push($catogories_array, array('lastrevision'=>$last_revision));
-                $category_data['data'] = json_encode($catogories_array);                
+                $catogories_array = $this->query_categories->getCategorysforMobile();
+                $main_array = array(
+                                'lastrevision'=>$last_revision,
+                                'categories'=> $catogories_array
+                );
+                //array_push($catogories_array, array('lastrevision'=>$last_revision));
+                $category_data['data'] = json_encode($main_array);                
             } else {
-                $category_data['data'] = json_encode(array(array('lastrevision'=>$last_revision)));
+                $category_data['data'] = json_encode(array('lastrevision'=>$last_revision));
             }
             $this->load->view('category_respond',$category_data);
         }       

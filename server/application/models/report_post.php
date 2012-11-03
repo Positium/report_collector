@@ -7,6 +7,7 @@
         $this -> db ->set('device_id', $report['device_id'], TRUE);
         $this -> db ->set('timestamp_n', $report['timestamp_n'], TRUE);
         $this -> db ->set('category', $report['category'], TRUE);
+        $this -> db ->set('subcategory', $report['subcategory'], TRUE);
         $this -> db ->set('commentary', $report['commentary'], TRUE);
         $this -> db ->set('location_n', $report['location_n'], FALSE);
         $this -> db ->set('photo', $report['photo'], TRUE);

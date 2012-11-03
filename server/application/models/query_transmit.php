@@ -3,7 +3,13 @@
 Class Query_transmit extends CI_Model {
     //
     function get_reports_from_db() {
-        $query_for_properties = $this -> db -> query("SELECT issues.id, issues.timestamp_n, categories.name_et as category, issues.category as category_id, categories.color as color, issues.commentary FROM issues, categories categories WHERE issues.category= categories.id");
+        $query_for_properties = $this -> db -> query("SELECT issues.id,issues.timestamp_n, 
+                                                      CASE WHEN (SELECT get_subcategory_id_count(issues.subcategory))>0 
+                                                      THEN (SELECT get_subcategory_name(issues.subcategory)) 
+                                                      ELSE (SELECT get_category_name(issues.category)) END as category,
+                                                      issues.category as primary_id, issues.subcategory as category_id,
+                                                      categories.color as color,issues.commentary, issues.gps_accuracy 
+                                                      FROM issues, categories WHERE issues.category=categories.id;");
         $query_for_location = $this -> db -> query("SELECT ST_AsGeoJSON(location_n,4,0) as location FROM issues");       
         if ($query_for_properties->num_rows() > 0 && $query_for_properties->num_rows() > 0) {
             $query_resultset_for_properties = $query_for_properties->result();
