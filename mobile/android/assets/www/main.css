@@ -84,14 +84,14 @@ p.center {
   border-radius: 0.25em;
 }
 
-#category-list {
+.category-list {
   list-style-type: none;
   margin: 0 auto 1em auto;
   padding: 0;
   width: 90%;
 }
 
-#category-list li {
+.category-list li {
   width: 100%;
   margin: 0 0 0 -0.25em;
   padding: 0.25em;
@@ -100,19 +100,19 @@ p.center {
   border-top: 0;
 }
 
-#category-list li.selected {
+.category-list li.selected {
   background: #1a3e8b;
   text-shadow: rgba(0,0,0,0.6) 0px -1px 0;
   color: white;
 }
 
-#category-list li:first-child {
+.category-list li:first-child {
   border-top: 2px solid #888;
   border-top-left-radius: 0.25em;
   border-top-right-radius: 0.25em;
 }
 
-#category-list li:last-child {
+.category-list li:last-child {
   border-bottom-left-radius: 0.25em;
   border-bottom-right-radius: 0.25em;
 }

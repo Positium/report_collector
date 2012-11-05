@@ -2,6 +2,8 @@
   var UPDATE_URL =  'http://gistudeng.gg.bg.ut.ee/dev/index.php/receiver/sendLastCategoryRevisionNumber';
   var SEND_URL =    'http://gistudeng.gg.bg.ut.ee/dev/index.php/receiver';
 
+  var last_screen = null;
+
   var report = {
     submit: 'raport'
   };
@@ -61,7 +63,7 @@
   };
 
   var categories = {
-    list: [],
+    categories: {},
 
     update: function () {
       var last_revision = 1;
@@ -71,10 +73,10 @@
         data: {'lastrevision': last_revision},
         dataType: 'json',
         success: function (res) {
-          if (res.slice(-1)[0].lastrevision > last_revision) {
-            var l = res.length - 1;
-            for (var c = 0; c < l; ++c) {
-              categories.list.push(res[c]);
+          if (res.lastrevision > last_revision) {
+            for (var c = 0; c < res.categories.length; ++c) {
+              var category = res.categories[c];
+              categories.categories[category.id] = category;
             }
           }
 
@@ -133,6 +135,8 @@
     },
 
     setSwipeEvents: function (screen) {
+      // Disabled to due bugginess
+      /*
       var action_left = function () {};
       var action_right = action_left;
 
@@ -157,6 +161,7 @@
       }
       
       $(document).swipeLeft(action_left).swipeRight(action_right);
+      */
     },
 
     loading: {
@@ -220,12 +225,12 @@
 
       init: function () {
         $('#category-back').tap(screen.photo_review.show);
-        $('#category-done').tap(screen.comment.show);
+        $('#category-done').tap(screen.subcategory.show);
 
         var ul = $('#category-list');
-        for (var c in categories.list) {
-          var category = categories.list[c];
-          var li = $('<li data-id="' + category.id + '">' + category['name_' + language] + '</li>');
+        for (var c in categories.categories) {
+          var category = categories.categories[c];
+          var li = $('<li data-id="' + category.id + '">' + category.name + '</li>');
           li.tap(screen.category.on_select);
           ul.append(li);
         }
@@ -244,7 +249,6 @@
         $this.addClass('selected');
 
         report.category = $this.data('id');
-        $('#review-category').text($this.text());
       },
 
       show: function () {
@@ -252,11 +256,62 @@
       }
     },
 
+    subcategory: {
+      element: $('#subcategory-screen'),
+
+      init: function () {
+        $('#subcategory-back').tap(screen.category.show);
+        $('#subcategory-done').tap(screen.comment.show);
+      },
+
+      on_select: function () {
+        if (report.subcategory) {
+          $('#subcategory-list').children().removeClass('selected');
+        }
+
+        $('#subcategory-done').removeAttr('disabled').show();
+
+        var $this = $(this);
+        $this.addClass('selected');
+
+        report.subcategory = $this.data('id');
+        $('#review-category').text($this.text());
+      },
+
+      show: function () {
+        var category_id = report.category;
+        var category = categories.categories[category_id];
+
+        if (category.subcategories.length < 1) {
+          report.subcategory = 0;
+          $('#review-category').text(category.name);
+          if (screen.current === screen.category) {
+            screen.comment.show();
+          } else {
+            screen.category.show();
+          }
+        } else {
+          var ul = $('#subcategory-list');
+          ul.children().remove();
+          for (var s in category.subcategories) {
+            var subcategory = category.subcategories[s];
+            var li = $('<li data-id="' + subcategory.id_sub + '">' + subcategory.name + '</li>');
+            li.tap(screen.subcategory.on_select);
+            ul.append(li);
+          }
+          
+          $('#subcategory-done').attr('disabled', 'disabled').hide();
+
+          screen.showScreen(screen.subcategory);
+        }
+      }
+    },
+
     comment: {
       element: $('#comment-screen'),
 
       init: function () {
-        $('#comment-back').tap(screen.category.show);
+        $('#comment-back').tap(screen.subcategory.show);
         $('#comment-done').tap(screen.comment.update_and_show_review);
       },
 
