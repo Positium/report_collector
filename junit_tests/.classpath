@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/mkk/Desktop/OOP_java/selenium_test/lib/junit.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mkk/Desktop/OOP_java/selenium_test/lib/selenium-server-standalone-2.25.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mkk/Desktop/OOP_java/selenium_test/lib/gson-2.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mkk/Desktop/geotools-8.3/gt-geometry-8.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

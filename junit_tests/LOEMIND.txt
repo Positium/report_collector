@@ -1,0 +1,2 @@
+kataloogi lib tuleb kopeerida selenium server-standalone, mille saab:
+http://selenium.googlecode.com/files/selenium-server-standalone-2.25.0.jar

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+    name="templateApp"
+    basedir="."
+    default="build" >
+    <property name="test.reports.dir" value="./reports" />
+    <property name="classes.dir" value="${basedir}/bin" />
+    <property name="src.dir" value="./src" />
+    <property name="lib.dir" value="./lib" />
+    <property name="www.dir" value="/var/www/jenkins-test"/>
+    <property name="jenkins.workspace" value="/home/tudeng/.jenkins/jobs/Report_collector/workspace" />
+    <property name="jenkins.reports.dir" value="${jenkins.workspace}/reports"/>
+    <property name="server.dir" value="${jenkins.workspace}/server"/>
+    <property name="config.dir" value="/home/tudeng/jenkins/config"/>
+    <property name="application.config.dir" value="${www.dir}/application/config"/>
+    
+    <path id="compile.classpath" >
+        <fileset dir="lib" >
+            <include name="*.jar" />
+        </fileset>
+	</path> 
+    <path id="test.classpath">
+        <pathelement location="${classes.dir}" />
+        <pathelement location="${lib.dir}/junit.jar" />
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+    
+    <target name="build">
+        <delete dir="${classes.dir}"/>
+        <mkdir dir="${classes.dir}"/>
+        <javac
+            compiler="modern"
+            debug="true"
+            debuglevel="lines,vars,source"
+            destdir="${classes.dir}"
+            encoding="Cp1257"
+            includeantruntime="false"
+            source="1.6"
+            srcdir="${src.dir}"
+            target="1.6">
+
+            <classpath refid="compile.classpath" />
+            <compilerarg value="-Xlint:unchecked" />
+            <compilerarg value="-Xlint:deprecation" />
+        </javac>
+    </target>
+    <target name="test-html" depends="start-server">
+    
+        <delete dir="${test.reports.dir}"/>
+        <mkdir  dir="${test.reports.dir}"/>
+        
+        <mkdir dir="${www.dir}"/>
+        <copy todir="${www.dir}">
+            <fileset dir="${server.dir}">
+                <exclude name="**/application/config/" />
+            </fileset>
+        </copy>
+        <copy todir="${application.config.dir}">
+            <fileset dir="${config.dir}"/>
+        </copy>
+         
+        <junit fork="yes" printsummary="yes" haltonfailure="no">
+            <formatter type="xml" />
+            <classpath refid="test.classpath" />
+            <batchtest fork="yes" todir="${test.reports.dir}" >
+                <fileset dir="${classes.dir}">
+                    <include name="**/*Tests.class" />
+                </fileset>
+            </batchtest>
+        </junit>
+        <junitreport todir="${test.reports.dir}">
+            <fileset dir="${test.reports.dir}">
+                <include name="TEST-*.xml" />
+            </fileset>
+            <report todir="${test.reports.dir}" />
+        </junitreport>
+        <antcall target="stop-server"/>
+        <antcall target="clean"/>
+        <copy todir="${jenkins.reports.dir}">
+            <fileset dir="${test.reports.dir}">
+                <include name="**/*.xml"/>
+            </fileset>
+        </copy>
+    </target>
+   
+    <target
+        name="clean"
+        description="Clean up webdir" >
+        <delete dir="${www.dir}" />
+    </target>
+    
+    <target name="start-server">
+        <java jar="${lib.dir}/selenium-server-standalone-2.25.0.jar" 
+              fork="true" spawn="true"/>
+         <sleep seconds="4"/>
+    </target>
+    
+    <target name="stop-server">
+        <get taskname="selenium-shutdown" 
+            src="http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer"	
+            dest="result.txt" ignoreerrors="true" />
+        <echo taskname="selenium-shutdown" message="DGF Errors during shutdown are expected" />
+    </target>
+  
+
+</project>
