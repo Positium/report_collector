@@ -28,7 +28,7 @@
       report.geolocation = {
         latitude: pos.coords.latitude,
         longitude: pos.coords.longitude,
-        accuracy: pos.coords.accuracy,
+        accuracy: pos.coords.accuracy
       };
     },
     
@@ -48,7 +48,7 @@
 
       var fail = function (error) {
         callback(error);
-      }
+      };
 
       return function () {
         navigator.camera.getPicture(success, fail, {
@@ -58,7 +58,7 @@
           targetHeight: 1024,
           correctOrientation: true
         });
-      }
+      };
     }
   };
 
@@ -66,24 +66,58 @@
     categories: {},
 
     update: function () {
-      var last_revision = 1;
-      $.ajax({
-        url: UPDATE_URL,
-        type: 'POST',
-        data: {'lastrevision': last_revision},
-        dataType: 'json',
-        success: function (res) {
-          if (res.lastrevision > last_revision) {
-            for (var c = 0; c < res.categories.length; ++c) {
-              var category = res.categories[c];
-              categories.categories[category.id] = category;
-            }
-          }
+      var last_revision = 0;
 
+      var stored = JSON.parse(localStorage.getItem('categories'));
+      if (stored !== null) {
+        categories.categories = stored.categories;
+        last_revision = stored.last_revision;
+      }
+
+      var no_update_start = function () {
+        if (last_revision > 0) { // we have some old list of categories
           screen.initAll();
           screen.intro.show();
+        } else { // we never got a list of categories
+          screen.no_categories.init();
+          screen.no_categories.show();
         }
-      });
+      };
+
+      var update_start = function (res) {
+        if (res.lastrevision > last_revision) {
+          var to_store = {
+            last_revision: res.lastrevision,
+            categories: {}
+          };
+
+          for (var c = 0; c < res.categories.length; ++c) {
+            var category = res.categories[c];
+            categories.categories[category.id] = 
+              to_store.categories[category.id] = category;
+          }
+          localStorage.setItem('categories', JSON.stringify(to_store));
+        }
+
+        screen.initAll();
+        screen.intro.show();
+      };
+
+      var network_state = navigator.connection.type;
+
+      if (network_state !== Connection.NONE) {
+        $.ajax({
+          url: UPDATE_URL,
+          type: 'POST',
+          data: {'lastrevision': last_revision},
+          dataType: 'json',
+          timeout: 10000,
+          success: update_start,
+          error: no_update_start
+        });
+      } else {
+        no_update_start();
+      }
     }
   };
 
@@ -170,6 +204,18 @@
       init: function () {}
     },
 
+    no_categories: {
+      element: $('#no-categories-screen'),
+
+      init: function () {
+        $('#no-categories-restart').tap(reload);
+      },
+
+      show: function () {
+        screen.showScreen(screen.no_categories);
+      }
+    },
+
     intro: {
       element: $('#intro-screen'),
 
@@ -217,7 +263,7 @@
         }
 
         screen.showScreen(screen.photo_review);
-      },
+      }
     },
 
     category: {
