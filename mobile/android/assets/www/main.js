@@ -62,6 +62,65 @@
     }
   };
 
+  var unsent_reports = {
+    save: function (report) {
+      var list = JSON.parse(localStorage.getItem('unsent-reports'));
+      if (list === null) list = {};
+
+      var key = list[report.timestamp] = 'unsent-report-' + report.timestamp;
+      var value = JSON.stringify(report);
+
+      localStorage.setItem(key, value);
+
+      localStorage.setItem('unsent-reports', JSON.stringify(list));
+    },
+
+    remove: function (key) {
+      var list = JSON.parse(localStorage.getItem('unsent-reports'));
+      if (list === null) return;
+
+      localStorage.removeItem(list[key]);
+      delete list[key];
+
+      localStorage.setItem('unsent-reports', JSON.stringify(list));
+    },
+
+    sent_reports: 0,
+
+    sendNext: function () {
+      var list = JSON.parse(localStorage.getItem('unsent-reports'));
+      if (list === null) return;
+
+      var key;
+
+      var send_success = function () {
+        unsent_reports.sent_reports++;
+        unsent_reports.remove(key);
+        unsent_reports.sendNext();
+      };
+
+      for (var next in list) {
+        key = next;
+        sendReport({
+          report: JSON.parse(localStorage.getItem(list[next])),
+          quiet: true,
+          success: send_success
+        });
+        return;
+      }
+
+      if (unsent_reports.sent_reports > 0) {
+        $('#notification').
+          text(unsent_reports.sent_reports + ' salvestatud raport' + 
+               (unsent_reports.sent_reports > 1 ? 'e' : '') + ' saadetud.').
+          addClass('visible');
+        setTimeout(function () {
+          $('#notification').removeClass('visible');
+        }, 3000);
+      }
+    }
+  };
+
   var categories = {
     categories: {},
 
@@ -101,6 +160,8 @@
 
         screen.initAll();
         screen.intro.show();
+
+        unsent_reports.sendNext();
       };
 
       var network_state = navigator.connection.type;
@@ -384,7 +445,17 @@
 
       init: function () {
         $('#review-back').tap(screen.comment.show);
-        $('#review-done').tap(sendReport);
+        $('#review-done').tap(function () {
+          report.timestamp = Math.round(+new Date() / 1000);
+          geolocation.disable();
+          sendReport({
+            report: report,
+            quiet: false,
+            fail: function (report) {
+              unsent_reports.save(report);
+            }
+          });
+        });
       },
 
       show: function () {
@@ -427,19 +498,32 @@
     }
   };
 
-  var sendReport = function () {
-    report.timestamp = Math.round(+new Date() / 1000);
-    screen.send.show();
+  var sendReport = function (args) {
+    if (!args.quiet) screen.send.show();
 
-    geolocation.disable();
-    
-    $.post(SEND_URL, report, function (res) {
+    var send_fail = function () {
+      if (!args.quiet) screen.send_fail.show();
+      if (args.fail !== null) args.fail(args.report);
+    };
+
+    var send_success = function (res) {
       if (res.result === 'success') {
-        screen.send_success.show();
+        if (!args.quiet) screen.send_success.show();
+        if (args.success !== null) args.success(args.report);
       } else {
-        screen.send_fail.show();
+        send_fail();
       }
-    }, 'json');
+    };
+
+    $.ajax({
+      url: SEND_URL,
+      type: 'POST',
+      data: args.report,
+      dataType: 'json',
+      timeout: 20000,
+      success: send_success,
+      error: send_fail
+    });
   };
 
   var reload = function () {

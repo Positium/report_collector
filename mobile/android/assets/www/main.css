@@ -15,6 +15,28 @@ p {
   text-shadow: rgba(255,255,255,0.8) 0px 1px 0;
 }
 
+#notification {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 0.25em;
+  text-align: center;
+  background-color: #222;
+  color: #fff;
+  text-shadow: rgba(0,0,0,0.8) 0px 1px 0;
+  font-size: 0.8em;
+  opacity: 0;
+  transition: opacity 0.5s linear;
+  -webkit-transition: opacity 0.5s linear;
+  z-index: 50;
+}
+
+#notification.visible {
+  opacity: 0.75;
+  transition: opacity 0.5s linear;
+  -webkit-transition: opacity 0.5s linear;
+}
+
 .screen {
 }
 
