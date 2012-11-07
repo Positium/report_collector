@@ -13,10 +13,10 @@ $(document).ready(function () {
         el: $('#map'), // attaches `this.el` to an existing element.
     
         initialize: function(){
-            _.bindAll(this, 'render','loadPoints','selectControl','onFeatureSelect','onFeatureUnselect','popupClose','getCategories', 'changePoint', 'deletePoint'); // fixes loss of context for 'this' within method
+            _.bindAll(this, 'render','loadPoints','selectControl','onFeatureSelect','onFeatureUnselect','popupClose','getCategories', 'changePoint', 'deletePoint','checkTime'); // fixes loss of context for 'this' within method
             this.render(); // not all views are self-rendering. This one is.
             this.getCategories();
-       	    window.listView = this;
+            window.listView = this;
         },
         render: function(){
             //   $(this.el).append('<ul> <li>hello world</li> </ul>');  
@@ -93,7 +93,7 @@ $(document).ready(function () {
                     //console.log(value);
                     self.pointsArray.push(feats[index]);
                 });
-		window.pointsArray = self.pointsArray; 
+                window.pointsArray = self.pointsArray; 
                 //style
                 var context = {
                     getSize: function(feature){
@@ -101,17 +101,30 @@ $(document).ready(function () {
                         // myRadius = feature.attributes.RADIUS*(0.5*(map.getZoom()+1))
                         myRadius = 10;
                         return myRadius;
+                    },
+                    label: function(feature) {
+                        // clustered features count or blank if feature is not a cluster
+                        return feature.cluster ? feature.cluster.length : "";  
                     }
                 }
                 var template = {
                     pointRadius: "${getSize}",
                     fillColor: "${COLOR}",
+                    // fillColor: "#FF0000",
                     fillOpacity: 0.7,
                     strokeColor: "#595A59",
                     strokeOpacity: 0.7,
+                    // label: "${count}",
+                    label: "${label}",
+                    //  label: "1",
+                    // labelOutlineWidth: 1,
+                    fontColor: "#ffffff",
+                    //fontOpacity: 0.8,
+                    //fontSize: "12px",
                     strokeWidth: 2,
                     graphicZIndex: 1
                 }
+
                 var myStyle = new OpenLayers.StyleMap({
                     "default" : new OpenLayers.Style(template,{
                         context:context
@@ -127,26 +140,194 @@ $(document).ready(function () {
                         display: "none"
                     })
                 });
+                
+                // styles for cluster strategy
+                var style = new OpenLayers.Style({
+                    fillColor: "${fill_color}",
+                    fillOpacity: 0.4,
+                    pointRadius: "${radius}",
+                    strokeColor: "${stroke_color}",
+                    strokeOpacity: 1,
+                    strokeWidth: 1
+                },
+                {
+                    context: {
+                        radius: function(feature) {
+                            var pix = 8;
+                            if(feature.cluster) {
+                                pix = Math.min(feature.attributes.count, 11) + 8;
+                            }
+                            return pix;
+                        },
+                        fill_color: function(feature) {
+                           
+                            if(feature.cluster) {
+                                console.log(feature.cluster[0])
+                            /*   var maxImportance = 0;
+                                for(var c = 0; c < feature.cluster.length; c++) {
+                                    var  i =  feature.cluster[c].attributes.importance;
+                                    if(i > maxImportance) {
+                                        maxImportance = i;
+                                        var  mainFeature = c;
+                                    }
+                                }
+                                feature.attributes.fillColor = feature.cluster[mainFeature].attributes.fillColor; */
+                                
+                            }
+                            return feature.attributes.fillColor;
+                        },
+                        stroke_color: function(feature) {
+                            if(feature.cluster) {
+                                var maxImportance = 0;
+                                for(var c = 0; c < feature.cluster.length; c++) {
+                                    var   i = feature.cluster[c].attributes.importance;
+                                    if(i > maxImportance) {
+                                        maxImportance = i;
+                                        var  mainFeature = c;
+                                    }
+                                }
+                                feature.attributes.strokeColor =  feature.cluster[mainFeature].attributes.strokeColor;
+                            }
+                            return feature.attributes.strokeColor;
+                        }
+                    }
+                });
+                
+                /* Adding an Multipoint Vector Layer with cluster strategy */
+                var clusterStrategy = new OpenLayers.Strategy.Cluster({
+                    distance: 45,
+                    deactivate: function() {
+                        //self.vector_points.removeFeatures(self.pointsArray);
+                        //self.vector_points.addFeatures(self.pointsArray);
+                        var deactivated = OpenLayers.Strategy.prototype.deactivate.call(this);
+                        if(deactivated) {
+                            var features = [];
+                            var clusters = this.layer.features;
+                            for (var i=0; i<clusters.length; i++) {
+                                var cluster = clusters[i];
+                                if (cluster.cluster) {
+                                    for (var j=0; j<cluster.cluster.length; j++) {
+                                        features.push(cluster.cluster[j]);
+                                    }
+                                } else {
+                                    features.push(cluster);
+                                }
+                            }
+                            this.layer.removeAllFeatures();
+                            this.layer.events.un({
+                                "beforefeaturesadded": this.cacheFeatures,
+                                "moveend": this.cluster,
+                                scope: this
+                            });
+                            this.layer.addFeatures(features);
+                            this.clearCache();
+                        }
+                        return deactivated;
+                    },
+                    activate: function() {
+                        self.vector_points.removeFeatures(self.pointsArray);
+                        self.vector_points.addFeatures(self.pointsArray);
+                        var activated = OpenLayers.Strategy.prototype.activate.call(this);
+                        if(activated) {
+                            // console.log(activated);
+                            var features = [];
+                            var clusters = this.layer.features;
+                            for (var i=0; i<clusters.length; i++) {
+                                var cluster = clusters[i];
+                                if (cluster.cluster) {
+                                    for (var j=0; j<cluster.cluster.length; j++) {
+                                        features.push(cluster.cluster[j]);
+                                    }
+                                } else {
+                                    features.push(cluster);
+                                }
+                            }
+                            this.layer.removeAllFeatures();
+                            this.layer.events.on({
+                                "beforefeaturesadded": this.cacheFeatures,
+                                "moveend": this.cluster,
+                                scope: this
+                            });  
+                            this.layer.addFeatures(features);
+                            this.clearCache();
+                        }
+                        return activated;
+                    }
+                });
+
+
+                var monuments = new OpenLayers.Layer.Vector("Monuments", {
+                    strategies: [clusterStrategy],
+                    styleMap: new OpenLayers.StyleMap({
+                        "default": style
+                    })
+                });
+                
                 // vector layer
                 self.vector_points = new OpenLayers.Layer.Vector('Points', {
-                    renderers: ['Canvas','SVG'],
-                    strategies: [
-                    new OpenLayers.Strategy.AnimatedCluster({
-                        distance: 1,
+                    /* protocol: new OpenLayers.Protocol.HTTP({
+                        url: "transmit",
+                        format: new OpenLayers.Format.GeoJSON()
+                    }),  */
+                    // eventListeners: {
+                    //"featuresadded": dataLoaded
+                    //  },
+                    // features: self.pointsArray,
+                    //  renderers: ['Canvas','SVG'],
+                    //  strategies: [
+                    //  new OpenLayers.Strategy.Cluster(),
+                    //  new OpenLayers.Strategy.Fixed(),
+                    /* new OpenLayers.Strategy.AnimatedCluster({
+                        distance: 45,
                         animationMethod: OpenLayers.Easing.Expo.easeOut,
-                        animationDuration: 20
-                    })
-                    ],
-                    styleMap: myStyle
-                /* rendererOptions: {
+                        animationDuration: 10
+                    }) */
+                    //  new OpenLayers.Strategy.AttributeCluster({
+                    //  attribute: ['COLOR']
+                    //       })
+                    //   ],
+                    //  styleMap: myStyle,
+                    // styleMap: lstyle,
+                    //  styleMap: new OpenLayers.StyleMap(style)
+                    strategies: [clusterStrategy],
+                    /* styleMap: new OpenLayers.StyleMap({
+                         "default": style
+                    }), */
+                    //styleMap: myStyle,
+                    styleMap: myStyle,
+                    rendererOptions: {
                         yOrdering: true,
                         zIndexing: true
-                    }  */
+                    }    
                 });
+                
+                // cluster threshold
+                var clusterMaxZoom = 9; // maximum zoom level is 5. Zoom level start at  0.
+                map.events.register("move", null, function() {  // respond to map extent change
+                    var zoom = map.getZoom();
+                   // console.log('zoom is ' + zoom);
+                    // disable cluster when zoom greater than threshold
+                    if (zoom > clusterMaxZoom) {  // read current zoom
+                        clusterStrategy.deactivate();      // disable cluster strategy
+                        //clusterStrategy.clearCache();    // clear cluster cache
+                     //   console.log('deactivate cluster');
+                    } else {
+                        clusterStrategy.activate();        // disable cluster strategy
+                      //  console.log('activate cluster');
+                    }
+                });
+                
+                // self.vector_points.removeAllFeatures();
                 self.vector_points.addFeatures(self.pointsArray);
-                //console.log(self.vector_points);
-                map.addLayer(self.vector_points); 
+                //self.vector_points.drawFeature(self.pointsArray);
+                // self.pointsArray
+                //  self.vector_points.style = lstyle;
+                // console.log(self.vector_points);
+                map.addLayer(self.vector_points);
+                // map.removeLayer(self.vector_points);
+                // self.vector_points.addFeatures(self.pointsArray);
                 self.selectControl(self.vector_points);
+                self.checkTime();
                 $("#loading").hide();
             });
         },
@@ -203,14 +384,14 @@ $(document).ready(function () {
         changePoint: function (){
            
             $('#onclick').bind('click', function(e) {
-              //  console.log("muuda");
-            });
+                //  console.log("muuda");
+                });
         },
         deletePoint: function (){
            
             $('#delete2').bind('click', function(e) {
-              //  console.log("kustuta");
-            });
+                //  console.log("kustuta");
+                });
         },
         
         onFeatureUnselect: function(feature) {
@@ -304,8 +485,13 @@ $(document).ready(function () {
                                 self.pointsArray[index].renderIntent = "invisible";   
                             }                
                         }); 
-                        map.removeLayer(self.vector_points);
-                        map.addLayer(self.vector_points); 
+                        //  map.removeLayer(self.vector_points);
+                        // map.addLayer(self.vector_points); 
+                        // self.vector_points.removeFeatures(self.pointsArray);
+                        // self.vector_points.addFeatures(self.pointsArray);
+                        // self.vector_points.drawFeature(self.pointsArray);
+                        self.vector_points.removeFeatures(self.pointsArray);
+                        self.vector_points.addFeatures(self.pointsArray);
                     }
                     else if($('#'+e.target.id).is(':checked')==true) {  
                         // kui ülemkategooria selected, muudan ka alamkatekooriad selected
@@ -319,8 +505,8 @@ $(document).ready(function () {
                                 self.pointsArray[index].renderIntent = "default";   
                             }                
                         }); 
-                        map.removeLayer(self.vector_points);
-                        map.addLayer(self.vector_points); 
+                        self.vector_points.removeFeatures(self.pointsArray);
+                        self.vector_points.addFeatures(self.pointsArray);
                     }
                                 
                 });
@@ -342,8 +528,8 @@ $(document).ready(function () {
                                 self.pointsArray[index].renderIntent = "invisible";   
                             }                
                         }); 
-                        map.removeLayer(self.vector_points);
-                        map.addLayer(self.vector_points); 
+                        self.vector_points.removeFeatures(self.pointsArray);
+                        self.vector_points.addFeatures(self.pointsArray);
                     }
                     else if($('#'+e.target.id).is(':checked')==true) {   
                         $.each(points, function(index, value) { 
@@ -353,8 +539,8 @@ $(document).ready(function () {
                                 self.pointsArray[index].renderIntent = "default";   
                             }                
                         }); 
-                        map.removeLayer(self.vector_points);
-                        map.addLayer(self.vector_points); 
+                        self.vector_points.removeFeatures(self.pointsArray);
+                        self.vector_points.addFeatures(self.pointsArray);
                     }
                 });
                 // ajavahemiku põhjal selekteerimine
@@ -398,13 +584,17 @@ $(document).ready(function () {
                             }                                    
                         }         
                     }); 
-                    //}
-                    map.removeLayer(self.vector_points);
-                    map.addLayer(self.vector_points); 
+                    
+                    self.vector_points.removeFeatures(self.pointsArray);
+                    self.vector_points.addFeatures(self.pointsArray);
                 }); 
                 
             });
-            
+
+        },
+        checkTime: function() {
+            self=this;
+            var points = self.pointsArray;
             $.datepicker.setDefaults($.datepicker.regional["et"]);
             var defaultDateStart = "-30";
             $('#time-start').datepicker({ 
@@ -418,6 +608,47 @@ $(document).ready(function () {
                 changeYear: true,
                 yearRange: '2010:2020'
             }).datepicker('setDate', defaultDateEnd);
+            var startDate = $("#time-start").val();
+            // array
+            startDate=startDate.split(".");
+            var start=new Date(startDate[1]+"/"+startDate[0]+"/"+startDate[2]).getTime();
+            var endDate = $("#time-end").val();
+            // array
+            endDate=endDate.split(".");
+            var end=new Date(endDate[1]+"/"+endDate[0]+"/"+endDate[2]).getTime();
+            var date;
+            var ts;
+            var subCat;
+            // kui lõppkuupäev väiksem kui algus
+            if(end <= start) {
+                $("#time-end").val("");
+                alert("Lõppkuupäev ei saa olla varasem kui algus");
+                return;
+            }
+            $.each(points, function(index, value) {
+                // punkti aeg
+                ts = value.attributes.TIMESTAMP.split(" ")[0].split("-");
+                date = new Date(ts[1]+"/"+ts[2]+"/"+ts[0]).getTime();
+                // kui kuupäev ei jää selekteeritud vahemikku muudan punkti nähtamatuks
+                if(date < start || date > end) {
+                    self.pointsArray[index].renderIntent = "invisible";   
+                } else {
+                    // peakategooria id
+                    var div = '#' + value.attributes.ID_CATEGORY;
+                    // alamkategooria name
+                    var div2 = '[name=' + value.attributes.ID_SUBCATEGORY + ']';
+                    // kas peakategooria on selected
+                    if ($(div).is(':checked')==true) {
+                        // kas alamkatekooria on selected
+                        if ($(div2).is(':checked')==true) {
+                            self.pointsArray[index].renderIntent = "default"; 
+                        }
+                    }                                    
+                }         
+            }); 
+
+            self.vector_points.addFeatures(self.pointsArray);
+                
         }
     });
     var listView = new listView();
@@ -494,8 +725,8 @@ $(document).ready(function () {
         ); 
     $("#nupp").bind('click', function(e) {
         e.preventDefault();
-        console.log(map.getExtent());
-        console.log(map.getResolution());
+    //console.log(map.getExtent());
+    // console.log(map.getResolution());
         
     });
 });
