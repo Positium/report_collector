@@ -9,8 +9,7 @@ class editCategories extends CI_Controller {
 
         $this->load->model('query_categories');
     }
-    public function index() {
-        
+    public function index() { 
         $query_response = $this->query_categories->respond_query();
         $cat = '';
         if (is_array($query_response)) {
@@ -29,5 +28,38 @@ class editCategories extends CI_Controller {
         echo $categories_html;
     }
     
+    public function delete($id) {
+        echo $this->query_categories->deleteCategory($id);
+    }
+    public function add() {
+        $name = $_POST['name'];
+        $color = "#".$_POST['color'];
+        $parent = $_POST['parent'];
+        //echo $name.'|'.$color.'|'.$parent;
+        echo $this->query_categories->addCategory($name, $color, $parent);
+    }
+    public function addForm() {
+        $categories = $this->query_categories->respond_query_name();
+        $sel = '<select id="catParent" name="parent">';
+        foreach($categories as $row) {
+            $sel .= '<option value="'.$row->id.'" >'.$row->name_et.'</option>';
+        }
+        $sel .= '</select>';
+
+        $form = '<h3>Lisa uus kategooria</h3>'.
+            'Kategooria nimi: <input id="catName" type="text" /><br/>'.
+            //'Kategooria v&auml;rv: <input id="catColor" type="text" value="e244cf" /><br/>'.
+            //'&Uuml;lemkategooria: <input id="catParent" type="text" /><br/>'.
+            '&Uuml;lemkategooria: '.$sel.'<br/>'.
+            '<br/><button id="submitCategory" >Lisa</button>'.
+            '&nbsp;&nbsp;&nbsp;<button id="cancelAdd" >Tagasi</button>'.
+            '<script type="text/javascript">'.
+            '  $.fn.jPicker.defaults.images.clientPath="../css/jpicker-images/";'.
+            '  $("#catColor").jPicker({ window: { expandable: true } });'.
+            '</script>'.
+            '';
+        echo $form;
+    }
+
 }
 ?>

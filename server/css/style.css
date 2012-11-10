@@ -26,11 +26,39 @@ body{
 
 }
 
-#nupp {
+#info {
+    top: 75px;
+    left:10px;
     z-index: 1500;
-    top: 85px;
-    left:50px;
     position: absolute; 
+    width: 370px;
+    height: 500px;
+    display: none;
+    padding: 30px 10px 10px 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background-color: #c8fcc7;
+}
+
+#clusters {
+     width: 350px;
+     height: 450px;
+    padding: 5px 5px 5px 8px;
+    overflow-y: auto; /* scroll */
+    overflow-x: hidden;
+}
+
+#close {
+    position: absolute;
+    right:1px; 
+    width: 27px;
+    height: 27px;
+    top: 5px;
+    background: url(close.gif) no-repeat;
+    display: block;
+    color: #212121;
+    text-decoration: none;
 }
 
 #loading {
@@ -80,8 +108,11 @@ body{
 #categoriesEdit {
     position: absolute;
     top: 50px;
-    left: 45%;
+    left: 35%;
     width: 400px;
+    height: 500px;
+    overflow-y: auto; /* scroll */
+    overflow-x: hidden;
     opacity: 0.9;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -94,6 +125,11 @@ body{
 #categoriesEdit ul {
     list-style-type: none;
     padding-left: 10px;
+}
+.categoryDelete {
+    display: inline; 
+    margin-left: 30px; 
+    color: #990000;
 }
 
 #userdata {
@@ -141,6 +177,11 @@ body{
     background: #ccccdd;
     color: #4A4A24;
     text-decoration: none;
+}
+#delete2, #onclick {
+    text-decoration: underline;
+    color: blue;
+    cursor:pointer
 }
 /******************        ZOOOOOOOOOOOOOM +-*/
 a.olControlZoomIn {

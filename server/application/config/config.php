@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://gistudeng.gg.bg.ut.ee/dev/';
+$config['base_url']	= 'http://reportcollector/index.php/';
 
 /*
 |--------------------------------------------------------------------------

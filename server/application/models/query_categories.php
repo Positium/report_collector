@@ -59,6 +59,38 @@ Class Query_categories extends CI_Model {
         $sql = "SELECT id, name_et as name, color FROM categories";
         return $this->getCategories($sql);     
     }
+    
+    function deleteCategory($id){
+        /*if($id % 100 == 0){
+            $sql = "DELETE FROM categories WHERE id='".($id/100)."'";
+        } else {
+            $sub = $id % 100;
+            $sql = "DELETE FROM sub_categories WHERE id='".$sub."'";
+        }*/
+
+        $sql = "DELETE FROM sub_categories WHERE id_sub='".$id."'";
+        $query = $this -> db -> query("SELECT COUNT(*) AS points from issues WHERE category='".$id."'");
+        $count = $query->row();
+        if($count->points > 0) return "Ei saa kustutada kategooriat mis sisaldab punkte";
+        $query2 = $this -> db -> query($sql);
+        return "Kustutatud.";
+    }
+    function addCategory($name, $color, $parent){        
+        if ($parent == 0){
+            $q1 = $this -> db -> query("SELECT max(id) AS id FROM categories");
+            $r1 = $q1->row(); 
+            $sql = "INSERT INTO categories (id, name_et, color) VALUES ('".($r1->id+1)."', '".$name."', '".$color."')";
+            $r = "Main";
+        }
+        else{
+            $q1 = $this -> db -> query("SELECT max(id_sub) AS id FROM sub_categories");
+            $r1 = $q1->row();
+            $sql = "INSERT INTO sub_categories (id_sub, name_et, primary_category_id) VALUES ('".($r1->id+1)."', '".$name."', '".$parent."')";
+            $r = "Sub";
+        }
+        $query = $this -> db -> query($sql);
+        return "Lisatud.";
+    }
 }
 
 ?>

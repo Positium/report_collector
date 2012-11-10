@@ -14,9 +14,10 @@ $(document).ready(function () {
         el: $('#map'), // attaches `this.el` to an existing element.
     
         initialize: function(){
-            _.bindAll(this, 'render','loadPoints','selectControl','onFeatureSelect','onFeatureUnselect','popupClose','getCategories', 'changePoint', 'deletePoint','checkTime'); // fixes loss of context for 'this' within method
+            _.bindAll(this, 'render','loadPoints','selectControl','onFeatureSelect','onFeatureUnselect','popupClose','getCategories', 'changePoint', 'deletePoint','checkTime','getEditCategories','cluster'); // fixes loss of context for 'this' within method
             this.render(); // not all views are self-rendering. This one is.
             this.getCategories();
+            this.getEditCategories();
             window.listView = this;
         },
         render: function(){
@@ -91,26 +92,6 @@ $(document).ready(function () {
                 var geoformat = new OpenLayers.Format.GeoJSON();
                 var feats = geoformat.read(data);
                 $.each(feats, function(index, value) { 
-                    // iga kategooria vaja eraldi jadasse panna
-                    /*   if(value.attributes.ID_CATEGORY==1) {
-                        self.pointsArray1.push(feats[index]);
-                    }
-                    else if(value.attributes.ID_CATEGORY==2) {
-                        self.pointsArray2.push(feats[index]);
-                    }
-                    else if(value.attributes.ID_CATEGORY==3) {
-                        self.pointsArray3.push(feats[index]);
-                    }
-                    else if(value.attributes.ID_CATEGORY==4) {
-                        self.pointsArray4.push(feats[index]);
-                    }
-                    else if(value.attributes.ID_CATEGORY==5) {
-                        self.pointsArray5.push(feats[index]);
-                    }
-                    else if(value.attributes.ID_CATEGORY==6) {
-                        self.pointsArray6.push(feats[index]);
-                    } */
-                     
                     self.pointsArray.push(feats[index]);
                 });
                 window.pointsArray = self.pointsArray; 
@@ -182,6 +163,7 @@ $(document).ready(function () {
                 /* Adding an Multipoint Vector Layer with cluster strategy */
                 clusterStrategy = new OpenLayers.Strategy.Cluster({
                     distance: 45,
+                    threshold: 2,
                     deactivate: function() {
                         var deactivated = OpenLayers.Strategy.prototype.deactivate.call(this);
                         if(deactivated) {
@@ -349,22 +331,30 @@ $(document).ready(function () {
                 
                 // cluster threshold
                 var clusterMaxZoom = 9;  // Zoom level start at  0.
-                map.events.register("move", null, function() {  // respond to map extent change
+                map.events.register("zoomend", null, function() {  // respond to map extent change (move)
                     var zoom = map.getZoom();
                     // console.log('zoom is ' + zoom);
                     // disable cluster when zoom greater than threshold
                     if (zoom > clusterMaxZoom) {  // read current zoom
-                        clusterStrategy.deactivate();      // disable cluster strategy
-                    // clusterStrategy2.deactivate(); 
+                        if($('#cluster').is(':checked')==true) {
+                            clusterStrategy.activate();      // disable cluster strategy 
+                        }
+                        else {
+                            clusterStrategy.deactivate();  
+                        }
                     //clusterStrategy.clearCache();    // clear cluster cache
                     //console.log('deactivate cluster');
                     } else {
-                        clusterStrategy.activate(); 
-                    //  clusterStrategy2.activate(); 
+                        if($('#cluster').is(':checked')==false) {
+                            clusterStrategy.deactivate(); 
+                        }
+                        else {
+                            clusterStrategy.activate();
+                        }
+
                     // console.log('activate cluster');
                     }
                 });
-                
                 // self.vector_points.removeAllFeatures();
                 //  self.vector_points.addFeatures(self.pointsArray);
                 self.vector_points.addFeatures(self.pointsArray);
@@ -377,6 +367,7 @@ $(document).ready(function () {
                 //  self.selectControl(self.vector_points2);
                 self.checkTime();
                 $("#loading").hide();
+                self.cluster();
             });
         },
         selectControl: function(vector_points){
@@ -400,6 +391,7 @@ $(document).ready(function () {
             var photo;
             var self=this;
             if(feature.cluster) {
+                // kui klastri suurus 1 naitan infot
                 if(feature.cluster.length==1) {
                     $.get("transmit/getphotobyid?id="+ selectedFeature.cluster[0].attributes['ID'], 
                         function(data){ 
@@ -423,17 +415,62 @@ $(document).ready(function () {
                                 html,
                                 null, 
                                 true, 
-                                this.popupClose);
+                                self.popupClose);
 
                             feature.popup = popup;
                             map.addPopup(popup);
-                            self.changePoint();
-                            self.deletePoint();
+
                         });
                 }
-                else {
+                else { // muidu suumin lahemale
                     var x = map.getZoom();
-                    map.zoomTo(x+1);
+                    var count = 0;
+                    var html = "";
+                    if(x==10) { // kui suum 10 naitan klastri koikide punktide infot
+                        
+                        $.each(feature.cluster, function(index, value) {
+                            $.get("transmit/getphotobyid?id="+ selectedFeature.cluster[index].attributes['ID'], 
+                                function(data){ 
+                                    photo = data;
+                                    count++;
+                                    // HTML PopUp
+                                    html += "<div id = 'delete' ></div> ID: "+ selectedFeature.cluster[index].attributes['ID'] + "<br/>" +
+                                    "Aeg: " + selectedFeature.cluster[index].attributes['TIMESTAMP']+ "<br/>"+
+                                    //  <img style="width: 100%" src="data:image/jpeg;base64,' + data + '" />
+                                    "GPS täpsus: " +selectedFeature.cluster[index].attributes['GPS_ACCURACY'] + "<br/>"+
+                                    "Pilt kohast: " + "<br/>"+
+                                    '<img style="width: 300px; height: 350px; " src="data:image/jpeg;base64,' + photo+ '" />' +
+                                    "<br/>"+
+                                    "Kategooria: " + selectedFeature.cluster[index].attributes['CATEGORY'] + "<br/>"+ 
+                                    "Kommentaar: " + selectedFeature.cluster[index].attributes['COMMENTARY'] + "<br/>" 
+                                    //   "<a  id = 'onclick'>Muuda kategooriat</a>"  + "<br/>" + 
+                                    //   "<a id ='delete2'>&#32;Kustuta</a>" + "<br/>" ;
+                                    //  console.log($.base64.decode(selectedFeature.attributes['PICTURE']));
+                                    /* popup = new OpenLayers.Popup.FramedCloud("data",
+                                        feature.geometry.getBounds().getCenterLonLat(),
+                                        null,
+                                        html,
+                                        null, 
+                                        true, 
+                                        self.popupClose);
+
+                                    feature.popup = popup;
+                                    map.addPopup(popup);  */
+                                    if(count == feature.cluster.length) {
+                                        $("#clusters").html(html);
+                                        $("#close").bind('click', function(e) {
+                                            e.preventDefault();
+                                            $("#info").hide();
+                                        });
+                                        $("#info").show();
+                                    }
+   
+                                });
+                        });
+                    }
+                    else {
+                        map.zoomTo(x+1);  
+                    }
 
                 }
             }
@@ -460,7 +497,7 @@ $(document).ready(function () {
                             html,
                             null, 
                             true, 
-                            this.popupClose);
+                            self.popupClose);
 
                         feature.popup = popup;
                         map.addPopup(popup);
@@ -468,6 +505,33 @@ $(document).ready(function () {
                         self.deletePoint();
                     });  
             }
+        },
+        cluster: function() {
+            var self = this;
+            $('#cluster').bind('click', function(e) {
+                var points = self.pointsArray;
+                var pointsHold = self.pointsArrayHold;
+                var points2 = new Array();
+                if($('#cluster').is(':checked')==true) {
+                    clusterStrategy.activate(); 
+                // clusterStrategy.recluster();
+     
+                // vectorlayer.addFeatures(points);
+                //   map.addLayer(vectorlayer);
+                //ADD_LOTS_OF_FEATURES_TO_VECTOR_LAYER
+                       
+                //  clustering.distance=value;
+                //    self.vector_points.recluster();
+                //  self.vector_points.removeFeatures(points);
+                // self.pointsArray = points2;
+                // self.vector_points.addFeatures(points2);
+                }
+                else {
+                    clusterStrategy.deactivate(); 
+                //self.vector_points.removeFeatures(points);
+                //self.vector_points.addFeatures(points);
+                }
+            });
         },
         changePoint: function (){
            
@@ -484,12 +548,14 @@ $(document).ready(function () {
         
         onFeatureUnselect: function(feature) {
             if(feature.cluster) {
-            // console.log("cluster");
-            /*  var x = map.getZoom();
+                // console.log("cluster");
+                /*  var x = map.getZoom();
                 {
                     map.zoomTo(x+1);
                 } */
-            //  this.onFeatureSelect(feature);
+               // map.removePopup(feature.popup);
+               // feature.popup.destroy();
+                feature.popup = null;
             }
             else {
                 
@@ -715,6 +781,63 @@ $(document).ready(function () {
             });
 
         },
+        getEditCategories: function() {
+            var self=this;
+            $.getJSON('getcategories/getsubcat', function(data) {
+                var categories = ""; 
+                var loendur = 100;
+                var loendur2 = 1;
+                $.each(data, function(index, value) { 
+                    categories += '<li><div class="catcolor" style="background-color: '+
+                    value.color + ';"></div> <label id = "e'+ loendur + '" >' + value.name +'</label><ul class = "e' + loendur +
+                    ' show" style="margin-left: 20px;">';
+                    $.each(value.subcategories, function(index, value) {
+                        categories += '<li class="subcat subCatEd' + loendur2 +
+                        '" ><label for="e' +  (loendur + index +1) + '">' +
+                        value.name + '</label><button class="categoryDelete" value="'+ (loendur + index +1) + '" name = "'+value.id_sub+'">Kustuta</button></li>'; 
+                    }); 
+                    loendur2=loendur2+1;
+                    loendur= loendur+100;
+                    categories +='</ul></li>'; 
+                }); 
+                var lHtml =  '<label>Kategooriate haldus</label>'+ '<ul>' + categories + '</ul><br/><button id="addCategory">Lisa kategooria</button>';
+                $("#categoriesEdit").html(lHtml);
+                $(".categoryDelete").each(function(){
+                    $(this).bind('click', function(e) {
+                        //console.log(e);
+                        //alert($(this).attr('name'));
+                        $.get('editCategories/delete/'+$(this).attr('name'), function(data) {
+                            //if(data == 1){
+                            self.getCategories();
+                            self.getEditCategories();
+                            alert(data);
+                        //} else {
+                        //    alert("Viga kustutamisel");
+                        //}
+                        });
+                    });
+                });
+                $("#addCategory").bind('click', function(e) {
+                    $.get('editCategories/addForm', function(data) {
+                        $("#categoriesEdit").html(data);
+                        $("#submitCategory").bind('click', function(e) {
+                            $.post('editCategories/add', {
+                                name: $("#catName").val(), 
+                                color: $("#catColor").val(), 
+                                parent: $("#catParent").val()
+                            }, function(data){
+                                self.getCategories();
+                                self.getEditCategories();
+                                alert(data);
+                            });
+                        });
+                        $("#cancelAdd").bind('click', function(e) {
+                            self.getEditCategories();
+                        });
+                    });
+                });
+            });
+        },
         checkTime: function() {
             var self=this;
             var points = self.pointsArray;
@@ -831,28 +954,7 @@ $(document).ready(function () {
                 e.preventDefault();
                 toggleCAdmin("hide");
             });
-            $.getJSON('getcategories/getsubcat', function(data) {
-                var categories = ""; 
-                var loendur = 100;
-                var loendur2 = 1;
-                $.each(data, function(index, value) { 
-                    categories += '<li><div class="catcolor" style="background-color: '+
-                    value.color + ';"></div> <label id = "e'+ loendur + '" >' + value.name +'</label><button class="categoryDelete" value="'+ loendur + '">Kustuta</button><ul class = "e' + loendur +
-                    ' show" style="margin-left: 20px;">';
-                    $.each(value.subcategories, function(index, value) {
-                        categories += '<li class="subcat subCatEd' + loendur2 +
-                        '" ><label for="e' +  (loendur + index +1) + '">' +
-                        value.name + '</label><button class="categoryDelete" value="'+ (loendur + index +1) + '">Kustuta</button></li>'; 
-                    }); 
-                    loendur2=loendur2+1;
-                    loendur= loendur+100;
-                    categories +='</ul></li>'; 
-                }); 
-                var lHtml =  '<label>Kategooriate haldus</label>'+ '<ul>' + categories + '</ul><br/><div id="addCategory">Lisa kategooria</div>';
-                $("#categoriesEdit").html(lHtml);
-            });
-        }
-        ); 
+        }); 
     $("#nupp").bind('click', function(e) {
         e.preventDefault();
     //console.log(map.getExtent());
