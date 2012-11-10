@@ -8,6 +8,7 @@ $(document).ready(function () {
         },
         request: null,
         pointsArray: [],
+        pointsArrayHold: [],
         vector_points: null,
         mapBounds: '',
         el: $('#map'), // attaches `this.el` to an existing element.
@@ -90,37 +91,74 @@ $(document).ready(function () {
                 var geoformat = new OpenLayers.Format.GeoJSON();
                 var feats = geoformat.read(data);
                 $.each(feats, function(index, value) { 
-                    //console.log(value);
+                    // iga kategooria vaja eraldi jadasse panna
+                    /*   if(value.attributes.ID_CATEGORY==1) {
+                        self.pointsArray1.push(feats[index]);
+                    }
+                    else if(value.attributes.ID_CATEGORY==2) {
+                        self.pointsArray2.push(feats[index]);
+                    }
+                    else if(value.attributes.ID_CATEGORY==3) {
+                        self.pointsArray3.push(feats[index]);
+                    }
+                    else if(value.attributes.ID_CATEGORY==4) {
+                        self.pointsArray4.push(feats[index]);
+                    }
+                    else if(value.attributes.ID_CATEGORY==5) {
+                        self.pointsArray5.push(feats[index]);
+                    }
+                    else if(value.attributes.ID_CATEGORY==6) {
+                        self.pointsArray6.push(feats[index]);
+                    } */
+                     
                     self.pointsArray.push(feats[index]);
                 });
                 window.pointsArray = self.pointsArray; 
+                self.pointsArrayHold = self.pointsArray;
                 //style
                 var context = {
                     getSize: function(feature){
                         var myRadius;
                         // myRadius = feature.attributes.RADIUS*(0.5*(map.getZoom()+1))
-                        myRadius = 10;
+                        myRadius = 12;
                         return myRadius;
                     },
                     label: function(feature) {
                         // clustered features count or blank if feature is not a cluster
                         return feature.cluster ? feature.cluster.length : "";  
-                    }
-                }
+                    },
+                    getColor: function(feature) {
+                        //var color = feature.attributes.COLOR;
+                        var color;
+                        if(feature.cluster) {    
+                            // feature.cluster.fillColor = feature.cluster[0].attributes.COLOR;
+                            // color = feature.cluster[0].attributes.COLOR;
+                            color = '#000000' 
+                        }
+                        else {
+                            color = feature.attributes.COLOR;  
+                        }  
+                        return color;
+                    },
+                    getFontColor: function (feature) {
+                        var fontColor = "#FFFFFF";
+                        return fontColor;
+                    }               
+                };
+                
                 var template = {
                     pointRadius: "${getSize}",
-                    fillColor: "${COLOR}",
+                    fillColor: "${getColor}",
                     // fillColor: "#FF0000",
                     fillOpacity: 0.7,
                     strokeColor: "#595A59",
                     strokeOpacity: 0.7,
                     // label: "${count}",
                     label: "${label}",
-                    //  label: "1",
-                    // labelOutlineWidth: 1,
-                    fontColor: "#ffffff",
+                    labelOutlineWidth: 1,
+                    fontColor: "${getFontColor}",
                     //fontOpacity: 0.8,
-                    //fontSize: "12px",
+                    //fontSize: "16px",
                     strokeWidth: 2,
                     graphicZIndex: 1
                 }
@@ -141,64 +179,10 @@ $(document).ready(function () {
                     })
                 });
                 
-                // styles for cluster strategy
-                var style = new OpenLayers.Style({
-                    fillColor: "${fill_color}",
-                    fillOpacity: 0.4,
-                    pointRadius: "${radius}",
-                    strokeColor: "${stroke_color}",
-                    strokeOpacity: 1,
-                    strokeWidth: 1
-                },
-                {
-                    context: {
-                        radius: function(feature) {
-                            var pix = 8;
-                            if(feature.cluster) {
-                                pix = Math.min(feature.attributes.count, 11) + 8;
-                            }
-                            return pix;
-                        },
-                        fill_color: function(feature) {
-                           
-                            if(feature.cluster) {
-                                console.log(feature.cluster[0])
-                            /*   var maxImportance = 0;
-                                for(var c = 0; c < feature.cluster.length; c++) {
-                                    var  i =  feature.cluster[c].attributes.importance;
-                                    if(i > maxImportance) {
-                                        maxImportance = i;
-                                        var  mainFeature = c;
-                                    }
-                                }
-                                feature.attributes.fillColor = feature.cluster[mainFeature].attributes.fillColor; */
-                                
-                            }
-                            return feature.attributes.fillColor;
-                        },
-                        stroke_color: function(feature) {
-                            if(feature.cluster) {
-                                var maxImportance = 0;
-                                for(var c = 0; c < feature.cluster.length; c++) {
-                                    var   i = feature.cluster[c].attributes.importance;
-                                    if(i > maxImportance) {
-                                        maxImportance = i;
-                                        var  mainFeature = c;
-                                    }
-                                }
-                                feature.attributes.strokeColor =  feature.cluster[mainFeature].attributes.strokeColor;
-                            }
-                            return feature.attributes.strokeColor;
-                        }
-                    }
-                });
-                
                 /* Adding an Multipoint Vector Layer with cluster strategy */
-                var clusterStrategy = new OpenLayers.Strategy.Cluster({
+                clusterStrategy = new OpenLayers.Strategy.Cluster({
                     distance: 45,
                     deactivate: function() {
-                        //self.vector_points.removeFeatures(self.pointsArray);
-                        //self.vector_points.addFeatures(self.pointsArray);
                         var deactivated = OpenLayers.Strategy.prototype.deactivate.call(this);
                         if(deactivated) {
                             var features = [];
@@ -225,8 +209,8 @@ $(document).ready(function () {
                         return deactivated;
                     },
                     activate: function() {
-                        self.vector_points.removeFeatures(self.pointsArray);
-                        self.vector_points.addFeatures(self.pointsArray);
+                        this.layer.removeFeatures(self.pointsArray);
+                        this.layer.addFeatures(self.pointsArray);
                         var activated = OpenLayers.Strategy.prototype.activate.call(this);
                         if(activated) {
                             // console.log(activated);
@@ -248,21 +232,85 @@ $(document).ready(function () {
                                 "moveend": this.cluster,
                                 scope: this
                             });  
+                            
                             this.layer.addFeatures(features);
                             this.clearCache();
                         }
                         return activated;
+                    },
+                    
+                    /**
+     * Method: cluster
+     * Cluster features based on some threshold distance.
+     *
+     * Parameters:
+     * event - {Object} The event received when cluster is called as a
+     *     result of a moveend event.
+     */
+                    cluster: function(event) {
+                        if((!event || event.zoomChanged || (event && event.recluster)) && this.features) {
+                            var resolution = this.layer.map.getResolution();
+                            if(resolution != this.resolution || !this.clustersExist() || (event && event.recluster)) {
+                                this.resolution = resolution;
+                                var clusters = [];
+                                var feature, clustered, cluster;
+                                for(var i=0; i<this.features.length; ++i) {
+                                    feature = this.features[i];
+                                    if(feature.geometry) {
+                                        clustered = false;
+                                        for(var j=clusters.length-1; j>=0; --j) {
+                                            cluster = clusters[j];
+                                            if(this.shouldCluster(cluster, feature)) {
+                                                this.addToCluster(cluster, feature);
+                                                clustered = true;
+                                                break;
+                                            }
+                                        }
+                                        if(!clustered) {
+                                            clusters.push(this.createCluster(this.features[i]));
+                                        }
+                                    }
+                                }
+                                this.layer.removeAllFeatures();
+                                if(clusters.length > 0) {
+                                    if(this.threshold > 1) {
+                                        var clone = clusters.slice();
+                                        clusters = [];
+                                        var candidate;
+                                        for(var i=0, len=clone.length; i<len; ++i) {
+                                            candidate = clone[i];
+                                            if(candidate.attributes.count < this.threshold) {
+                                                Array.prototype.push.apply(clusters, candidate.cluster);
+                                            } else {
+                                                clusters.push(candidate);
+                                            }
+                                        }
+                                    }
+                                    this.clustering = true;
+                                    // A legitimate feature addition could occur during this
+                                    // addFeatures call.  For clustering to behave well, features
+                                    // should be removed from a layer before requesting a new batch.
+                                    this.layer.addFeatures(clusters);
+                                    this.clustering = false;
+                                }
+                                this.clusters = clusters;
+                            }
+                        }
+                    },
+
+                    /**
+     * Method: recluster
+     * User-callable function to recluster features
+     * Useful for instances where a clustering attribute (distance, threshold, ...)
+     *     has changed
+     */
+                    recluster: function(){
+                        var event={
+                            "recluster":true
+                        };
+                        this.cluster(event);
                     }
                 });
-
-
-                var monuments = new OpenLayers.Layer.Vector("Monuments", {
-                    strategies: [clusterStrategy],
-                    styleMap: new OpenLayers.StyleMap({
-                        "default": style
-                    })
-                });
-                
                 // vector layer
                 self.vector_points = new OpenLayers.Layer.Vector('Points', {
                     /* protocol: new OpenLayers.Protocol.HTTP({
@@ -286,14 +334,12 @@ $(document).ready(function () {
                     //  attribute: ['COLOR']
                     //       })
                     //   ],
-                    //  styleMap: myStyle,
                     // styleMap: lstyle,
                     //  styleMap: new OpenLayers.StyleMap(style)
                     strategies: [clusterStrategy],
                     /* styleMap: new OpenLayers.StyleMap({
                          "default": style
                     }), */
-                    //styleMap: myStyle,
                     styleMap: myStyle,
                     rendererOptions: {
                         yOrdering: true,
@@ -302,38 +348,40 @@ $(document).ready(function () {
                 });
                 
                 // cluster threshold
-                var clusterMaxZoom = 9; // maximum zoom level is 5. Zoom level start at  0.
+                var clusterMaxZoom = 9;  // Zoom level start at  0.
                 map.events.register("move", null, function() {  // respond to map extent change
                     var zoom = map.getZoom();
-                   // console.log('zoom is ' + zoom);
+                    // console.log('zoom is ' + zoom);
                     // disable cluster when zoom greater than threshold
                     if (zoom > clusterMaxZoom) {  // read current zoom
                         clusterStrategy.deactivate();      // disable cluster strategy
-                        //clusterStrategy.clearCache();    // clear cluster cache
-                     //   console.log('deactivate cluster');
+                    // clusterStrategy2.deactivate(); 
+                    //clusterStrategy.clearCache();    // clear cluster cache
+                    //console.log('deactivate cluster');
                     } else {
-                        clusterStrategy.activate();        // disable cluster strategy
-                      //  console.log('activate cluster');
+                        clusterStrategy.activate(); 
+                    //  clusterStrategy2.activate(); 
+                    // console.log('activate cluster');
                     }
                 });
                 
                 // self.vector_points.removeAllFeatures();
+                //  self.vector_points.addFeatures(self.pointsArray);
                 self.vector_points.addFeatures(self.pointsArray);
+                //  self.vector_points2.addFeatures(self.pointsArray2);
                 //self.vector_points.drawFeature(self.pointsArray);
-                // self.pointsArray
-                //  self.vector_points.style = lstyle;
-                // console.log(self.vector_points);
                 map.addLayer(self.vector_points);
                 // map.removeLayer(self.vector_points);
                 // self.vector_points.addFeatures(self.pointsArray);
                 self.selectControl(self.vector_points);
+                //  self.selectControl(self.vector_points2);
                 self.checkTime();
                 $("#loading").hide();
             });
         },
         selectControl: function(vector_points){
             // Create a select feature control and add it to the map
-            selectControl = new OpenLayers.Control.SelectFeature(this.vector_points,
+            selectControl = new OpenLayers.Control.SelectFeature(vector_points,
             {
                 clickout: true, 
                 toggle: true,
@@ -347,39 +395,79 @@ $(document).ready(function () {
             selectControl.activate(); 
         },
         onFeatureSelect: function(feature){
-            //  geocode= feature.attributes['ID']; 
+            //  geocode= feature.attributes['ID'];             
             selectedFeature = feature;
             var photo;
             var self=this;
-            $.get("transmit/getphotobyid?id="+ selectedFeature.attributes['ID'], 
-                function(data){ 
-                    photo = data;
-                    // HTML PopUp
-                    var html = "<div id = 'delete' ></div> ID: "+ selectedFeature.attributes['ID'] + "<br/>" +
-                    "Aeg: " + selectedFeature.attributes['TIMESTAMP']+ "<br/>"+
-                    //  <img style="width: 100%" src="data:image/jpeg;base64,' + data + '" />
-                    "GPS täpsus: " +selectedFeature.attributes['GPS_ACCURACY'] + "<br/>"+
-                    "Pilt kohast: " + "<br/>"+
-                    '<img style="width: 300px; height: 350px; " src="data:image/jpeg;base64,' + photo+ '" />' +
-                    "<br/>"+
-                    "Kategooria: " + selectedFeature.attributes['CATEGORY'] + "<br/>"+ 
-                    "Kommentaar: " + selectedFeature.attributes['COMMENTARY'] + "<br/>" 
-                    //   "<a  id = 'onclick'>Muuda kategooriat</a>"  + "<br/>" + 
-                    //   "<a id ='delete2'>&#32;Kustuta</a>" + "<br/>" ;
-                    //  console.log($.base64.decode(selectedFeature.attributes['PICTURE']));
-                    popup = new OpenLayers.Popup.FramedCloud("data",
-                        feature.geometry.getBounds().getCenterLonLat(),
-                        null,
-                        html,
-                        null, 
-                        true, 
-                        this.popupClose);
+            if(feature.cluster) {
+                if(feature.cluster.length==1) {
+                    $.get("transmit/getphotobyid?id="+ selectedFeature.cluster[0].attributes['ID'], 
+                        function(data){ 
+                            photo = data;
+                            // HTML PopUp
+                            var html = "<div id = 'delete' ></div> ID: "+ selectedFeature.cluster[0].attributes['ID'] + "<br/>" +
+                            "Aeg: " + selectedFeature.cluster[0].attributes['TIMESTAMP']+ "<br/>"+
+                            //  <img style="width: 100%" src="data:image/jpeg;base64,' + data + '" />
+                            "GPS täpsus: " +selectedFeature.cluster[0].attributes['GPS_ACCURACY'] + "<br/>"+
+                            "Pilt kohast: " + "<br/>"+
+                            '<img style="width: 300px; height: 350px; " src="data:image/jpeg;base64,' + photo+ '" />' +
+                            "<br/>"+
+                            "Kategooria: " + selectedFeature.cluster[0].attributes['CATEGORY'] + "<br/>"+ 
+                            "Kommentaar: " + selectedFeature.cluster[0].attributes['COMMENTARY'] + "<br/>" 
+                            //   "<a  id = 'onclick'>Muuda kategooriat</a>"  + "<br/>" + 
+                            //   "<a id ='delete2'>&#32;Kustuta</a>" + "<br/>" ;
+                            //  console.log($.base64.decode(selectedFeature.attributes['PICTURE']));
+                            popup = new OpenLayers.Popup.FramedCloud("data",
+                                feature.geometry.getBounds().getCenterLonLat(),
+                                null,
+                                html,
+                                null, 
+                                true, 
+                                this.popupClose);
 
-                    feature.popup = popup;
-                    map.addPopup(popup);
-                    self.changePoint();
-                    self.deletePoint();
-                });   
+                            feature.popup = popup;
+                            map.addPopup(popup);
+                            self.changePoint();
+                            self.deletePoint();
+                        });
+                }
+                else {
+                    var x = map.getZoom();
+                    map.zoomTo(x+1);
+
+                }
+            }
+            else {
+                $.get("transmit/getphotobyid?id="+ selectedFeature.attributes['ID'], 
+                    function(data){ 
+                        photo = data;
+                        // HTML PopUp
+                        var html = "<div id = 'delete' ></div> ID: "+ selectedFeature.attributes['ID'] + "<br/>" +
+                        "Aeg: " + selectedFeature.attributes['TIMESTAMP']+ "<br/>"+
+                        //  <img style="width: 100%" src="data:image/jpeg;base64,' + data + '" />
+                        "GPS täpsus: " +selectedFeature.attributes['GPS_ACCURACY'] + "<br/>"+
+                        "Pilt kohast: " + "<br/>"+
+                        '<img style="width: 300px; height: 350px; " src="data:image/jpeg;base64,' + photo+ '" />' +
+                        "<br/>"+
+                        "Kategooria: " + selectedFeature.attributes['CATEGORY'] + "<br/>"+ 
+                        "Kommentaar: " + selectedFeature.attributes['COMMENTARY'] + "<br/>" 
+                        //   "<a  id = 'onclick'>Muuda kategooriat</a>"  + "<br/>" + 
+                        //   "<a id ='delete2'>&#32;Kustuta</a>" + "<br/>" ;
+                        //  console.log($.base64.decode(selectedFeature.attributes['PICTURE']));
+                        popup = new OpenLayers.Popup.FramedCloud("data",
+                            feature.geometry.getBounds().getCenterLonLat(),
+                            null,
+                            html,
+                            null, 
+                            true, 
+                            this.popupClose);
+
+                        feature.popup = popup;
+                        map.addPopup(popup);
+                        self.changePoint();
+                        self.deletePoint();
+                    });  
+            }
         },
         changePoint: function (){
            
@@ -395,16 +483,26 @@ $(document).ready(function () {
         },
         
         onFeatureUnselect: function(feature) {
-            map.removePopup(feature.popup);
-            feature.popup.destroy();
-            feature.popup = null;
+            if(feature.cluster) {
+            // console.log("cluster");
+            /*  var x = map.getZoom();
+                {
+                    map.zoomTo(x+1);
+                } */
+            //  this.onFeatureSelect(feature);
+            }
+            else {
+                
+                map.removePopup(feature.popup);
+                feature.popup.destroy();
+                feature.popup = null;
+            }
         },
         popupClose: function(evt) {
             selectControl.unselect(selectedFeature);
         },
         getCategories: function() {
             var self=this;
-            var points = self.pointsArray;
             // var vector_layer = self.vector_points;  
             var category = $.getJSON('getcategories/getsubcat', function(data) {
                 var categories = ""; 
@@ -463,8 +561,12 @@ $(document).ready(function () {
                     });
                 }); */
                 // peakategooriate põhjal punktide selekteerimine
+                //   $("#time-interval").bind('change', function(e){
                 $(".catSelect").bind('click', function(e) {
                     // console.log(e.toElement.id);
+                    var points = self.pointsArray;
+                    var pointsHold = self.pointsArrayHold;
+                    var points2 = new Array();
                     var startDate = $("#time-start").val();
                     startDate=startDate.split(".");
                     var start=new Date(startDate[1]+"/"+startDate[0]+"/"+startDate[2]).getTime();
@@ -481,32 +583,35 @@ $(document).ready(function () {
                         // muudan punkti stiili
                         $.each(points, function(index, value) { 
                             // kain punktid labi ja muudan stiili, kui on unselect vastav kategooria
-                            if(value.attributes.ID_CATEGORY ==e.target.id) {
-                                self.pointsArray[index].renderIntent = "invisible";   
-                            }                
+                            if(value.attributes.ID_CATEGORY != e.target.id) {
+                                // points[index].renderIntent = "invisible";   
+                                points2.push(value);
+                            }
                         }); 
                         //  map.removeLayer(self.vector_points);
                         // map.addLayer(self.vector_points); 
-                        // self.vector_points.removeFeatures(self.pointsArray);
-                        // self.vector_points.addFeatures(self.pointsArray);
                         // self.vector_points.drawFeature(self.pointsArray);
-                        self.vector_points.removeFeatures(self.pointsArray);
-                        self.vector_points.addFeatures(self.pointsArray);
+                        self.vector_points.removeFeatures(points);
+                        self.pointsArray = points2;
+                        self.vector_points.addFeatures(points2);
+                        clusterStrategy.recluster();
+                        
                     }
                     else if($('#'+e.target.id).is(':checked')==true) {  
                         // kui ülemkategooria selected, muudan ka alamkatekooriad selected
                         var subCatInput2 = ".subCat" + e.target.id + " input";
                         $(subCatInput2).attr('checked', true);
-                        $.each(points, function(index, value) { 
+                        $.each(pointsHold, function(index, value) { 
                             ts = value.attributes.TIMESTAMP.split(" ")[0].split("-");
                             date = new Date(ts[1]+"/"+ts[2]+"/"+ts[0]).getTime();
-                            //  if(value.attributes.ID_CATEGORY ==e.target.id) {
                             if(value.attributes.ID_CATEGORY == e.target.id && (date >= start && date <= end)) {
-                                self.pointsArray[index].renderIntent = "default";   
+                                // points[index].renderIntent = "default"; 
+                                points.push(value);
                             }                
                         }); 
-                        self.vector_points.removeFeatures(self.pointsArray);
-                        self.vector_points.addFeatures(self.pointsArray);
+                        self.vector_points.removeFeatures(points);
+                        self.vector_points.addFeatures(points);
+                        clusterStrategy.recluster();
                     }
                                 
                 });
@@ -514,6 +619,9 @@ $(document).ready(function () {
                 // alamkategooriate põhjal selekteerimine
                 $(".subcat").bind('click', function(e) {
                     // console.log(e.toElement.name);
+                    var points = self.pointsArray;
+                    var pointsHold = self.pointsArrayHold;
+                    var points2 = new Array();
                     var startDate = $("#time-start").val();
                     startDate=startDate.split(".");
                     var start=new Date(startDate[1]+"/"+startDate[0]+"/"+startDate[2]).getTime();
@@ -524,28 +632,36 @@ $(document).ready(function () {
                     var ts;
                     if($('#'+e.target.id).is(':checked')==false) {
                         $.each(points, function(index, value) { 
-                            if(value.attributes.ID_SUBCATEGORY ==e.target.name) {
-                                self.pointsArray[index].renderIntent = "invisible";   
+                            if(value.attributes.ID_SUBCATEGORY !=e.target.name) {
+                                //self.pointsArray[index].renderIntent = "invisible";   
+                                points2.push(value);
                             }                
                         }); 
-                        self.vector_points.removeFeatures(self.pointsArray);
-                        self.vector_points.addFeatures(self.pointsArray);
+                        self.vector_points.removeFeatures(points);
+                        self.pointsArray = points2;
+                        self.vector_points.addFeatures(points2);
+                        clusterStrategy.recluster();
                     }
                     else if($('#'+e.target.id).is(':checked')==true) {   
-                        $.each(points, function(index, value) { 
+                        $.each(pointsHold, function(index, value) { 
                             ts = value.attributes.TIMESTAMP.split(" ")[0].split("-");
                             date = new Date(ts[1]+"/"+ts[2]+"/"+ts[0]).getTime();
                             if(value.attributes.ID_SUBCATEGORY ==e.target.name && (date >= start && date <= end)) {
-                                self.pointsArray[index].renderIntent = "default";   
+                                // self.pointsArray[index].renderIntent = "default";  
+                                points.push(value);
                             }                
                         }); 
-                        self.vector_points.removeFeatures(self.pointsArray);
-                        self.vector_points.addFeatures(self.pointsArray);
+                        self.vector_points.removeFeatures(points);
+                        self.vector_points.addFeatures(points);
+                        clusterStrategy.recluster();
                     }
                 });
                 // ajavahemiku põhjal selekteerimine
                 $("#time-interval").bind('change', function(e){
                     //if($("#time-start").val()){
+                    var points = self.pointsArray;
+                    var pointsHold = self.pointsArrayHold;
+                    var points2 = new Array();
                     var startDate = $("#time-start").val();
                     // array
                     startDate=startDate.split(".");
@@ -556,21 +672,20 @@ $(document).ready(function () {
                     var end=new Date(endDate[1]+"/"+endDate[0]+"/"+endDate[2]).getTime();
                     var date;
                     var ts;
-                    var subCat;
+                    var check;
                     // kui lõppkuupäev väiksem kui algus
                     if(end <= start) {
                         $("#time-end").val("");
                         alert("Lõppkuupäev ei saa olla varasem kui algus");
                         return;
                     }
-                    $.each(points, function(index, value) {
+                    $.each(pointsHold, function(index, value) {
                         // punkti aeg
                         ts = value.attributes.TIMESTAMP.split(" ")[0].split("-");
                         date = new Date(ts[1]+"/"+ts[2]+"/"+ts[0]).getTime();
                         // kui kuupäev ei jää selekteeritud vahemikku muudan punkti nähtamatuks
-                        if(date < start || date > end) {
-                            self.pointsArray[index].renderIntent = "invisible";   
-                        } else {
+                        if(date >= start && date <= end) {
+                            // points[index].renderIntent = "invisible"; 
                             // peakategooria id
                             var div = '#' + value.attributes.ID_CATEGORY;
                             // alamkategooria name
@@ -578,23 +693,33 @@ $(document).ready(function () {
                             // kas peakategooria on selected
                             if ($(div).is(':checked')==true) {
                                 // kas alamkatekooria on selected
-                                if ($(div2).is(':checked')==true) {
-                                    self.pointsArray[index].renderIntent = "default"; 
+                                if(value.attributes.ID_SUBCATEGORY!=0) {
+                                    if ($(div2).is(':checked')==true) {
+                                        //points[index].renderIntent = "default"; 
+                                        points2.push(value);
+                                    }
                                 }
-                            }                                    
-                        }         
+                                else {
+                                    points2.push(value);  
+                                }
+                            }
+                        }     
                     }); 
-                    
-                    self.vector_points.removeFeatures(self.pointsArray);
-                    self.vector_points.addFeatures(self.pointsArray);
+                    self.vector_points.removeFeatures(points);
+                    self.pointsArray = points2;
+                    self.vector_points.addFeatures(points2);
+                    clusterStrategy.recluster();
+
                 }); 
                 
             });
 
         },
         checkTime: function() {
-            self=this;
+            var self=this;
             var points = self.pointsArray;
+            var pointsHold = self.pointsArrayHold;
+            var points2 = new Array();
             $.datepicker.setDefaults($.datepicker.regional["et"]);
             var defaultDateStart = "-30";
             $('#time-start').datepicker({ 
@@ -625,14 +750,16 @@ $(document).ready(function () {
                 alert("Lõppkuupäev ei saa olla varasem kui algus");
                 return;
             }
-            $.each(points, function(index, value) {
+            $.each(pointsHold, function(index, value) {
                 // punkti aeg
                 ts = value.attributes.TIMESTAMP.split(" ")[0].split("-");
                 date = new Date(ts[1]+"/"+ts[2]+"/"+ts[0]).getTime();
                 // kui kuupäev ei jää selekteeritud vahemikku muudan punkti nähtamatuks
-                if(date < start || date > end) {
-                    self.pointsArray[index].renderIntent = "invisible";   
-                } else {
+                // if(date < start || date > end) {
+                if(date >= start && date <= end) {
+                    //self.pointsArray[index].renderIntent = "invisible";  
+                    points2.push(value);
+                } /*else {
                     // peakategooria id
                     var div = '#' + value.attributes.ID_CATEGORY;
                     // alamkategooria name
@@ -644,10 +771,13 @@ $(document).ready(function () {
                             self.pointsArray[index].renderIntent = "default"; 
                         }
                     }                                    
-                }         
+                }    */      
             }); 
 
-            self.vector_points.addFeatures(self.pointsArray);
+            self.vector_points.removeFeatures(points);
+            self.pointsArray = points2;
+            self.vector_points.addFeatures(points2);
+            clusterStrategy.recluster();
                 
         }
     });
