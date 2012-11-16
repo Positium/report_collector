@@ -198,6 +198,13 @@
 
       geolocation.enable();
 
+      var pixel_ratio = window.devicePixelRatio;
+      var font_size = 22;
+      if (window.device.platform === 'Android' && pixel_ratio) {
+        font_size *= pixel_ratio;
+        $('head').append('<style>html, body, div.screen { font: ' + font_size + 'px sans-serif; }');
+      }
+
       report.uuid = window.device.uuid;
       camera.format = navigator.camera.DestinationType;
 

@@ -5,14 +5,14 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <link href="main.css" rel="stylesheet" type="text/css"/>    
-    <link href="os-specific.css" rel="stylesheet" type="text/css"/>    
-    <title>Report Collector</title>
+    <!--<link href="os-specific.css" rel="stylesheet" type="text/css"/>-->
+    <title>Teata</title>
   </head>
   <body>
     <div id="notification">
     </div>
 
-    <div class="screen center" id="loading-screen">
+    <div class="screen center" id="loading-screen" style="">
       <p class="center">
         Uuendan kategooriaid...
       </p>
@@ -33,7 +33,7 @@
     <div class="screen" id="intro-screen" style="display: none;">
       <div class="container">
         <p class="center">Tutvustus</p>
-        <p class="center">Järgi ekraanil olevaid juhiseid raporti saatmiseks.</p>
+        <p class="center">Järgi ekraanil olevaid juhiseid teadet saatmiseks.</p>
         <p class="center">Sul on võimalik minna samm tagasi kasutades <em>Tagasi</em> nuppu või ekraani sõrmega paremale libistades.</p>
         <p class="center">Vajutades nuppu <em>Edasi</em> või ekraani vasakule libistades on võimalik liikuda järgmise etapi juurde.</p>
       </div>
@@ -45,7 +45,7 @@
 
     <div class="screen center" id="take-photo-screen" style="display: none;">
       <p class="center">Foto tegemiseks vajuta kaamera ikoonile</p>
-      <p class="center"><img id="take-photo" src="camera.png" alt="Camera" /></p>
+      <p class="center"><img id="take-photo" src="camera.png" alt="Camera" width="256" height="256" /></p>
     
       <div class="navbar">
         <button class="button-left" id="take-photo-back">Tagasi</button>
@@ -66,7 +66,7 @@
     
     <div class="screen" id="category-screen" style="display: none;">
       <div class="container">
-        <p class="center">Vali kategooriat</p>
+        <p class="center">Vali teate liik</p>
         <ul class="category-list" id="category-list">
         </ul>
       </div>
@@ -79,7 +79,7 @@
     
     <div class="screen" id="subcategory-screen" style="display: none;">
       <div class="container">
-        <p class="center">Vali alamkategooriat</p>
+        <p class="center">Vali teate liik</p>
         <ul class="category-list" id="subcategory-list">
         </ul>
       </div>
@@ -104,10 +104,10 @@
     
     <div class="screen" id="review-screen" style="display: none;">
       <div class="container">
-        <p class="center">Raporti eelvaade</p>
+        <p class="center">Teate eelvaade</p>
         <p class="center"><img class="review-photo" src="" alt="Pilt puudub" /></p>
         <p class="center">
-          Kategooria: <span id="review-category"></span>
+          Liik: <span id="review-category"></span>
         </p>
         <p class="center">
           Kommentaar: <span id="review-comment"></span>
@@ -121,13 +121,13 @@
     </div>
     
     <div class="screen center" id="send-screen" style="display: none;">
-      <p class="center">Saadan raporti...</p>
+      <p class="center">Saadan teadet...</p>
     </div>
       
     <div class="screen" id="send-success-screen" style="display: none;">
       <div class="container">
         <p class="center">
-          Täname. Teie raport on saadetud. Tegeleme sellega esimesel võimalusel.
+          Täname. Teie teade on saadetud.
         </p>
       </div>
       
@@ -139,13 +139,13 @@
     <div class="screen" id="send-fail-screen" style="display: none;">
       <div class="container">
         <p class="center">
-          Raportit pole hetkel võimalik saata.
+          Teadet pole hetkel võimalik saata.
         </p>
         <p class="center">
           <small>Sinu seadmel pole hetkel internetiühendust, meie server on maas või mõni muu probleem on ilmnenud.</small>
         </p>
         <p class="center">
-          <small>Rakendus proovib saata raportit järgmine kord kui sa rakenduse käivitad.</small>
+          <small>Rakendus proovib saata teadet järgmine kord kui sa rakenduse käivitad.</small>
         </p>
       </div>
      
@@ -154,7 +154,7 @@
       </div>
     </div>
 
-    <script src="cordova-2.1.0.min.js"></script>
+    <script src="cordova-2.2.0.js"></script>
     <script src="zepto.min.js"></script>
     <script src="main.js"></script>
   </body>
