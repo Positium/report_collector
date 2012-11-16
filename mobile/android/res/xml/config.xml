@@ -6,7 +6,6 @@
   <access origin="http://gistudeng.gg.bg.ut.ee*"/>
 
   <log level="DEBUG"/>
-  <preference name="useBrowserHistory" value="false" />
   <preference name="exit-on-suspend" value="false" />
   
   <plugins>
