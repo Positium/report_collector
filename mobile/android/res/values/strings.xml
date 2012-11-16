@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">Teata</string>
-  <string name="gps_dialog_title">GPS and network location are not enabled</string>
-  <string name="gps_dialog_msg">The app requires GPS and network location to work. Please enable GPS and network location.</string>
-  <string name="gps_dialog_ok">Open location settings</string>
-  <string name="gps_dialog_quit">Quit</string>
+  <string name="gps_dialog_title">Viga</string>
+  <string name="gps_dialog_msg">Selle rakenduse tööks on vaja lülitada sisse GPS-satelliite ja asukohateenuseid.</string>
+  <string name="gps_dialog_ok">Ava Seaded</string>
+  <string name="gps_dialog_quit">Välju</string>
 </resources>

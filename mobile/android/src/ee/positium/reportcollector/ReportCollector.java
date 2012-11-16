@@ -32,6 +32,7 @@ public class ReportCollector extends DroidGap {
       AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
       builder.setTitle(R.string.gps_dialog_title);
       builder.setMessage(R.string.gps_dialog_msg);
+      builder.setCancelable(false);
       builder.setPositiveButton(R.string.gps_dialog_ok, new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int id) {
