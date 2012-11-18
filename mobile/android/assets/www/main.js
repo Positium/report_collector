@@ -167,15 +167,24 @@
       var network_state = navigator.connection.type;
 
       if (network_state !== Connection.NONE) {
-        $.ajax({
-          url: UPDATE_URL,
-          type: 'POST',
-          data: {'lastrevision': last_revision},
-          dataType: 'json',
-          timeout: 10000,
-          success: update_start,
-          error: no_update_start
-        });
+        navigator.geolocation.getCurrentPosition(function (position) {
+          $.ajax({
+            url: UPDATE_URL,
+            type: 'POST',
+            data: {
+              lastrevision: last_revision,
+              geolocation: {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                accuracy: position.coords.accuracy
+              }
+            },
+            dataType: 'json',
+            timeout: 10000,
+            success: update_start,
+            error: no_update_start
+          });
+        }, no_update_start);
       } else {
         no_update_start();
       }
@@ -516,7 +525,7 @@
     var send_success = function (res) {
       if (res.result === 'success') {
         if (!args.quiet) screen.send_success.show();
-        if (args.success !== null) args.success(args.report);
+        if (args.success) args.success(args.report);
       } else {
         send_fail();
       }
