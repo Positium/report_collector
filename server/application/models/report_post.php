@@ -12,8 +12,34 @@
         $this -> db ->set('location_n', $report['location_n'], FALSE);
         $this -> db ->set('photo', $report['photo'], TRUE);
         $this -> db ->set('gps_accuracy', $report['gps_accuracy'], TRUE);
+        $this -> db ->set('visibility',$report['visibility'], TRUE);
         $this -> db ->insert('issues');
-        return $this->db->insert_id();
+        
+        $last_id = $this->db->insert_id();
+        $query = $this -> db -> query("SELECT regions.id as id FROM regions, issues 
+                                       WHERE ST_Within(issues.location_n, bbox_mobile) and issues.id = ".$last_id."
+                                       LIMIT 1;");
+        if ($query->num_rows() > 0) {
+            
+            $region_id = $query->row();
+            $data = array('region_id'=>$region_id->id);           
+            
+        } else {
+            $query = $this -> db -> query("SELECT regions.id as r_id, 
+                                           ST_Distance(issues.location_n,regions.bbox_mobile) as distance 
+                                           FROM issues, regions 
+                                           WHERE issues.id = ".$last_id." 
+                                           GROUP BY distance, r_id 
+                                           HAVING ST_Distance(issues.location_n,regions.bbox_mobile)>0 
+                                           ORDER BY distance LIMIT 1");
+            $region_id = $query->row();
+            $data = array('region_id'=>$region_id->r_id);
+        }
+        $this -> db -> where('id',$last_id);
+        $this -> db -> update('issues',$data);
+        
+        
+        return $last_id; 
         //$ids = "id = 116";
         //$this -> db ->select('location_n');
         //$this -> db ->select('timestamp_n');

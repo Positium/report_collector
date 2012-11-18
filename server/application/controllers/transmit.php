@@ -16,7 +16,8 @@ class Transmit extends CI_Controller {
     }
     public function index() {
         
-        $query_resultsets = $this->query_transmit->get_reports_from_db();
+        $userdata = $this->session->userdata('logged_in');
+        $query_resultsets = $this->query_transmit->get_reports_from_db($userdata['region_id']);
         $data['geojson_file'] = $this->resultsets_to_GeoJSON($query_resultsets);
         $this->load->view('geojson_respond', $data);
     }

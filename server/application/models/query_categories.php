@@ -26,8 +26,8 @@ Class Query_categories extends CI_Model {
         return $query->result();
     }
     
-    function getLastCategorysRevision() {
-        $query = $this -> db -> query("SELECT max(id) as maxId FROM category_revisions");        
+    function getLastCategorysRevision($region_id) {
+        $query = $this -> db -> query("SELECT max(id) as maxId FROM category_revisions WHERE region_id=".$region_id);        
         return $query->row();
     }
     function getCategories($sql) {
@@ -50,13 +50,13 @@ Class Query_categories extends CI_Model {
         return $primary_categorys;     
         }
     }
-    function getCategorysforMobile() {
-        $sql = "SELECT id, name_et as name FROM categories";
+    function getCategorysforMobile($region_id) {
+        $sql = "SELECT id, name_et as name FROM categories WHERE region_id=".$region_id.";";
         return $this->getCategories($sql);     
     }
-    function getCategorysforWeb() { 
+    function getCategorysforWeb($region_id) { 
         #$query = $this -> db -> query("SELECT sub_categories.id_sub as id_sub, sub_categories.name_et as sub_name, categories.color as color, categories.name_et as pri_name, categories.id as primary_id FROM sub_categories, categories WHERE sub_categories.primary_category_id=categories.id");
-        $sql = "SELECT id, name_et as name, color FROM categories";
+        $sql = "SELECT id, name_et as name, color FROM categories WHERE region_id=".$region_id.";";
         return $this->getCategories($sql);     
     }
     

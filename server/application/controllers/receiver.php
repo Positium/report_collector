@@ -22,6 +22,7 @@ class Receiver extends CI_Controller {
                 'location_n' => "ST_Transform(ST_GeomFromText('POINT(".$_POST['geolocation']['longitude']." ". $_POST['geolocation']['latitude'].")',4326),900913)",
                 'photo' => $image_string,
                 'gps_accuracy' => $_POST['geolocation']['accuracy'],
+                'visibility' => "t"
             );   
             $report_id = $this->report_post->insert_report($report);
             $respons = array(
@@ -36,11 +37,13 @@ class Receiver extends CI_Controller {
     }
     public function sendLastCategoryRevisionNumber() {
         if (isset($_POST['lastrevision'])) {
+            $this->load->model('region_model');
+            $region_id = $this->region_model->get_RegionID_by_coords($_POST['geolocation']);
             $this->load->model('query_categories');
-            $revision_number = $this->query_categories->getLastCategorysRevision();
+            $revision_number = $this->query_categories->getLastCategorysRevision($region_id);
             $last_revision = $revision_number->maxid;
             if ($last_revision !== $this->input->post('lastrevision')) {
-                $catogories_array = $this->query_categories->getCategorysforMobile();
+                $catogories_array = $this->query_categories->getCategorysforMobile($region_id);
                 $main_array = array(
                                 'lastrevision'=>$last_revision,
                                 'categories'=> $catogories_array

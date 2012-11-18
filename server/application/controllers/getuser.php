@@ -33,5 +33,12 @@ class getuser extends CI_Controller {
         echo "";
     }
  }
+    public function getBboxForWebClient() {
+        $userdata = $this->session->userdata('logged_in');
+        $this->load->model('query_transmit');
+        
+        $bbox['data'] = json_encode($this->query_transmit->get_bbox_by_region_id($userdata['region_id']));
+        $this->load->view('category_respond',$bbox);
+    }  
 }
 ?>

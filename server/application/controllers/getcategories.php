@@ -14,7 +14,12 @@ class getCategories extends CI_Controller {
         $this->query_categories->respond_query();
     }
     public function getsubCat() {
-        $arrayofCategories['data'] = json_encode($this->query_categories->getCategorysforWeb());
+        $this->load->library('session');
+        if (!$this->session->userdata('logged_in')) {
+            redirect('login');
+        }
+        $userdata = $this->session->userdata('logged_in');
+        $arrayofCategories['data'] = json_encode($this->query_categories->getCategorysforWeb($userdata['region_id']));
         $this->load->view('category_respond',$arrayofCategories);
     }
     public function getsubCatMobile() {

@@ -45,9 +45,11 @@
                 $sess_array = array(
 	         'id' => $result->id,
 	         'username' => $result->username,
+                 'usergroup_id'=> $result->usergroup_id,
                  'region_id'=> $result->region_id
 	       );
 	       $this->session->set_userdata('logged_in',$sess_array);
+               
 	     
 	     return TRUE;
          }
