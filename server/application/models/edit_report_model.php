@@ -9,5 +9,13 @@ Class Edit_Report_Model extends CI_Model {
         $this->db->update('issues', $data);
         return;
     }
+    function edit_category($report_id,$region_id,$idcat,$idsubcat ) {
+        $data = array('category'=>$idcat,
+                      'subcategory'=>$idsubcat);
+        $this->db->where('id',$report_id);
+        $this->db->where('region_id',$region_id);
+        $this->db->update('issues', $data);
+        return;
+    }
 }
 ?>

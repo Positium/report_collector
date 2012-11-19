@@ -25,5 +25,12 @@ class EditReport extends CI_Controller {
         }
         return;
     }
+    public function editCat() {
+        if (isset($_GET['id'])) {
+            $userdata = $this->session->userdata('logged_in');
+            $this->load->model('edit_report_model');
+            $this->edit_report_model->edit_category($_GET['id'],$userdata['region_id'],$_GET['idcat'],$_GET['idsubcat']);
+        }
+    }
 }
 ?>

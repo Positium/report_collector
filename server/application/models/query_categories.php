@@ -91,6 +91,17 @@ Class Query_categories extends CI_Model {
         $query = $this -> db -> query($sql);
         return "Lisatud.";
     }
+    function getCategoryData($id, $sub){
+        if($sub == 1){
+            $sql = "SELECT name_et, name_ru, name_en, primary_category_id FROM sub_categories WHERE id_sub='".$id."'";
+        }
+        else {
+            $sql = "SELECT name_et, name_ru, name_en, color FROM categories WHERE id='".$id."'";
+        }
+        $query = $this -> db -> query($sql);
+        
+        return $query->row();
+    }
 }
 
 ?>
