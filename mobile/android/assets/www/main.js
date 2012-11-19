@@ -1,3 +1,14 @@
+JSON._parse = JSON.parse;
+
+// Fixes illegal access on gingerbread
+JSON.parse = function (text) {
+  if (text) {
+    return JSON._parse(text);
+  } else {
+    return null;
+  }
+};
+
 (function () {
   var UPDATE_URL =  'http://gistudeng.gg.bg.ut.ee/dev/index.php/receiver/sendLastCategoryRevisionNumber';
   var SEND_URL =    'http://gistudeng.gg.bg.ut.ee/dev/index.php/receiver';
@@ -157,7 +168,7 @@
           }
           localStorage.setItem('categories', JSON.stringify(to_store));
         }
-
+        
         screen.initAll();
         screen.intro.show();
 
@@ -204,7 +215,7 @@
     on_ready: function () {
       $(document).on('pause', device.on_pause);
       $(document).on('resume', device.on_resume);
-
+        
       geolocation.enable();
 
       var pixel_ratio = window.devicePixelRatio;
