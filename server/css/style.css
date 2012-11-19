@@ -32,7 +32,7 @@ body{
     z-index: 1500;
     position: absolute; 
     width: 370px;
-    height: 500px;
+    height: 450px;
     display: none;
     padding: 30px 10px 10px 10px;
     -webkit-border-radius: 10px;
@@ -43,15 +43,15 @@ body{
 
 #clusters {
      width: 350px;
-     height: 450px;
+     height: 400px;
     padding: 5px 5px 5px 8px;
     overflow-y: auto; /* scroll */
     overflow-x: hidden;
 }
 
-#close {
+#close, #close2 {
     position: absolute;
-    right:1px; 
+    right:6px; 
     width: 27px;
     height: 27px;
     top: 5px;
@@ -105,23 +105,34 @@ body{
     padding: 0 7px;
 }
 
-#categoriesEdit {
+#categoriesEditContainer {
     position: absolute;
     top: 50px;
     left: 35%;
     width: 400px;
-    height: 500px;
-    overflow-y: auto; /* scroll */
-    overflow-x: hidden;
-    opacity: 0.9;
+    height: 450px;
+    overflow-y: auto;
+   /* opacity: 0.9; */
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    background-color: #999999;
-    z-index: 1500;
-    padding: 5px 5px 5px 8px;
+  /*  background-color: #999999; */
+    background-color: #c8fcc7;
+    z-index: 1001;
+    padding: 30px 1px 20px 20px;
     display: none;
 }
+
+#categoriesEdit {
+
+    width: 360px;
+    height: 410px;
+    overflow-y: auto; /* scroll */
+    overflow-x: hidden;
+    background-color: #EEEEEE;;
+    padding: 5px 5px 20px 20px; 
+}
+
 #categoriesEdit ul {
     list-style-type: none;
     padding-left: 10px;
@@ -178,10 +189,23 @@ body{
     color: #4A4A24;
     text-decoration: none;
 }
-#delete2, #onclick {
+#delete2, .catChange, .deleteClusterPoint {
     text-decoration: underline;
     color: blue;
     cursor:pointer
+}
+
+#dialog{
+    z-index:3500;
+    background: #ccccdd;
+    color: #4A4A24;
+    text-decoration: none;
+}
+#dialog-confirm{
+    z-index:3500;
+    /*background: #ccccdd; */
+    color: #FF4A24;
+    text-decoration: none;
 }
 /******************        ZOOOOOOOOOOOOOM +-*/
 a.olControlZoomIn {

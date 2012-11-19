@@ -21,49 +21,54 @@ $(document).ready(function () {
             window.listView = this;
         },
         render: function(){
+            var self=this;
             //   $(this.el).append('<ul> <li>hello world</li> </ul>');  
-            // Tartu
-            mapextent = new OpenLayers.Bounds(2948518.4067798, 8028114.5837566, 3003553.0671374, 8058116.1173544);
-            // Pärnu
-            // mapextent = new OpenLayers.Bounds(2618769.0597054, 7988157.1343098, 2838907.7010654, 8108163.2686622);
-            // Eesti 
-            mapextent2 = new OpenLayers.Bounds(2358118.7933957, 7845372.7653965, 3238673.3591237, 8325397.3029635);
-            var openStreetMap = new OpenLayers.Layer.OSM("OSM","",{
-                attribution: '',
-                isBaseLayer:true,
-                zoomOffset: 8,
-                resolutions: [611.4962262 ,305.7481131 , 152.8740565, 76.4370282714844,38.2185141357422,19.1092570678711,9.55462853393555,4.77731426696777,2.38865713348389,1.19432856674194,0.597164283]          
-            });
-            var options = { 
-                layers              : [openStreetMap],
-                controls: [
-                new OpenLayers.Control.Navigation(),
-                new OpenLayers.Control.Attribution(),
-                new OpenLayers.Control.ScaleLine(),
-                // new OpenLayers.Control.PanZoomBar(),
-                new OpenLayers.Control.OverviewMap(),
-                new OpenLayers.Control.Zoom(),
-                new OpenLayers.Control.MousePosition()
-                ],
-                units: 'm',
-                maxExtent: mapextent,
-                restrictedExtent: mapextent2,
-                projection: new OpenLayers.Projection("EPSG:900913"),
-                panMethod: OpenLayers.Easing.Quad.easeInOut,
-                panDuration: 50
-            };
+            var getExtent = $.getJSON('getuser/getbboxforwebclient', function(data) {  
+                mapextent = new OpenLayers.Bounds(data.xmin,data.ymin, data.xmax, data.ymax);
+                // Tartu
+                // mapextent = new OpenLayers.Bounds(2948518.4067798, 8028114.5837566, 3003553.0671374, 8058116.1173544);
+                // Pärnu
+                // mapextent = new OpenLayers.Bounds(2618769.0597054, 7988157.1343098, 2838907.7010654, 8108163.2686622);
+                // Eesti 
+                mapextent2 = new OpenLayers.Bounds(2358118.7933957, 7845372.7653965, 3238673.3591237, 8325397.3029635);
+          
+                var openStreetMap = new OpenLayers.Layer.OSM("OSM","",{
+                    attribution: '',
+                    isBaseLayer:true,
+                    zoomOffset: 8,
+                    resolutions: [611.4962262 ,305.7481131 , 152.8740565, 76.4370282714844,38.2185141357422,19.1092570678711,9.55462853393555,4.77731426696777,2.38865713348389,1.19432856674194,0.597164283]          
+                });
+                var options = { 
+                    layers              : [openStreetMap],
+                    controls: [
+                    new OpenLayers.Control.Navigation(),
+                    new OpenLayers.Control.Attribution(),
+                    new OpenLayers.Control.ScaleLine(),
+                    // new OpenLayers.Control.PanZoomBar(),
+                    new OpenLayers.Control.OverviewMap(),
+                    new OpenLayers.Control.Zoom(),
+                    new OpenLayers.Control.MousePosition()
+                    ],
+                    units: 'm',
+                    maxExtent: mapextent,
+                    restrictedExtent: mapextent2,
+                    projection: new OpenLayers.Projection("EPSG:900913"),
+                    panMethod: OpenLayers.Easing.Quad.easeInOut,
+                    panDuration: 50
+                };
             
-            map = new OpenLayers.Map("map", options);
-            map.zoomToExtent(mapextent); 
-            /*  map.events.register('zoomend', this, function (event) {
+                map = new OpenLayers.Map("map", options);
+                map.zoomToExtent(mapextent); 
+                /*  map.events.register('zoomend', this, function (event) {
                 var x = map.getZoom();
                 if( x < 11)
                 {
                     map.zoomTo(11);
                 }
             });*/
-            $(this.el).append(map); 
-            this.loadPoints();
+                $(self.el).append(map); 
+                self.loadPoints(); 
+            });
         // console.log(map.getExtent());
         },
         loadPoints: function() {
@@ -222,13 +227,13 @@ $(document).ready(function () {
                     },
                     
                     /**
-     * Method: cluster
-     * Cluster features based on some threshold distance.
-     *
-     * Parameters:
-     * event - {Object} The event received when cluster is called as a
-     *     result of a moveend event.
-     */
+                     * Method: cluster
+                     * Cluster features based on some threshold distance.
+                     *
+                     * Parameters:
+                     * event - {Object} The event received when cluster is called as a
+                     *     result of a moveend event.
+                     */
                     cluster: function(event) {
                         if((!event || event.zoomChanged || (event && event.recluster)) && this.features) {
                             var resolution = this.layer.map.getResolution();
@@ -281,11 +286,11 @@ $(document).ready(function () {
                     },
 
                     /**
-     * Method: recluster
-     * User-callable function to recluster features
-     * Useful for instances where a clustering attribute (distance, threshold, ...)
-     *     has changed
-     */
+                     * Method: recluster
+                     * User-callable function to recluster features
+                     * Useful for instances where a clustering attribute (distance, threshold, ...)
+                     *     has changed
+                     */
                     recluster: function(){
                         var event={
                             "recluster":true
@@ -397,7 +402,7 @@ $(document).ready(function () {
                         function(data){ 
                             photo = data;
                             // HTML PopUp
-                            var html = "<div id = 'delete' ></div> ID: "+ selectedFeature.cluster[0].attributes['ID'] + "<br/>" +
+                            var html = "ID: "+ selectedFeature.cluster[0].attributes['ID'] + "<br/>" +
                             "Aeg: " + selectedFeature.cluster[0].attributes['TIMESTAMP']+ "<br/>"+
                             //  <img style="width: 100%" src="data:image/jpeg;base64,' + data + '" />
                             "GPS täpsus: " +selectedFeature.cluster[0].attributes['GPS_ACCURACY'] + "<br/>"+
@@ -426,45 +431,40 @@ $(document).ready(function () {
                     var x = map.getZoom();
                     var count = 0;
                     var html = "";
-                    if(x==10) { // kui suum 10 naitan klastri koikide punktide infot
-                        
+                    if(x==10) { // kui suum 10 naitan klastri koikide punktide infot                       
                         $.each(feature.cluster, function(index, value) {
                             $.get("transmit/getphotobyid?id="+ selectedFeature.cluster[index].attributes['ID'], 
                                 function(data){ 
                                     photo = data;
                                     count++;
-                                    // HTML PopUp
-                                    html += "<div id = 'delete' ></div> ID: "+ selectedFeature.cluster[index].attributes['ID'] + "<br/>" +
+                                    // HTML
+                                    html += "ID: "+ selectedFeature.cluster[index].attributes['ID'] + "<br/>" +
                                     "Aeg: " + selectedFeature.cluster[index].attributes['TIMESTAMP']+ "<br/>"+
                                     //  <img style="width: 100%" src="data:image/jpeg;base64,' + data + '" />
                                     "GPS täpsus: " +selectedFeature.cluster[index].attributes['GPS_ACCURACY'] + "<br/>"+
                                     "Pilt kohast: " + "<br/>"+
                                     '<img style="width: 300px; height: 350px; " src="data:image/jpeg;base64,' + photo+ '" />' +
                                     "<br/>"+
-                                    "Kategooria: " + selectedFeature.cluster[index].attributes['CATEGORY'] + "<br/>"+ 
-                                    "Kommentaar: " + selectedFeature.cluster[index].attributes['COMMENTARY'] + "<br/>" 
-                                    //   "<a  id = 'onclick'>Muuda kategooriat</a>"  + "<br/>" + 
-                                    //   "<a id ='delete2'>&#32;Kustuta</a>" + "<br/>" ;
-                                    //  console.log($.base64.decode(selectedFeature.attributes['PICTURE']));
-                                    /* popup = new OpenLayers.Popup.FramedCloud("data",
-                                        feature.geometry.getBounds().getCenterLonLat(),
-                                        null,
-                                        html,
-                                        null, 
-                                        true, 
-                                        self.popupClose);
-
-                                    feature.popup = popup;
-                                    map.addPopup(popup);  */
+                                    "Kategooria: <span id='changeCategory" + selectedFeature.cluster[index].attributes['ID'] +  "'>" + 
+                                    selectedFeature.cluster[index].attributes['CATEGORY']  + "</span>"+
+                                    " <a  id='change"+ selectedFeature.cluster[index].attributes['ID'] +"' class = 'catChange' >Muuda</a> <br/>"+ 
+                                    "Kommentaar: " + selectedFeature.cluster[index].attributes['COMMENTARY'] + "<br/>" +
+                                    "<a class ='deleteClusterPoint' id='cluster"+ selectedFeature.cluster[index].attributes['ID'] + 
+                                    "'>Kustuta</a>" + "<br/>" ;
                                     if(count == feature.cluster.length) {
                                         $("#clusters").html(html);
                                         $("#close").bind('click', function(e) {
                                             e.preventDefault();
                                             $("#info").hide();
+                                        //if(selectedFeature != null)
+                                        //selectControl.unselect(selectedFeature);
                                         });
                                         $("#info").show();
+                                        self.deletePoint();
+                                        self.changePoint();
                                     }
-   
+                                // self.deletePoint();
+                                // self.changePoint();
                                 });
                         });
                     }
@@ -479,17 +479,18 @@ $(document).ready(function () {
                     function(data){ 
                         photo = data;
                         // HTML PopUp
-                        var html = "<div id = 'delete' ></div> ID: "+ selectedFeature.attributes['ID'] + "<br/>" +
+                        var html = "ID: "+ selectedFeature.attributes['ID'] + "<br/>" +
                         "Aeg: " + selectedFeature.attributes['TIMESTAMP']+ "<br/>"+
                         //  <img style="width: 100%" src="data:image/jpeg;base64,' + data + '" />
                         "GPS täpsus: " +selectedFeature.attributes['GPS_ACCURACY'] + "<br/>"+
                         "Pilt kohast: " + "<br/>"+
                         '<img style="width: 300px; height: 350px; " src="data:image/jpeg;base64,' + photo+ '" />' +
                         "<br/>"+
-                        "Kategooria: " + selectedFeature.attributes['CATEGORY'] + "<br/>"+ 
-                        "Kommentaar: " + selectedFeature.attributes['COMMENTARY'] + "<br/>" 
-                        //   "<a  id = 'onclick'>Muuda kategooriat</a>"  + "<br/>" + 
-                        //   "<a id ='delete2'>&#32;Kustuta</a>" + "<br/>" ;
+                        "Kategooria: <span id='changeCategory"+ selectedFeature.attributes['ID']+ "'>" + 
+                        selectedFeature.attributes['CATEGORY'] + "</span>"+
+                        " <a  id ='change" + selectedFeature.attributes['ID'] + "' class = 'catChange' >Muuda</a> <br/>"+ 
+                        "Kommentaar: " + selectedFeature.attributes['COMMENTARY'] + "<br/>"  +
+                        "<a id ='delete2'>Kustuta</a>" + "<br/>" ;
                         //  console.log($.base64.decode(selectedFeature.attributes['PICTURE']));
                         popup = new OpenLayers.Popup.FramedCloud("data",
                             feature.geometry.getBounds().getCenterLonLat(),
@@ -534,16 +535,244 @@ $(document).ready(function () {
             });
         },
         changePoint: function (){
-           
-            $('#onclick').bind('click', function(e) {
-                //  console.log("muuda");
+            var self = this;
+            var points = self.pointsArray;
+            var pointsHold = self.pointsArrayHold;
+            $('.catChange').bind('click', function(e) {
+                // Kategooria id
+                var change_id = e.target.id.substring(6); 
+                var categories = "<select id ='selectCategory' >"; 
+                // var vector_layer = self.vector_points;  
+                var category = $.getJSON('getcategories/getsubcat', function(data) {
+                    $.each(data, function(index, value) { 
+                        //  console.log(value.subcategories)
+                        if(value.subcategories.length == 0){
+                            categories +=   '<option value="main'+ value.id + '" name="'+ value.name +
+                            '">' + value.name + '</option>';
+                        }
+                        $.each(value.subcategories, function(index, value) {
+                            categories +=   '<option value="'+ value.id_sub + '" name="'+ value.name +
+                            '">' + value.name + '</option>';
+                        }); 
+                    }); 
+                    categories += '</select>';
+                    $("#dialog-confirm").attr('title',"Vali kategooria");
+                    $("#dialog-confirm").html(categories);
+                    $("#dialog-confirm" ).dialog({
+                        resizable: false,
+                        modal: true,
+                        buttons: {
+                            "OK": function() {                                
+                                function getSelectedText(elementId) {
+                                    var elt = document.getElementById(elementId);
+
+                                    if (elt.selectedIndex == -1)
+                                        return null;
+
+                                    return elt.options[elt.selectedIndex].text;
+                                }
+                                // alamkategooria id // muu korral vaja nulliks muuta alamkategooria id 
+                                var idCategory = $('#selectCategory').val();
+                                // console.log(idCategory);
+                                var text = getSelectedText('selectCategory');
+                                var catColor;
+                                var mainCatId;
+                                $("#changeCategory" + change_id).html(text);
+                                var categoryId = $.getJSON('getcategories/getsubcat', function(data) {
+                                    $.each(data, function(index, value) { 
+                                        //if(value.subcategories.length == 0 && idCategory.substring(0,4) =='main'){
+                                        if(value.subcategories.length == 0 && idCategory.substring(4) == value.id ){
+                                           // console.log("main")
+                                            catColor = value.color;
+                                            mainCatId = value.id;
+                                            idCategory = 0;
+                                        }
+                                        $.each(value.subcategories, function(index2, value2) {
+                                            if(value2.id_sub == idCategory){
+                                                catColor = value.color;
+                                                mainCatId = value.id;
+                                            }
+                                        }); 
+                                    });
+                                    //    http://gistudeng.gg.bg.ut.ee/dev/index.php/editReport/editcat?id=339&idcat=5&idsubcat=17
+                                    $.get('editReport/editcat?id='+ change_id +'&idcat=' + mainCatId + '&idsubcat=' + idCategory, function(data) { 
+                                        $.each(pointsHold, function(index, value) {    
+                                            if(value.attributes.ID == change_id) {
+                                                //  console.log(value.attributes.COLOR);
+                                                value.attributes.COLOR = catColor;
+                                                value.attributes.CATEGORY = text;
+                                                value.attributes.ID_CATEGORY = mainCatId;
+                                                value.attributes.ID_SUBCATEGORY = idCategory;
+                                            }                
+                                        });     
+                                        $.each(points, function(index, value) { 
+                                            if(value.attributes.ID == change_id) {
+                                                value.attributes.COLOR = catColor;
+                                                value.attributes.CATEGORY = text;
+                                                value.attributes.ID_CATEGORY = mainCatId;
+                                                value.attributes.ID_SUBCATEGORY = idCategory;
+                                            }                
+                                        });
+                                    });
+                                });
+                                /*   $.get('editReport/hide?id='+del_id, function(data) { */
+                                /* self.vector_points.removeFeatures(points);
+                                self.pointsArrayHold = points2;
+                                self.pointsArray = points3;
+                                self.vector_points.addFeatures(points3); 
+                                /* });   */
+                                $( this ).dialog( "close" );
+                            },
+                            Cancel: function() {
+                                $( this ).dialog( "close" );
+                            }
+                        }
+                    }); 
                 });
+                
+            });
         },
         deletePoint: function (){
-           
+            var self = this;
+            var points = self.pointsArray;
+            var pointsHold = self.pointsArrayHold;
+            var points2 = new Array();
+            var points3 = new Array();
             $('#delete2').bind('click', function(e) {
-                //  console.log("kustuta");
-                });
+                // console.log(selectedFeature.attributes['ID']);
+                var del_id = selectedFeature.attributes['ID'];           
+                $("#dialog-confirm").attr('title',"Kinnitus");
+                $("#dialog-confirm").html('<span>Oled kindel, et soovid kustutada raporti: '+ selectedFeature.attributes['ID']+ '?</span>');
+                $("#dialog-confirm" ).dialog({
+                    resizable: false,
+                    modal: true,
+                    buttons: {
+                        "OK": function() {
+                            //    console.log("kustutatud");
+                            $.get('editReport/hide?id='+del_id, function(data) {
+                                $.each(pointsHold, function(index, value) {    
+                                    if(value.attributes.ID != del_id) {
+                                        points2.push(value);
+                                    }                
+                                }); 
+                                $.each(points, function(index, value) { 
+                                    if(value.attributes.ID != del_id) {
+                                        points3.push(value);
+                                    }                
+                                });
+                                selectControl.unselect(selectedFeature);
+                                self.vector_points.removeFeatures(points);
+                                self.pointsArrayHold = points2;
+                                self.pointsArray = points3;
+                                self.vector_points.addFeatures(points3);
+                                clusterStrategy.recluster();  
+                            });  
+                            $( this ).dialog( "close" );
+                        },
+                        Cancel: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                }); 
+                
+            });
+            $(".deleteClusterPoint").bind('click', function(e) {
+                var del_id = e.target.id.substring(7);
+                var count = 0;
+                var html = "";
+                var delFeature;
+                var photo;
+                var points = self.pointsArray;
+                var pointsHold = self.pointsArrayHold;
+                var points2 = new Array();
+                var points3 = new Array();
+                // kui on klaster
+                if(selectedFeature.cluster) {
+                    $("#dialog-confirm").attr('title',"Kinnitus");
+                    $("#dialog-confirm").html('<span>Oled kindel, et soovid kustutada raporti: '+ del_id + '?</span>');
+                    $("#dialog-confirm" ).dialog({
+                        resizable: false,
+                        modal: true,
+                        buttons: {
+                            "OK": function() {
+                                $.each(selectedFeature.cluster, function(index, value) {
+                                    // teised punktid jäävad alles
+                                    if(selectedFeature.cluster[index].attributes['ID'] != del_id ) {
+                                        $.get("transmit/getphotobyid?id="+ selectedFeature.cluster[index].attributes['ID'], 
+                                            function(data){ 
+                                                photo = data;
+                                                count++;
+                                                // HTML 
+                                                html += "ID: "+ selectedFeature.cluster[index].attributes['ID'] + "<br/>" +
+                                                "Aeg: " + selectedFeature.cluster[index].attributes['TIMESTAMP']+ "<br/>"+
+                                                //  <img style="width: 100%" src="data:image/jpeg;base64,' + data + '" />
+                                                "GPS täpsus: " +selectedFeature.cluster[index].attributes['GPS_ACCURACY'] + "<br/>"+
+                                                "Pilt kohast: " + "<br/>"+
+                                                '<img style="width: 300px; height: 350px; " src="data:image/jpeg;base64,' + photo+ '" />' +
+                                                "<br/>"+
+                                                "Kategooria: " + selectedFeature.cluster[index].attributes['CATEGORY'] + "<br/>"+ 
+                                                "Kommentaar: " + selectedFeature.cluster[index].attributes['COMMENTARY'] + "<br/>" +
+                                                //   "<a  id = 'onclick'>Muuda kategooriat</a>"  + "<br/>" + 
+                                                "<a class ='deleteClusterPoint' id='cluster"+ selectedFeature.cluster[index].attributes['ID'] + 
+                                                "'>Kustuta</a>" + "<br/>" ;
+                                                if(count == selectedFeature.cluster.length) {
+                                                    console.log(count +"if")
+                                                    $("#clusters").html(html);
+                                                    selectedFeature.cluster.remove(delFeature);
+                                                    self.deletePoint();
+                                                    
+                                                }
+                                            }); 
+                                    }
+                                    else {
+                                        count++;
+                                        delFeature = index;
+                                        if(count == selectedFeature.cluster.length) {
+                                            console.log(count + "else")
+                                            if(count==1) {
+                                                $("#info").hide();
+                                            }
+                                            else {
+                                                $("#clusters").html(html);
+                                                selectedFeature.cluster.remove(delFeature);
+                                                self.deletePoint();
+                                            }
+                                        }
+                                    }     
+                                });
+                                // Array Remove - By John Resig (MIT Licensed)
+                                Array.prototype.remove = function(from, to) {
+                                    var rest = this.slice((to || from) + 1 || this.length);
+                                    this.length = from < 0 ? this.length + from : from;
+                                    return this.push.apply(this, rest);
+                                };
+                                $.get('editReport/hide?id='+del_id, function(data) {
+                                    $.each(pointsHold, function(index, value) {    
+                                        if(value.attributes.ID != del_id) {
+                                            points2.push(value);
+                                        }                
+                                    }); 
+                                    $.each(points, function(index, value) { 
+                                        if(value.attributes.ID != del_id) {
+                                            points3.push(value);
+                                        }                
+                                    });                                
+                                    self.vector_points.removeFeatures(points);
+                                    self.pointsArrayHold = points2;
+                                    self.pointsArray = points3;
+                                    self.vector_points.addFeatures(points3);
+                                // selectedFeature.renderIntent = "select"; 
+                                //  clusterStrategy.recluster();  
+                                });   
+                                $( this ).dialog( "close" );
+                            },
+                            Cancel: function() {
+                                $( this ).dialog( "close" );
+                            }
+                        }
+                    }); 
+                }            
+            });
         },
         
         onFeatureUnselect: function(feature) {
@@ -553,8 +782,8 @@ $(document).ready(function () {
                 {
                     map.zoomTo(x+1);
                 } */
-               // map.removePopup(feature.popup);
-               // feature.popup.destroy();
+                // map.removePopup(feature.popup);
+                // feature.popup.destroy();
                 feature.popup = null;
             }
             else {
@@ -788,32 +1017,114 @@ $(document).ready(function () {
                 var loendur = 100;
                 var loendur2 = 1;
                 $.each(data, function(index, value) { 
-                    categories += '<li><div class="catcolor" style="background-color: '+
+                    categories += '<li><button class="categoryEditTop" value="'+ value.name + '" name = "'+value.id+'">Muuda</button><div class="catcolor" style="background-color: '+
                     value.color + ';"></div> <label id = "e'+ loendur + '" >' + value.name +'</label><ul class = "e' + loendur +
                     ' show" style="margin-left: 20px;">';
                     $.each(value.subcategories, function(index, value) {
-                        categories += '<li class="subcat subCatEd' + loendur2 +
-                        '" ><label for="e' +  (loendur + index +1) + '">' +
-                        value.name + '</label><button class="categoryDelete" value="'+ (loendur + index +1) + '" name = "'+value.id_sub+'">Kustuta</button></li>'; 
+                        categories += '<li class="subcat subCatEd' + loendur2 + '" >'+
+                        '<button class="categoryEdit" value="'+ value.name + '" name = "'+value.id_sub+'">Muuda</button>'+
+                        '<button class="categoryDelete" value="'+ value.name + '" name = "'+value.id_sub+'">Kustuta</button>'+
+                        '<label for="e' +  (loendur + index +1) + '">' +
+                        value.name + '</label></li>'; 
                     }); 
                     loendur2=loendur2+1;
                     loendur= loendur+100;
                     categories +='</ul></li>'; 
                 }); 
-                var lHtml =  '<label>Kategooriate haldus</label>'+ '<ul>' + categories + '</ul><br/><button id="addCategory">Lisa kategooria</button>';
+                var lHtml =  '<label><h2>Kategooriate haldus</h2></label>'+ '<ul>' + categories + '</ul><br/><button id="addCategory">Lisa kategooria</button>';
                 $("#categoriesEdit").html(lHtml);
                 $(".categoryDelete").each(function(){
                     $(this).bind('click', function(e) {
                         //console.log(e);
-                        //alert($(this).attr('name'));
-                        $.get('editCategories/delete/'+$(this).attr('name'), function(data) {
-                            //if(data == 1){
+                        var del_id = $(this).attr('name');
+                        $("#dialog-confirm").attr('title',"Kinnitus");
+                        $("#dialog-confirm").html('<span>Oled kindel, et soovid kustutada kategooria: '+$(this).val()+'?</span>');
+                        $( "#dialog-confirm" ).dialog({
+                            resizable: false,
+                            modal: true,
+                            buttons: {
+                                "OK": function() {
+                                    $.get('editCategories/delete/'+del_id, function(data) {
+                                        self.getCategories();
+                                        self.getEditCategories();
+                                        if(data != 'OK')  {
+                                            //alert(data);
+                                            $("#dialog").attr('title', 'Info');
+                                            $("#dialog").html(data);
+                                            $( "#dialog" ).dialog({
+                                                modal: true,
+                                                buttons: {
+                                                    Ok: function() {
+                                                        $( this ).dialog( "close" );
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
+                                    $( this ).dialog( "close" );
+                                },
+                                Cancel: function() {
+                                    $( this ).dialog( "close" );
+                                }
+                            }
+                        });
+                    //var r = confirm('Oled kindel, et soovid kustutada kategooria: '+$(this).val()+'?');
+                    //if(r == true){
+                    /*$.get('editCategories/delete/'+$(this).attr('name'), function(data) {
                             self.getCategories();
                             self.getEditCategories();
-                            alert(data);
-                        //} else {
-                        //    alert("Viga kustutamisel");
-                        //}
+                            if(data != 'OK') alert(data);
+                        });*/
+                    //}
+                    });
+                });
+                $(".categoryEdit").each(function(){
+                    $(this).bind('click', function(e) {
+                        $.get('editCategories/editForm/'+$(this).attr('name')+'/1', function(data) {
+                            $("#categoriesEdit").html(data);
+                            $("#submitEditCategory").bind('click', function(e) {
+                                $.post('editCategories/edit', {
+                                    id: $("#catId").val(), 
+                                    name_et: $("#catName_et").val(), 
+                                    name_en: $("#catName_en").val(), 
+                                    name_ru: $("#catName_ru").val(), 
+                                    parent: $("#catParent").val(),
+                                    sub: 1
+                                }, function(data){
+                                    self.getCategories();
+                                    self.getEditCategories();
+                                //alert(data);
+                                });
+                            });
+                            $("#cancelBtn").bind('click', function(e) {
+                                self.getEditCategories();
+                            });
+
+                        });
+                    });
+                });
+                $(".categoryEditTop").each(function(){
+                    $(this).bind('click', function(e) {
+                        $.get('editCategories/editForm/'+$(this).attr('name')+'/0', function(data) {
+                            $("#categoriesEdit").html(data);
+                            $("#submitEditCategory").bind('click', function(e) {
+                                $.post('editCategories/edit', {
+                                    id: $("#catId").val(), 
+                                    name_et: $("#catName_et").val(), 
+                                    name_en: $("#catName_en").val(), 
+                                    name_ru: $("#catName_ru").val(), 
+                                    color: $("#catColor").val(),
+                                    sub: 0
+                                }, function(data){
+                                    self.getCategories();
+                                    self.getEditCategories();
+                                //alert(data);
+                                });
+                            });
+                            $("#cancelBtn").bind('click', function(e) {
+                                self.getEditCategories();
+                            });
+
                         });
                     });
                 });
@@ -828,7 +1139,7 @@ $(document).ready(function () {
                             }, function(data){
                                 self.getCategories();
                                 self.getEditCategories();
-                                alert(data);
+                            //alert(data);
                             });
                         });
                         $("#cancelAdd").bind('click', function(e) {
@@ -836,6 +1147,13 @@ $(document).ready(function () {
                         });
                     });
                 });
+                
+                $("#close2").bind('click', function(e) {
+                    e.preventDefault();
+                    toggleCAdmin("show");
+                    $("#categoriesEditContainer").hide();
+                });
+                
             });
         },
         checkTime: function() {
@@ -923,13 +1241,13 @@ $(document).ready(function () {
     }
     function toggleCAdmin(s){
         if(s == "show"){
-            $("#categoriesEdit").hide();
+            $("#categoriesEditContainer").hide();
             $("#catAdmin").bind('click', function(e){
                 toggleCAdmin("hide");
             });
         }
         else {
-            $("#categoriesEdit").show();
+            $("#categoriesEditContainer").show();
             $("#catAdmin").bind('click', function(e){
                 toggleCAdmin("show");
             });
@@ -945,6 +1263,8 @@ $(document).ready(function () {
         );
     $.get("getmenu", 
         function(data){ 
+            $("#container").append('<div id="dialog-confirm"></div>');
+            $("#container").append('<div id="dialog"></div>');
             $("#topmenu").html(data);
             $("#catView").bind('click', function(e){
                 e.preventDefault();
@@ -955,10 +1275,4 @@ $(document).ready(function () {
                 toggleCAdmin("hide");
             });
         }); 
-    $("#nupp").bind('click', function(e) {
-        e.preventDefault();
-    //console.log(map.getExtent());
-    // console.log(map.getResolution());
-        
-    });
 });
