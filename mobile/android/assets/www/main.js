@@ -318,6 +318,8 @@ JSON.parse = function (text) {
       screen.current = screen.loading;
       screen.loading.show();
       categories.update();
+
+      $(document).on('backbutton', confirm_quit);
     }
   };
 
@@ -436,7 +438,12 @@ JSON.parse = function (text) {
       },
 
       show: function () {
-        screen.showScreen(screen.intro);
+        if (screen.current === screen.loading && localStorage.getItem('intro_shown')) {
+          screen.take_photo.show();
+        } else {
+          localStorage.setItem('intro_shown', 'true');
+          screen.showScreen(screen.intro);
+        }
       }
     },
 
@@ -739,6 +746,14 @@ JSON.parse = function (text) {
 
   var reload = function () {
     document.location = 'index.html';
+  };
+
+  var confirm_quit = function () {
+    if (confirm('Väljuda? Pooleli teade kaob.')) {
+      geolocation.disable();
+      navigator.app.exitApp();
+    }
+    return false;
   };
 })();
 

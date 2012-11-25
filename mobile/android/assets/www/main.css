@@ -1,7 +1,10 @@
+* {
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
 html, body, div {
   margin: 0;
   padding: 0;
-  -webkit-tap-highlight-color: transparent;
 }
 
 html, body, .screen {
@@ -164,8 +167,9 @@ p.center {
   border-bottom-right-radius: 0.25em;
 }
 
-#comment-field {
+#comment-field, #comment-field:focus {
   display: block;
+  position: relative;
   margin: 0 auto 1em auto;
   width: 90%;
   height: 8em;
@@ -173,4 +177,8 @@ p.center {
   border: 2px solid #888;
   font: 0.75em sans-serif;
   border-radius: 0.25em;
+  outline: none;
+  z-index: 16;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-user-modify: read-write-plaintext-only;
 }
