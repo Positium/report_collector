@@ -1,6 +1,16 @@
-JSON._parse = JSON.parse;
+// Android 2.1 fallback
+Object.keys = Object.keys || function(o) {
+    var result = [];
+    for (var name in o) {
+        if (o.hasOwnProperty(name))
+          result.push(name);
+    }
+    return result;
+};
 
 // Fixes illegal access on gingerbread
+JSON._parse = JSON.parse;
+
 JSON.parse = function (text) {
   if (text) {
     return JSON._parse(text);
@@ -9,6 +19,80 @@ JSON.parse = function (text) {
   }
 };
 
+// Fixes swipes
+(function($){
+  $.fn.betterTouch = function (options) {
+    var defaults = {
+      threshold: 40,
+      swipe_right: function () {},
+      swipe_left: function () {}
+    };
+    options = $.extend(defaults, options);
+    
+    return this.each(function () {
+      var me = this;
+      var touch = {
+        active: false,
+        x: 0,
+        y: 0,
+        deltaX: 0,
+        deltaY: 0
+      };
+
+      var onPressEvent = function (event) {
+        var onPress= function (event) {
+          touch.active = true;
+          touch.x = parseInt(event.clientX, 10);
+          touch.y = parseInt(event.clientY, 10);
+          touch.deltaX = touch.deltaY = 0;
+        };
+        
+        var onMove = function (event, e) {
+          var cx = event.clientX;
+          var cy = event.clientY;
+
+
+          if (Math.abs(touch.x - cx) > Math.abs(touch.y - cy) &&
+              e && e.preventDefault) e.preventDefault();
+          
+          if (touch.active){
+            touch.deltaX = touch.x - cx;
+            touch.deltaY = touch.y - cy;
+          }
+        };
+        
+        var onRelease = function (event) {  
+          if (Math.abs(touch.deltaX) > Math.abs(touch.deltaY)) {
+            if (touch.deltaX > options.threshold) {
+              options.swipe_right();
+            }
+            if (touch.deltaX < -options.threshold) {
+              options.swipe_left();
+            }
+          }
+          touch.active = false;
+          touch.deltaX = touch.deltaY = 0;
+        };
+        
+        switch(event.type) {
+          case "touchstart": onPress(event.targetTouches[0]); break;
+          case "touchmove": onMove(event.targetTouches[0], event); break;
+          case "touchend": onRelease(event.targetTouches[0]); break;
+          case "touchcancel": onRelease(event.targetTouches[0]); break;
+          case "touchleave": onRelease(event.targetTouches[0]); break;
+        }
+      };
+
+      me.ontouchstart = onPressEvent;
+      me.ontouchmove = onPressEvent;
+      me.ontouchend = onPressEvent;
+      me.ontouchcancel = onPressEvent;
+      me.ontouchleave = onPressEvent;
+    });
+  }; 
+})(Zepto);
+
+// Main
 (function () {
   var UPDATE_URL =  'http://gistudeng.gg.bg.ut.ee/dev/index.php/receiver/sendLastCategoryRevisionNumber';
   var SEND_URL =    'http://gistudeng.gg.bg.ut.ee/dev/index.php/receiver';
@@ -54,10 +138,12 @@ JSON.parse = function (text) {
 
     takePhoto: function (callback) {
       var success = function (data) {
+        screen.from = 'right';
         callback(null, data);
       };
 
       var fail = function (error) {
+        screen.from = 'right';
         callback(error);
       };
 
@@ -115,7 +201,8 @@ JSON.parse = function (text) {
         sendReport({
           report: JSON.parse(localStorage.getItem(list[next])),
           quiet: true,
-          success: send_success
+          success: send_success,
+          fail: null
         });
         return;
       }
@@ -229,6 +316,7 @@ JSON.parse = function (text) {
       camera.format = navigator.camera.DestinationType;
 
       screen.current = screen.loading;
+      screen.loading.show();
       categories.update();
     }
   };
@@ -240,63 +328,95 @@ JSON.parse = function (text) {
       for (var s in screen) {
         if (screen[s] !== null && typeof screen[s] === 'object' && 'element' in screen[s]) {
           screen[s].init();
+          screen.setActions(screen[s]);
         }
       }
     },
 
     current: null,
+    in_transition: false,
+    from: 'right',
 
-    showScreen: function (new_screen, animation_direction) {
-      if (new_screen !== screen.current) {
-        // TODO: transition
-        screen.current.element.hide();
-        screen.current = new_screen;
-        screen.setSwipeEvents(new_screen);
-        new_screen.element.show();
+    showScreen: function (new_screen) {
+      if (new_screen !== screen.current && !screen.in_transition) {
+        if (!$.fx.off && screen.from === 'left' || screen.from === 'right') {
+          screen.in_transition = true;
+
+          var z_index_before = new_screen.element.css('z-index');
+          new_screen.element.show().css({
+            '-webkit-transform': 'translateX' + (screen.from === 'left' ? '(-100%)' : '(100%)'),
+            'z-index': z_index_before + 1
+          });
+
+          var anim_done = false;
+          var anim_time = 175;
+          var anim_callback = function () {
+            if (!anim_done) {
+              anim_done = true;
+              screen.current.element.hide();
+              new_screen.element.css('z-index', z_index_before);
+              screen.current = new_screen;
+              screen.in_transition = false;
+            }
+          };
+
+          new_screen.element.animate({translateX: 0}, anim_time, 'linear', anim_callback);
+        } else {
+          new_screen.element.show();
+          screen.current.element.hide();
+          screen.current = new_screen;
+        }
       }
     },
 
-    setSwipeEvents: function (screen) {
-      // Disabled to due bugginess
-      /*
+    setActions: function (for_screen) {
+      var button_left = for_screen.element.find('.button-left');
+      var button_right = for_screen.element.find('.button-right');
+
       var action_left = function () {};
       var action_right = action_left;
 
-      var button_left = screen.element.find('.button-left');
-      var button_right = screen.element.find('.button-right');
-
-
-      // The swipes are mirrored
       if (button_left.length !== 0) {
-        action_right = function () { 
-          if (!button_left.attr('disabled')) {
-            button_left.trigger('tap');
-          }
+        button_left.on('tap', for_screen.left_action);
+        action_left = function () {
+          button_left.trigger('tap');
         };
       }
+
       if (button_right.length !== 0) {
-        action_left = function () { 
-          if (!button_right.attr('disabled')) {
-            button_right.trigger('tap');
-          }
+        button_right.on('tap', for_screen.right_action);
+        action_right = function () { 
+          button_right.trigger('tap');
         };
       }
       
-      $(document).swipeLeft(action_left).swipeRight(action_right);
-      */
+      for_screen.element.betterTouch({
+        swipe_left: action_left,
+        swipe_right: action_right
+      });
+
+      var preventer = function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      };
     },
 
     loading: {
       element: $('#loading-screen'),
 
-      init: function () {}
+      init: function () {},
+
+      show: function () {
+        screen.loading.element.show();
+      }
     },
 
     no_categories: {
       element: $('#no-categories-screen'),
+      
+      left_action: reload,
 
       init: function () {
-        $('#no-categories-restart').tap(reload);
       },
 
       show: function () {
@@ -306,9 +426,13 @@ JSON.parse = function (text) {
 
     intro: {
       element: $('#intro-screen'),
+      
+      right_action: function () { 
+        screen.from = 'right';
+        screen.take_photo.show();
+      },
 
       init: function () {
-        $('#start-app').tap(screen.take_photo.show);
       },
 
       show: function () {
@@ -318,10 +442,14 @@ JSON.parse = function (text) {
 
     take_photo: {
       element: $('#take-photo-screen'),
+      
+      left_action: function () {
+        screen.from = 'left';
+        screen.intro.show();
+      },
 
       init: function () {
-        $('#take-photo-back').tap(screen.intro.show);
-        $('#take-photo').tap(camera.takePhoto(screen.photo_review.show));
+        $('#take-photo').on('tap', camera.takePhoto(screen.photo_review.show));
       },
 
       show: function () {
@@ -332,9 +460,17 @@ JSON.parse = function (text) {
     photo_review: {
       element: $('#photo-review-screen'),
 
+      left_action: function () {
+        screen.from = 'left';
+        screen.take_photo.show();
+      },
+
+      right_action: function () {
+        screen.from = 'right';
+        screen.category.show();
+      },
+
       init: function () {
-        $('#photo-review-retry').tap(screen.take_photo.show);
-        $('#photo-review-done').tap(screen.category.show);
       },
 
       show: function (error, photo_data) {
@@ -356,20 +492,29 @@ JSON.parse = function (text) {
 
     category: {
       element: $('#category-screen'),
+        
+      left_action: function () {
+        screen.from = 'left';
+        screen.photo_review.show();
+      },
+
+      right_action: function () {
+        screen.from = 'right';
+        screen.subcategory.show();
+      },
+
+      right_button: $('#category-screen').find('.button-right').first(),
 
       init: function () {
-        $('#category-back').tap(screen.photo_review.show);
-        $('#category-done').tap(screen.subcategory.show);
-
         var ul = $('#category-list');
         for (var c in categories.categories) {
           var category = categories.categories[c];
           var li = $('<li data-id="' + category.id + '">' + category.name + '</li>');
-          li.tap(screen.category.on_select);
+          li.on('tap', screen.category.on_select);
           ul.append(li);
         }
         
-        $('#category-done').attr('disabled', 'disabled').hide();
+        screen.category.right_button.attr('disabled', 'disabled').hide();
       },
 
       on_select: function () {
@@ -377,7 +522,7 @@ JSON.parse = function (text) {
           $('#category-list').children().removeClass('selected');
         }
 
-        $('#category-done').removeAttr('disabled').show();
+        screen.category.right_button.removeAttr('disabled').show();
 
         var $this = $(this);
         $this.addClass('selected');
@@ -392,10 +537,20 @@ JSON.parse = function (text) {
 
     subcategory: {
       element: $('#subcategory-screen'),
+        
+      left_action: function () {
+        screen.from = 'left';
+        screen.category.show();
+      },
+
+      right_action: function () {
+        screen.from = 'right';
+        screen.comment.show();
+      },
+
+      right_button: $('#category-screen').find('.button-right').first(),
 
       init: function () {
-        $('#subcategory-back').tap(screen.category.show);
-        $('#subcategory-done').tap(screen.comment.show);
       },
 
       on_select: function () {
@@ -403,7 +558,7 @@ JSON.parse = function (text) {
           $('#subcategory-list').children().removeClass('selected');
         }
 
-        $('#subcategory-done').removeAttr('disabled').show();
+        screen.subcategory.right_button.removeAttr('disabled').show();
 
         var $this = $(this);
         $this.addClass('selected');
@@ -430,11 +585,11 @@ JSON.parse = function (text) {
           for (var s in category.subcategories) {
             var subcategory = category.subcategories[s];
             var li = $('<li data-id="' + subcategory.id_sub + '">' + subcategory.name + '</li>');
-            li.tap(screen.subcategory.on_select);
+            li.on('tap', screen.subcategory.on_select);
             ul.append(li);
           }
           
-          $('#subcategory-done').attr('disabled', 'disabled').hide();
+          screen.subcategory.right_button.attr('disabled', 'disabled').hide();
 
           screen.showScreen(screen.subcategory);
         }
@@ -443,10 +598,18 @@ JSON.parse = function (text) {
 
     comment: {
       element: $('#comment-screen'),
+        
+      left_action: function () {
+        screen.from = 'left';
+        screen.subcategory.show();
+      },
+
+      right_action: function () {
+        screen.from = 'right';
+        screen.comment.update_and_show_review();
+      },
 
       init: function () {
-        $('#comment-back').tap(screen.subcategory.show);
-        $('#comment-done').tap(screen.comment.update_and_show_review);
       },
 
       show: function () {
@@ -469,20 +632,26 @@ JSON.parse = function (text) {
 
     review: {
       element: $('#review-screen'),
+      
+      left_action: function () {
+        screen.from = 'left';
+        screen.comment.show();
+      },
+
+      right_action: function () {
+        report.timestamp = Math.round(+new Date() / 1000);
+        geolocation.disable();
+        sendReport({
+          report: report,
+          quiet: false,
+          fail: function (report) {
+            unsent_reports.save(report);
+          },
+          success: null
+        });
+      },
 
       init: function () {
-        $('#review-back').tap(screen.comment.show);
-        $('#review-done').tap(function () {
-          report.timestamp = Math.round(+new Date() / 1000);
-          geolocation.disable();
-          sendReport({
-            report: report,
-            quiet: false,
-            fail: function (report) {
-              unsent_reports.save(report);
-            }
-          });
-        });
       },
 
       show: function () {
@@ -503,8 +672,11 @@ JSON.parse = function (text) {
     send_success: {
       element: $('#send-success-screen'),
 
+      left_action: function () {
+        reload();
+      },
+
       init: function () {
-        $('#success-new-report').tap(reload);
       },
 
       show: function () {
@@ -515,8 +687,11 @@ JSON.parse = function (text) {
     send_fail: {
       element: $('#send-fail-screen'),
 
+      left_action: function () {
+        reload();
+      },
+
       init: function () {
-        $('#fail-new-report').tap(reload);
       },
 
       show: function () {
@@ -526,16 +701,25 @@ JSON.parse = function (text) {
   };
 
   var sendReport = function (args) {
-    if (!args.quiet) screen.send.show();
+    if (!args.quiet) {
+      screen.from = 'right';
+      screen.send.show();
+    }
 
     var send_fail = function () {
-      if (!args.quiet) screen.send_fail.show();
-      if (args.fail !== null) args.fail(args.report);
+      if (!args.quiet) {
+        screen.from = 'right';
+        screen.send_fail.show();
+      }
+      if (args.fail) args.fail(args.report);
     };
 
     var send_success = function (res) {
       if (res.result === 'success') {
-        if (!args.quiet) screen.send_success.show();
+        if (!args.quiet) {
+          screen.from = 'right';
+          screen.send_success.show();
+        }
         if (args.success) args.success(args.report);
       } else {
         send_fail();

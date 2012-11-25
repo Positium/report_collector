@@ -12,10 +12,12 @@
     <div id="notification">
     </div>
 
-    <div class="screen center" id="loading-screen" style="">
-      <p class="center">
-        Uuendan kategooriaid...
-      </p>
+    <div class="screen center" id="loading-screen" style="display: none;">
+      <div class="container">
+        <p class="center">
+          Uuendan kategooriaid...
+        </p>
+      </div>
     </div>
 
     <div class="screen center" id="no-categories-screen" style="display: none;">
@@ -27,31 +29,32 @@
       
       <div class="navbar">
         <div class="title">Teata</div>
-        <button class="button-left" id="no-categories-restart">Proovi uuesti</button>
+        <button class="button-left">Proovi uuesti</button>
       </div>
     </div>
 
     <div class="screen" id="intro-screen" style="display: none;">
       <div class="container">
         <p class="center">Tutvustus</p>
-        <p class="center">Järgi ekraanil olevaid juhiseid teadet saatmiseks.</p>
-        <p class="center">Sul on võimalik minna samm tagasi kasutades <em>Tagasi</em> nuppu või ekraani sõrmega paremale libistades.</p>
-        <p class="center">Vajutades nuppu <em>Edasi</em> või ekraani vasakule libistades on võimalik liikuda järgmise etapi juurde.</p>
+        <p class="center">Anna teada, mis on su ümbruses korrast ära ja me toimetame selle omavalitsuse esindajatele.</p>
+        <p class="center">Teate saatmiseks tee üks pilt ning lühidalt kirjelda seda.</p>
+        <p class="center">Saad ekraani vaadete vahel liikuda edasi ja tagasi sõrmega vasakule ja paremale libistades.</p>
       </div>
       
       <div class="navbar">
         <div class="title">Teata</div>
-        <button class="button-right" id="start-app">Edasi</button>
+        <button class="button-right">Edasi</button>
       </div>
     </div>
 
     <div class="screen center" id="take-photo-screen" style="display: none;">
-      <p class="center">Foto tegemiseks vajuta kaamera ikoonile</p>
-      <p class="center"><img id="take-photo" src="camera.png" alt="Camera" width="256" height="256" /></p>
-    
+      <div class="container">
+        <p class="center">Foto tegemiseks vajuta kaamera ikoonile</p>
+        <p class="center"><img id="take-photo" src="camera.png" alt="Camera" width="256" height="256" /></p>
+      </div>  
       <div class="navbar">
         <div class="title">Teata</div>
-        <button class="button-left" id="take-photo-back">Tagasi</button>
+        <button class="button-left">Tagasi</button>
       </div>
     </div>
 
@@ -63,8 +66,8 @@
       
       <div class="navbar">
         <div class="title">Teata</div>
-        <button class="button-left" id="photo-review-retry">Tagasi</button>
-        <button class="button-right" id="photo-review-done">Edasi</button>
+        <button class="button-left">Tagasi</button>
+        <button class="button-right">Edasi</button>
       </div>
     </div>
     
@@ -77,8 +80,8 @@
 
       <div class="navbar">
         <div class="title">Teata</div>
-        <button class="button-left" id="category-back">Tagasi</button>
-        <button class="button-right" id="category-done">Edasi</button>
+        <button class="button-left">Tagasi</button>
+        <button class="button-right">Edasi</button>
       </div>
     </div>
     
@@ -91,8 +94,8 @@
 
       <div class="navbar">
         <div class="title">Teata</div>
-        <button class="button-left" id="subcategory-back">Tagasi</button>
-        <button class="button-right" id="subcategory-done">Edasi</button>
+        <button class="button-left">Tagasi</button>
+        <button class="button-right">Edasi</button>
       </div>
     </div>
     
@@ -104,8 +107,8 @@
 
       <div class="navbar">
         <div class="title">Teata</div>
-        <button class="button-left" id="comment-back">Tagasi</button>
-        <button class="button-right" id="comment-done">Edasi</button>
+        <button class="button-left">Tagasi</button>
+        <button class="button-right">Edasi</button>
       </div>
     </div>
     
@@ -123,8 +126,8 @@
       
       <div class="navbar">
         <div class="title">Teata</div>
-        <button class="button-left" id="review-back">Tagasi</button>
-        <button class="button-right" id="review-done">Saada</button>
+        <button class="button-left">Tagasi</button>
+        <button class="button-right">Saada</button>
       </div>
     </div>
     
@@ -141,7 +144,7 @@
       
       <div class="navbar">
         <div class="title">Teata</div>
-        <button class="button-left" id="success-new-report">Loo uus</button>
+        <button class="button-left">Loo uus</button>
       </div>
     </div>
     
@@ -160,7 +163,7 @@
      
       <div class="navbar">
         <div class="title">Teata</div>
-        <button class="button-left" id="fail-new-report">Loo uus</button>
+        <button class="button-left">Loo uus</button>
       </div>
     </div>
 

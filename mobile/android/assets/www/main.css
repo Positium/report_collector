@@ -1,6 +1,7 @@
 html, body, div {
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html, body, .screen {
@@ -39,11 +40,17 @@ p {
 }
 
 .screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: auto;
 }
 
 .container {
   position: relative;
   padding: 3em 0 0.25em 0;
+  z-index: 15;
 }
 
 .screen.center {
