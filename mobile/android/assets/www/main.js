@@ -149,7 +149,7 @@ JSON.parse = function (text) {
 
       return function () {
         navigator.camera.getPicture(success, fail, {
-          quality: 50,
+          quality: 70,
           destinationType: camera.format.DATA_URL,
           targetWidth: 1024,
           targetHeight: 1024,
@@ -476,6 +476,8 @@ JSON.parse = function (text) {
         screen.from = 'right';
         screen.category.show();
       },
+      
+      right_button: $('#photo-review-screen').find('.button-right').first(),
 
       init: function () {
       },
@@ -484,13 +486,13 @@ JSON.parse = function (text) {
         if (error && !(error instanceof Event)) {
           report.photo = null;
           $('#photo-review-title').text('Viga pildi tegemisel: ' + error);
-          $('#review-photo').hide();
-          $('#photo-review-done').attr('disabled', 'disabled').hide();
+          $('.review-photo').hide();
+          screen.photo_review.right_button.attr('disabled', 'disabled').hide();
         } else if (photo_data) {
           report.photo = 'data:image/jpeg;base64,' + photo_data;
           $('#photo-review-title').text('Kas see pilt sobib?');
           $('.review-photo').attr('src', report.photo).show();
-          $('#photo-review-done').removeAttr('disabled').show();
+          screen.photo_review.right_button.removeAttr('disabled').show();
         }
 
         screen.showScreen(screen.photo_review);
@@ -555,7 +557,7 @@ JSON.parse = function (text) {
         screen.comment.show();
       },
 
-      right_button: $('#category-screen').find('.button-right').first(),
+      right_button: $('#subcategory-screen').find('.button-right').first(),
 
       init: function () {
       },

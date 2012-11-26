@@ -5,4 +5,5 @@
   <string name="gps_dialog_msg">Selle rakenduse tööks on vaja lülitada sisse GPS-satelliite ja asukohateenuseid.</string>
   <string name="gps_dialog_ok">Ava Seaded</string>
   <string name="gps_dialog_quit">Välju</string>
+  <string name="capture">Pildista</string>
 </resources>

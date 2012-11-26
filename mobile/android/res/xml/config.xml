@@ -6,12 +6,13 @@
   <access origin="http://gistudeng.gg.bg.ut.ee*"/>
 
   <log level="DEBUG"/>
-  <preference name="exit-on-suspend" value="false" />
+  <preference name="exit-on-suspend" value="true" />
   
   <plugins>
     <plugin name="App" value="org.apache.cordova.App"/>
     <plugin name="Geolocation" value="org.apache.cordova.GeoBroker"/>
-    <plugin name="Camera" value="org.apache.cordova.CameraLauncher"/>
+    <!--<plugin name="Camera" value="org.apache.cordova.CameraLauncher"/>-->
+    <plugin name="Camera" value="org.apache.cordova.ForegroundCameraLauncher"/>
     <plugin name="NetworkStatus" value="org.apache.cordova.NetworkManager"/>
     <plugin name="Notification" value="org.apache.cordova.Notification"/>
     <plugin name="Storage" value="org.apache.cordova.Storage"/>
