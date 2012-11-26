@@ -381,14 +381,14 @@ JSON.parse = function (text) {
       if (button_left.length !== 0) {
         button_left.on('tap', for_screen.left_action);
         action_left = function () {
-          button_left.trigger('tap');
+          if (!button_left.attr('disabled')) button_left.trigger('tap');
         };
       }
 
       if (button_right.length !== 0) {
         button_right.on('tap', for_screen.right_action);
-        action_right = function () { 
-          button_right.trigger('tap');
+        action_right = function () {
+          if (!button_right.attr('disabled')) button_right.trigger('tap');
         };
       }
       
