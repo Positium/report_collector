@@ -345,10 +345,10 @@ JSON.parse = function (text) {
           screen.in_transition = true;
 
           var z_index_before = new_screen.element.css('z-index');
-          new_screen.element.show().css({
+          new_screen.element.css({
             '-webkit-transform': 'translateX' + (screen.from === 'left' ? '(-100%)' : '(100%)'),
             'z-index': z_index_before + 1
-          });
+          }).show();
 
           var anim_done = false;
           var anim_time = 175;

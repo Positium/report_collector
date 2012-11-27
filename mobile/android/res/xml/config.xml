@@ -2,7 +2,6 @@
 <cordova>
 
   <access origin="http://127.0.0.1*"/>
-  <access origin="http://10.0.0.20*"/>
   <access origin="http://gistudeng.gg.bg.ut.ee*"/>
 
   <log level="DEBUG"/>
@@ -11,7 +10,6 @@
   <plugins>
     <plugin name="App" value="org.apache.cordova.App"/>
     <plugin name="Geolocation" value="org.apache.cordova.GeoBroker"/>
-    <!--<plugin name="Camera" value="org.apache.cordova.CameraLauncher"/>-->
     <plugin name="Camera" value="org.apache.cordova.ForegroundCameraLauncher"/>
     <plugin name="NetworkStatus" value="org.apache.cordova.NetworkManager"/>
     <plugin name="Notification" value="org.apache.cordova.Notification"/>
