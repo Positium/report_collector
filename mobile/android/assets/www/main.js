@@ -690,6 +690,7 @@ JSON.parse = function (text) {
 
       show: function () {
         screen.showScreen(screen.send_success);
+        $(document).off('backbutton');
       }
     },
 
@@ -705,6 +706,7 @@ JSON.parse = function (text) {
 
       show: function () {
         screen.showScreen(screen.send_fail);
+        $(document).off('backbutton');
       }
     }
   };
