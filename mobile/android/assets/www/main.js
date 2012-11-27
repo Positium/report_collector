@@ -565,6 +565,7 @@ JSON.parse = function (text) {
         $this.addClass('selected');
 
         report.category = $this.data('id');
+        $('#category-name').text(categories.categories[report.category].name);
       },
 
       show: function () {
