@@ -13,15 +13,13 @@ if (!defined('BASEPATH'))
         <!-- OpenLayers -->
         <script src="../js/libs/openlayers/OpenLayers.js"></script>
         <!-- jQuery -->
-        <script src="../js/libs/jquery/jquery-1.8.1.min.js"></script>
-        <script src="../js/libs/jquery/jquery-ui-1.9.0.custom.min.js"></script>
+        <script src="../js/libs/jquery/jquery-1.8.2.js"></script>
+        <script src="../js/libs/jquery/jquery-ui-1.9.1.custom.min.js"></script>
         <script src="../js/libs/jquery/jquery.ui.datepicker-et.js"></script>
         <script src="../js/libs/jquery/jquery.ui.datepicker-ru.js"></script>
-        <script src="../js/libs/jpicker/jpicker-1.1.6.min.js"></script>
+        <script src="../js/libs/jscolor/jscolor.js"></script>
         <!-- DatePicker -->
-        <link rel="stylesheet" href="../css/smoothness/jquery-ui-1.9.0.custom.css" />
-        <!-- ColorPicker -->
-        <link rel="stylesheet" href="../css/jPicker-1.1.6.min.css" />
+        <link rel="stylesheet" href="../css/smoothness/jquery-ui-1.9.1.custom.css" />
         <!-- Underscore & Backbone -->
         <script type="text/javascript" src="../js/libs/underscore/underscore.js" ></script>
         <script type="text/javascript" src="../js/libs/backbone/backbone.js" ></script>
@@ -35,7 +33,8 @@ if (!defined('BASEPATH'))
             <div id="topmenu"></div>
             <div id="userdata"></div>
             <div id="legend">
-                <div> <input type="checkbox" id="cluster"  checked="checked" /><label for = "cluster" >Klasterda ruumiliselt</label></div>
+                <div> <input type="checkbox" id="check-cluster"  checked="checked" /><label for = "check-cluster" >Klasterda</label></div>
+                <div> <input type="checkbox" id="cluster" /><label for = "cluster" >Klasterda ruumiliselt ja ajaliselt</label></div>
                 <div id="catecory">
                 </div>
                 <div id ="time-interval"> 
@@ -51,12 +50,12 @@ if (!defined('BASEPATH'))
                 </div>
             </div>
             <div id = "map">
-                <div id ="nupp">
-                    <!-- <button type="button">Click Me!</button> -->
-                </div>
             </div>
         </div>
-        <div id="categoriesEdit"></div>
+        <div id="categoriesEditContainer">
+            <a href="" id="close2" ></a>
+            <div id="categoriesEdit"></div>
+        </div>
         <div id="loading"></div>     		
     </body>
 </html>

@@ -22,13 +22,13 @@ class Transmit extends CI_Controller {
         $this->load->view('geojson_respond', $data);
     }
     private function resultsets_to_GeoJSON($query_resultsets) {
-        $query_resultset_for_properties = $query_resultsets[0];
-        $query_resultset_for_location = $query_resultsets[1];      
+        //$query_resultset_for_properties = $query_resultsets[0];
+        $query_resultset_for_properties = $query_resultsets;
+        //$query_resultset_for_location = $query_resultsets[1];      
         $array_of_features=array();
         $count_of_reports = count($query_resultset_for_properties);
         for ($i = 0;$i < $count_of_reports && $i < $count_of_reports;++$i) {
             $row_of_properties = $query_resultset_for_properties[$i];
-            $row_of_location = $query_resultset_for_location[$i];
             $report_properties = array(
                 "ID" => $row_of_properties->id,
                 "TIMESTAMP" => $row_of_properties->timestamp_n,
@@ -42,7 +42,7 @@ class Transmit extends CI_Controller {
             $feature = array(
                 "type" => "Feature",
                 "properties" => $report_properties,
-                "geometry" => json_decode($row_of_location->location)
+                "geometry" => json_decode($row_of_properties->location)
                 );
             array_push($array_of_features, $feature);
         }
@@ -55,7 +55,7 @@ class Transmit extends CI_Controller {
     public function getPhotoById() {
         if (isset($_GET['id'])) {
             $photo_result = $this->query_transmit->get_photo_by_id($this->input->get('id'));
-            $photo_string = base64_encode(pg_unescape_bytea($photo_result->photo));
+            $photo_string = $photo_result->photo;
             $photo_json['photo_json'] = $photo_string;
             $this->load->view('photo_respond',$photo_json);
         }

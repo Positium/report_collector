@@ -12,7 +12,7 @@ class Receiver extends CI_Controller {
         if (isset($_POST['submit'])) {
             $this->load->model('report_post');
             $string_photo=explode("[removed]",$this->input->post('photo'),2);
-	    $image_string = str_replace(array("\\\\", "''"), array("\\", "'"),pg_escape_bytea(base64_decode($string_photo[1])));
+            
             $report = array(
                 'device_id' => $this->input->post('uuid'),
                 'timestamp_n' => date("Y-m-d H:i:s",$this->input->post('timestamp')),
@@ -20,7 +20,7 @@ class Receiver extends CI_Controller {
                 'subcategory'=> $this->input->post('subcategory'),
                 'commentary' => $this->input->post('comment'),
                 'location_n' => "ST_Transform(ST_GeomFromText('POINT(".$_POST['geolocation']['longitude']." ". $_POST['geolocation']['latitude'].")',4326),900913)",
-                'photo' => $image_string,
+                'photo' => "decode('".$string_photo[1]."','base64')",
                 'gps_accuracy' => $_POST['geolocation']['accuracy'],
                 'visibility' => "t"
             );   

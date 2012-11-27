@@ -25,6 +25,9 @@ body{
     width: 100%; height: 100%;
 
 }
+#data {
+z-index: 3000 !important;
+}
 
 #info {
     top: 75px;
@@ -76,11 +79,12 @@ body{
     margin-top: 30px;
     right: 10px;
     width: 190px;
-    opacity: 0.9;
+    /*opacity: 0.9; */
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    background-color: #999999;
+   /* background-color: #999999;*/
+     background-color: #EEEEEE;
     z-index: 1500;
     padding: 5px 5px 5px 8px;
     display: none;
@@ -109,7 +113,7 @@ body{
     position: absolute;
     top: 50px;
     left: 35%;
-    width: 400px;
+    width: 420px;
     height: 450px;
     overflow-y: auto;
    /* opacity: 0.9; */
@@ -124,12 +128,11 @@ body{
 }
 
 #categoriesEdit {
-
     width: 360px;
     height: 410px;
     overflow-y: auto; /* scroll */
     overflow-x: hidden;
-    background-color: #EEEEEE;;
+    background-color: #EEEEEE;
     padding: 5px 5px 20px 20px; 
 }
 
@@ -137,10 +140,20 @@ body{
     list-style-type: none;
     padding-left: 10px;
 }
-.categoryDelete {
+.categoryDelete, .categoryDeleteTop {
     display: inline; 
-    margin-left: 30px; 
+    margin-left: 5px; 
     color: #990000;
+    font-size: .6em !important;
+}
+.categoryDeleteTop .ui-icon, .categoryDelete .ui-icon{
+    background-image: url(../css/smoothness/images/ui-icons_222222_256x240.png) !important;
+}
+.categoryEdit, .categoryEditTop {
+    font-size: .6em !important;
+}
+.categoryEditTop .ui-icon, .categoryEdit .ui-icon{
+    background-image: url(../css/smoothness/images/ui-icons_222222_256x240.png) !important;
 }
 
 #userdata {
