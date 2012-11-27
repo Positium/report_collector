@@ -58,6 +58,11 @@ public class ReportCollector extends DroidGap {
     }
   }
 
+  @Override
+  public void onBackPressed() { // reset handler (hack for Android < 4.0 devices)
+    super.loadUrl("javascript:backButtonPressed()");
+  }
+
   private void openLocationSettings() {
     Intent settings_intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
     startActivity(settings_intent);
