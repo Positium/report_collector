@@ -10,7 +10,7 @@
         $this -> db ->set('subcategory', $report['subcategory'], TRUE);
         $this -> db ->set('commentary', $report['commentary'], TRUE);
         $this -> db ->set('location_n', $report['location_n'], FALSE);
-        $this -> db ->set('photo', $report['photo'], TRUE);
+        $this -> db ->set('photo', $report['photo'], FALSE);
         $this -> db ->set('gps_accuracy', $report['gps_accuracy'], TRUE);
         $this -> db ->set('visibility',$report['visibility'], TRUE);
         $this -> db ->insert('issues');
