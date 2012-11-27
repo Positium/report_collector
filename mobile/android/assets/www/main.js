@@ -19,49 +19,74 @@ JSON.parse = function (text) {
   }
 };
 
-// Fixes swipes
+// Fixes swipes and emulated scrolling for Android < 3
 (function($){
   $.fn.betterTouch = function (options) {
     var defaults = {
-      threshold: 40,
+      threshold: 60,
       swipe_right: function () {},
       swipe_left: function () {}
     };
+      
     options = $.extend(defaults, options);
     
     return this.each(function () {
       var me = this;
+      var $me = $(me);
+
+      var emulating_scroll = 
+        window.device.platform === 'Android' &&
+        window.device.version[0] < 3;
+      
       var touch = {
         active: false,
         x: 0,
         y: 0,
         deltaX: 0,
-        deltaY: 0
+        deltaY: 0,
+        lastY: 0,
+        scrollY: 0
       };
 
       var onPressEvent = function (event) {
         var onPress= function (event) {
           touch.active = true;
           touch.x = parseInt(event.clientX, 10);
-          touch.y = parseInt(event.clientY, 10);
+          touch.y = touch.lastY = parseInt(event.clientY, 10);
           touch.deltaX = touch.deltaY = 0;
+            
+          if (emulating_scroll) event.preventDefault();
         };
         
         var onMove = function (event, e) {
           var cx = event.clientX;
           var cy = event.clientY;
-
-
-          if (Math.abs(touch.x - cx) > Math.abs(touch.y - cy) &&
-              e && e.preventDefault) e.preventDefault();
-          
-          if (touch.active){
+              
+          if (touch.active) {
             touch.deltaX = touch.x - cx;
             touch.deltaY = touch.y - cy;
+
+            if (emulating_scroll) {
+              touch.scrollY = touch.lastY - cy;
+              touch.lastY = cy;
+
+              var new_scroll = me.scrollTop + touch.scrollY;
+              var max_scroll = me.scrollHeight - $me.height();
+
+              if (new_scroll > max_scroll) {
+                me.scrollTop = max_scroll;
+              } else if (new_scroll < 0) {
+                me.scrollTop = 0;
+              } else {
+                me.scrollTop = new_scroll;
+              }
+            } else if (Math.abs(touch.x - cx) > Math.abs(touch.y - cy)) {
+               e.preventDefault();
+            }
           }
         };
         
-        var onRelease = function (event) {  
+        var onRelease = function (event) {
           if (Math.abs(touch.deltaX) > Math.abs(touch.deltaY)) {
             if (touch.deltaX > options.threshold) {
               options.swipe_right();
@@ -320,6 +345,14 @@ JSON.parse = function (text) {
       categories.update();
 
       $(document).on('backbutton', confirm_quit);
+      
+      var emulating_scroll = 
+        window.device.platform === 'Android' &&
+        window.device.version[0] < 3;
+
+      if (emulating_scroll) {
+        $(document).on('touchstart', function (e) { e.preventDefault(); });
+      }
     }
   };
 
@@ -345,10 +378,10 @@ JSON.parse = function (text) {
           screen.in_transition = true;
 
           var z_index_before = new_screen.element.css('z-index');
-          new_screen.element.show().css({
+          new_screen.element.css({
             '-webkit-transform': 'translateX' + (screen.from === 'left' ? '(-100%)' : '(100%)'),
             'z-index': z_index_before + 1
-          });
+          }).show();
 
           var anim_done = false;
           var anim_time = 175;
@@ -381,26 +414,21 @@ JSON.parse = function (text) {
       if (button_left.length !== 0) {
         button_left.on('tap', for_screen.left_action);
         action_left = function () {
-          if (!button_left.attr('disabled')) button_left.trigger('tap');
+          if (!button_left.attr('disabled')) for_screen.left_action();
         };
       }
 
       if (button_right.length !== 0) {
         button_right.on('tap', for_screen.right_action);
         action_right = function () {
-          if (!button_right.attr('disabled')) button_right.trigger('tap');
+          if (!button_right.attr('disabled')) for_screen.right_action();
         };
       }
       
-      for_screen.element.betterTouch({
+      for_screen.element.find('.container').first().betterTouch({
         swipe_left: action_left,
         swipe_right: action_right
       });
-
-      var preventer = function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      };
     },
 
     loading: {
@@ -537,6 +565,7 @@ JSON.parse = function (text) {
         $this.addClass('selected');
 
         report.category = $this.data('id');
+        $('#category-name').text(categories.categories[report.category].name);
       },
 
       show: function () {

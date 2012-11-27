@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="format-detection" content="telephone=no" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, target-densitydpi=device-dpi" />
     <link href="main.css" rel="stylesheet" type="text/css"/>    
     <!--<link href="os-specific.css" rel="stylesheet" type="text/css"/>-->
     <title>Teata</title>
@@ -13,7 +13,7 @@
     </div>
 
     <div class="screen center" id="loading-screen" style="display: none;">
-      <div class="container">
+      <div class="container no-navbar">
         <p class="center">
           Uuendan kategooriaid...
         </p>
@@ -21,98 +21,97 @@
     </div>
 
     <div class="screen center" id="no-categories-screen" style="display: none;">
+      <div class="navbar">
+        <div class="title">Teata</div>
+        <button class="button-left">Proovi uuesti</button>
+      </div>
       <div class="container">
         <p class="center">
           Kategooriate allalaadimine ei õnnestunud ja salvestatud kategooriaid ei ole olemas.
         </p>
       </div>
-      
-      <div class="navbar">
-        <div class="title">Teata</div>
-        <button class="button-left">Proovi uuesti</button>
-      </div>
     </div>
 
     <div class="screen" id="intro-screen" style="display: none;">
+      <div class="navbar">
+        <div class="title">Teata</div>
+        <button class="button-right">Alusta</button>
+      </div>
       <div class="container">
         <p class="center">Tutvustus</p>
         <p class="center">Anna teada, mis on su ümbruses korrast ära ja me toimetame selle omavalitsuse esindajatele.</p>
         <p class="center">Teate saatmiseks tee üks pilt ning lühidalt kirjelda seda.</p>
         <p class="center">Saad ekraani vaadete vahel liikuda edasi ja tagasi sõrmega vasakule ja paremale libistades.</p>
       </div>
-      
-      <div class="navbar">
-        <div class="title">Teata</div>
-        <button class="button-right">Alusta</button>
-      </div>
     </div>
 
     <div class="screen center" id="take-photo-screen" style="display: none;">
-      <div class="container">
-        <p class="center">Foto tegemiseks vajuta kaamera ikoonile</p>
-        <p class="center"><img id="take-photo" src="camera.png" alt="Camera" width="256" height="256" /></p>
-      </div>  
       <div class="navbar">
         <div class="title">Teata</div>
         <button class="button-left">Abi</button>
       </div>
+      <div class="container">
+        <p class="center">Foto tegemiseks vajuta kaamera ikoonile</p>
+        <p class="center"><img id="take-photo" src="camera.png" alt="Camera" width="256" height="256" /></p>
+      </div>  
     </div>
 
     <div class="screen" id="photo-review-screen" style="display: none;">
-      <div class="container">
-        <p class="center" id="photo-review-title"></p>
-        <p class="center"><img class="review-photo" src="" alt="Pilt puudub" /></p>
-      </div>
-      
       <div class="navbar">
         <div class="title">Teata</div>
         <button class="button-left">Uuesti</button>
         <button class="button-right">Sobib</button>
       </div>
+      <div class="container">
+        <p class="center" id="photo-review-title"></p>
+        <p class="center"><img class="review-photo" src="" alt="Pilt puudub" /></p>
+      </div>
     </div>
     
     <div class="screen" id="category-screen" style="display: none;">
+      <div class="navbar">
+        <div class="title">Teata</div>
+        <button class="button-left">Tagasi</button>
+        <button class="button-right">Edasi</button>
+      </div>
       <div class="container">
         <p class="center">Vali teate liik</p>
         <ul class="category-list" id="category-list">
         </ul>
       </div>
-
-      <div class="navbar">
-        <div class="title">Teata</div>
-        <button class="button-left">Tagasi</button>
-        <button class="button-right">Edasi</button>
-      </div>
     </div>
     
     <div class="screen" id="subcategory-screen" style="display: none;">
-      <div class="container">
-        <p class="center">Vali teate liik</p>
-        <ul class="category-list" id="subcategory-list">
-        </ul>
-      </div>
-
       <div class="navbar">
         <div class="title">Teata</div>
         <button class="button-left">Tagasi</button>
         <button class="button-right">Edasi</button>
+      </div>
+      <div class="container">
+        <p class="center">Vali <span id="category-name"></span> alamliik</p>
+        <ul class="category-list" id="subcategory-list">
+        </ul>
       </div>
     </div>
     
     <div class="screen" id="comment-screen" style="display: none;">
-      <div class="container">
-        <p class="center">Lisa kommentaar</p>
-        <textarea id="comment-field" placeholder="See väli on soovituslik"></textarea>
-      </div>
-
       <div class="navbar">
         <div class="title">Teata</div>
         <button class="button-left">Tagasi</button>
         <button class="button-right">Edasi</button>
       </div>
+      <div class="container">
+        <p class="center">Lisa kommentaar</p>
+        <textarea id="comment-field" placeholder="See väli on soovituslik"></textarea>
+      </div>
     </div>
     
     <div class="screen" id="review-screen" style="display: none;">
+      <div class="navbar">
+        <div class="title">Teata</div>
+        <button class="button-left">Tagasi</button>
+        <button class="button-right">Saada</button>
+      </div>
       <div class="container">
         <p class="center">Teate eelvaade</p>
         <p class="center"><img class="review-photo" src="" alt="Pilt puudub" /></p>
@@ -123,32 +122,31 @@
           Kommentaar: <span id="review-comment"></span>
         </p>
       </div>
-      
-      <div class="navbar">
-        <div class="title">Teata</div>
-        <button class="button-left">Tagasi</button>
-        <button class="button-right">Saada</button>
-      </div>
     </div>
     
     <div class="screen center" id="send-screen" style="display: none;">
-      <p class="center">Saadan teadet...</p>
+      <div class="container no-navbar">
+        <p class="center">Saadan teadet...</p>
+      </div>
     </div>
       
     <div class="screen" id="send-success-screen" style="display: none;">
+      <div class="navbar">
+        <div class="title">Teata</div>
+        <button class="button-left">Loo uus</button>
+      </div>
       <div class="container">
         <p class="center">
           Täname. Teie teade on saadetud.
         </p>
       </div>
-      
+    </div>
+    
+    <div class="screen" id="send-fail-screen" style="display: none;">
       <div class="navbar">
         <div class="title">Teata</div>
         <button class="button-left">Loo uus</button>
       </div>
-    </div>
-    
-    <div class="screen" id="send-fail-screen" style="display: none;">
       <div class="container">
         <p class="center">
           Teadet pole hetkel võimalik saata.
@@ -159,11 +157,6 @@
         <p class="center">
           <small>Rakendus proovib saata teadet järgmine kord kui sa rakenduse käivitad.</small>
         </p>
-      </div>
-     
-      <div class="navbar">
-        <div class="title">Teata</div>
-        <button class="button-left">Loo uus</button>
       </div>
     </div>
 
