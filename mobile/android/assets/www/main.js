@@ -1,3 +1,5 @@
+window.backButtonPressed = function () {};
+
 // Android 2.1 fallback
 Object.keys = Object.keys || function(o) {
     var result = [];
@@ -344,8 +346,10 @@ JSON.parse = function (text) {
       screen.loading.show();
       categories.update();
 
+
+      window.backButtonPressed = confirm_quit;
       $(document).on('backbutton', confirm_quit);
-      
+
       var emulating_scroll = 
         window.device.platform === 'Android' &&
         window.device.version[0] < 3;
