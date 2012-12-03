@@ -251,11 +251,13 @@ JSON.parse = function (text) {
 
     update: function () {
       var last_revision = 0;
+      var last_regionid = 0;
 
       var stored = JSON.parse(localStorage.getItem('categories'));
       if (stored !== null) {
         categories.categories = stored.categories;
         last_revision = stored.last_revision;
+        last_regionid = stored.last_regionid;
       }
 
       var no_update_start = function () {
@@ -272,6 +274,7 @@ JSON.parse = function (text) {
         if (res.lastrevision > last_revision) {
           var to_store = {
             last_revision: res.lastrevision,
+            last_regionid: res.region_id,
             categories: {}
           };
 
@@ -298,6 +301,7 @@ JSON.parse = function (text) {
             type: 'POST',
             data: {
               lastrevision: last_revision,
+              lastregionid: last_regionid,
               geolocation: {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
