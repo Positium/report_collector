@@ -56,8 +56,8 @@ JSON.parse = function (text) {
           touch.x = parseInt(event.clientX, 10);
           touch.y = touch.lastY = parseInt(event.clientY, 10);
           touch.deltaX = touch.deltaY = 0;
-            
-          if (emulating_scroll) event.preventDefault();
+          
+          if (emulating_scroll && event.target.nodeName !== 'TEXTAREA') event.preventDefault();
         };
         
         var onMove = function (event, e) {
@@ -256,8 +256,8 @@ JSON.parse = function (text) {
       var stored = JSON.parse(localStorage.getItem('categories'));
       if (stored !== null) {
         categories.categories = stored.categories;
-        last_revision = stored.last_revision;
-        last_regionid = stored.last_regionid;
+        last_revision = stored.last_revision || 0;
+        last_regionid = stored.last_regionid || 0;
       }
 
       var no_update_start = function () {
@@ -271,7 +271,9 @@ JSON.parse = function (text) {
       };
 
       var update_start = function (res) {
-        if (res.lastrevision > last_revision) {
+        if (res.lastrevision != last_revision || res.region_id != last_regionid) {
+          categories.categories = {};
+
           var to_store = {
             last_revision: res.lastrevision,
             last_regionid: res.region_id,
