@@ -730,6 +730,7 @@ JSON.parse = function (text) {
       show: function () {
         screen.showScreen(screen.send_success);
         $(document).off('backbutton');
+        window.backButtonPressed = quit;
       }
     },
 
@@ -746,6 +747,7 @@ JSON.parse = function (text) {
       show: function () {
         screen.showScreen(screen.send_fail);
         $(document).off('backbutton');
+        window.backButtonPressed = quit;
       }
     }
   };
@@ -797,6 +799,10 @@ JSON.parse = function (text) {
       navigator.app.exitApp();
     }
     return false;
+  };
+
+  var quit = function () {
+    navigator.app.exitApp();
   };
 })();
 
